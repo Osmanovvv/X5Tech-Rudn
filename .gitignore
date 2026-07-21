@@ -9,3 +9,4 @@ figma-data/diffs/
 *.log
 .DS_Store
 site/scripts/.selftest/
+tools/figma-oauth/pat.txt

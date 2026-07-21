@@ -142,7 +142,8 @@ async function rpc(method, params) {
         const f = path.join(saveDir, `img_${imgN++}.${ext}`);
         fs.writeFileSync(f, Buffer.from(c.data, 'base64'));
         console.log(`[image saved: ${f}]`);
-      } else console.log(`[${c.type} content, keys: ${Object.keys(c).join(',')}]`);
+      } else if (c.type === 'resource_link') console.log(`RESOURCE_URI: ${c.uri}`);
+      else console.log(`[${c.type} content, keys: ${Object.keys(c).join(',')}]`);
     }
     if (out.result && out.result.isError) process.exit(1);
     return;

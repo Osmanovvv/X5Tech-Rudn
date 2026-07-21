@@ -1,0 +1,71 @@
+{
+  "frameHeight": 18535,
+  "renderScale": 0.8839,
+  "sections": {
+    "01-hero": {
+      "yTop": 0,
+      "yBottom": 884,
+      "file": "refs/mobile/section-01-hero.png"
+    },
+    "02-tebe-k-nam": {
+      "yTop": 884,
+      "yBottom": 2264,
+      "file": "refs/mobile/section-02-tebe-k-nam.png"
+    },
+    "03-programma-daet": {
+      "yTop": 2264,
+      "yBottom": 3607,
+      "file": "refs/mobile/section-03-programma-daet.png"
+    },
+    "04-programma-obucheniya": {
+      "yTop": 3607,
+      "yBottom": 6392,
+      "file": "refs/mobile/section-04-programma-obucheniya.png"
+    },
+    "05-treki": {
+      "yTop": 6392,
+      "yBottom": 7870,
+      "file": "refs/mobile/section-05-treki.png"
+    },
+    "06-kak-postupit": {
+      "yTop": 7870,
+      "yBottom": 10757,
+      "file": "refs/mobile/section-06-kak-postupit.png"
+    },
+    "07-prepodavateli": {
+      "yTop": 10757,
+      "yBottom": 13125,
+      "file": "refs/mobile/section-07-prepodavateli.png"
+    },
+    "08-x5-most": {
+      "yTop": 13125,
+      "yBottom": 13905,
+      "file": "refs/mobile/section-08-x5-most.png"
+    },
+    "09-tehnologii": {
+      "yTop": 13905,
+      "yBottom": 15230,
+      "file": "refs/mobile/section-09-tehnologii.png"
+    },
+    "10-grant": {
+      "yTop": 15230,
+      "yBottom": 15565,
+      "file": "refs/mobile/section-10-grant.png"
+    },
+    "11-novosti": {
+      "yTop": 15565,
+      "yBottom": 16076,
+      "file": "refs/mobile/section-11-novosti.png"
+    },
+    "12-forma": {
+      "yTop": 16076,
+      "yBottom": 17330,
+      "file": "refs/mobile/section-12-forma.png"
+    },
+    "13-footer": {
+      "yTop": 17330,
+      "yBottom": 18535,
+      "file": "refs/mobile/section-13-footer.png"
+    }
+  }
+}
