@@ -14,33 +14,27 @@ const NAV = [
 ];
 
 function Logos({ compact }: { compact?: boolean }) {
+  // Лого — чёткие 2x-рендеры узлов макета (271:1789/1790), без кропов деформированных исходников
   return (
     <span className="flex items-center">
       <img
-        src={asset("/img/01-hero/image3-6cd454f9-158w.webp")}
+        src={asset("/img/01-hero/logo-rudn-2x.webp")}
         alt="РУДН"
-        width={compact ? 64 : 79}
-        height={compact ? 22 : 27}
+        className={compact ? "h-[22px] w-[64px]" : "h-[27px] w-[79px]"}
       />
       <img
         src={asset("/img/01-hero/asset-0671023b.svg")}
         alt=""
         aria-hidden
-        width={compact ? 8 : 10}
-        height={compact ? 8 : 10}
-        className={compact ? "ml-[12px] mr-[6px]" : "ml-[15px] mr-[7px]"}
+        className={
+          compact ? "ml-[12px] mr-[6px] h-[8px] w-[8px]" : "ml-[15px] mr-[7px] h-[10px] w-[10px]"
+        }
       />
-      {/* Лого X5 Tech в макете — вертикальный кроп квадратного исходника (ctx 271:1790) */}
-      <span
-        className="relative block overflow-hidden"
-        style={{ width: compact ? 62 : 76, height: compact ? 19 : 23 }}
-      >
-        <img
-          src={asset("/img/01-hero/image4-4f607dd0-152w.webp")}
-          alt="X5 Tech"
-          className="absolute left-0 top-[-113.45%] h-[336.13%] w-full max-w-none"
-        />
-      </span>
+      <img
+        src={asset("/img/01-hero/logo-x5-2x.webp")}
+        alt="X5 Tech"
+        className={compact ? "h-[19px] w-[62px]" : "h-[23px] w-[76px]"}
+      />
     </span>
   );
 }

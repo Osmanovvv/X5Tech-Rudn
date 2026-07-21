@@ -7,13 +7,13 @@ import { asset } from "@/lib/asset";
 const f = site.footer;
 
 function FooterLogos() {
-  // Явные размеры контейнеров: Tailwind-префлайт ставит img { height: auto }
+  // Лого — чёткие 2x-рендеры узлов макета (271:2310/2311), не деформированные исходники
   return (
     <span className="flex items-center">
       <img
-        src={asset("/img/13-footer/image3-70a96a39-158w.webp")}
+        src={asset("/img/13-footer/logo-rudn-2x.webp")}
         alt="РУДН"
-        className="h-[27px] w-[79px] object-contain"
+        className="h-[27px] w-[79px]"
       />
       <img
         src={asset("/img/13-footer/asset-463eeb0a.svg")}
@@ -21,11 +21,10 @@ function FooterLogos() {
         aria-hidden
         className="ml-[15px] mr-[7px] h-[10px] w-[10px]"
       />
-      {/* Исходник анизотропно сжат в квадрат — восстанавливаем пропорции растяжением (fill), как рендерит Figma */}
       <img
-        src={asset("/img/13-footer/image4-7b8506fd-152w.webp")}
+        src={asset("/img/13-footer/logo-x5-2x.webp")}
         alt="X5 Tech"
-        className="h-[23px] w-[76px] max-w-none object-fill"
+        className="h-[23px] w-[76px]"
       />
     </span>
   );
@@ -42,10 +41,10 @@ export default function Footer() {
         <div className="absolute left-[40px] top-[54px]">
           <FooterLogos />
         </div>
-        <p className="absolute left-[40px] top-[116px] -translate-y-1/2 whitespace-pre-line text-[12px] leading-[normal] text-white">
+        <p className="absolute left-[40px] top-[116px] w-[247px] -translate-y-1/2 whitespace-pre-line text-[12px] leading-[normal] text-white">
           {f.description}
         </p>
-        <p className="absolute left-[40px] top-[210px] -translate-y-1/2 whitespace-pre-line text-[12px] leading-[normal] text-white/90">
+        <p className="absolute left-[40px] top-[210px] w-[227px] -translate-y-1/2 whitespace-pre-line text-[12px] leading-[normal] text-white/90">
           {f.address}
         </p>
 
@@ -87,7 +86,7 @@ export default function Footer() {
             className={`absolute left-[862px] -translate-y-1/2 leading-[normal] ${link}`}
             style={{ top: [97, 124, 153, 181, 208, 237][i] }}
           >
-            {d.label} ↗
+            {d.label} <span className="text-[15px] leading-none">↗</span>
           </a>
         ))}
 
@@ -101,7 +100,7 @@ export default function Footer() {
             className={`absolute left-[862px] leading-[normal] ${link}`}
             style={{ top: 306 + i * 29 }}
           >
-            {s.label} ↗
+            {s.label} <span className="text-[15px] leading-none">↗</span>
           </a>
         ))}
 
@@ -123,7 +122,7 @@ export default function Footer() {
       {/* ===== Мобильная стопка: точные интервалы из mobile-abs.json (футер 17232–18535) ===== */}
       <div className="px-[15px] pb-[129px] pt-[33px] lg:hidden">
         <FooterLogos />
-        <p className="mt-[20px] whitespace-pre-line text-[12px] leading-[14px]">{f.description}</p>
+        <p className="mt-[20px] w-[247px] whitespace-pre-line text-[12px] leading-[14px]">{f.description}</p>
 
         <p className={`mt-[35px] ${h}`}>Навигация</p>
         <nav aria-label="Навигация по сайту" className="mt-[15px] flex flex-col gap-[12px]">
@@ -150,7 +149,7 @@ export default function Footer() {
         <div className="mt-[12px] flex flex-col gap-[12px]">
           {f.docs.map((d) => (
             <a key={d.label} href={d.href} className={`leading-[15px] ${link}`}>
-              {d.label} ↗
+              {d.label} <span className="text-[15px] leading-none">↗</span>
             </a>
           ))}
         </div>
@@ -159,12 +158,12 @@ export default function Footer() {
         <div className="mt-[16px] flex flex-col gap-[12px]">
           {f.social.map((s) => (
             <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className={`leading-[17px] ${link}`}>
-              {s.label} ↗
+              {s.label} <span className="text-[15px] leading-none">↗</span>
             </a>
           ))}
         </div>
 
-        <p className="mt-[30px] whitespace-pre-line text-[12px] leading-[14px] text-white/90">{f.address}</p>
+        <p className="mt-[30px] w-[227px] whitespace-pre-line text-[12px] leading-[14px] text-white/90">{f.address}</p>
 
         <div className="mt-[30px] flex flex-col gap-[10px]">
           {f.legal.map((l) => (
