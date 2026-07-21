@@ -1,5 +1,6 @@
-// ВРЕМЕННАЯ страница-витрина токенов (чекпойнт Фазы 0).
-// Заменяется на лендинг по мере вёрстки секций (Фазы 1–2).
+import Hero from "@/components/sections/Hero";
+
+// Витрина токенов ниже hero — временная, исчезнет по мере вёрстки секций Фазы 2.
 const swatches = [
   ["ink", "bg-ink", "#272727"],
   ["lime", "bg-lime", "#B6E835"],
@@ -13,7 +14,9 @@ const swatches = [
 
 export default function Home() {
   return (
-    <main className="container-site py-16 space-y-12">
+    <main>
+      <Hero />
+      <div className="container-site py-16 space-y-12">
       <section>
         <p className="font-mono text-xs uppercase tracking-wide border border-lime rounded-full inline-block px-5 py-2">
           На реальных данных
@@ -59,6 +62,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      </div>
     </main>
   );
 }
