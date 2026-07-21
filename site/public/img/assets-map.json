@@ -1,0 +1,597 @@
+{
+  "a627ba4b-0146-4062-b792-7d93f8d82d81": {
+    "section": "01-hero",
+    "slug": "image2090011457",
+    "files": {
+      "desktopWebp": "/img/01-hero/image2090011457-a627ba4b-612w.webp",
+      "avif": "/img/01-hero/image2090011457-a627ba4b-612w.avif"
+    },
+    "width": 4096,
+    "height": 4096
+  },
+  "55403441-570a-474c-ba2b-6eeb126a22d9": {
+    "section": "01-hero",
+    "slug": "meha-materials-color-glass",
+    "files": {
+      "desktopWebp": "/img/01-hero/meha-materials-color-glass-55403441-700w.webp",
+      "avif": "/img/01-hero/meha-materials-color-glass-55403441-700w.avif"
+    },
+    "width": 1024,
+    "height": 1024
+  },
+  "5b128cb2-52c9-4e6e-b32e-27675b0608cd": {
+    "section": "01-hero",
+    "slug": "meha-materials-metal",
+    "files": {
+      "desktopWebp": "/img/01-hero/meha-materials-metal-5b128cb2-660w.webp",
+      "avif": "/img/01-hero/meha-materials-metal-5b128cb2-660w.avif"
+    },
+    "width": 1024,
+    "height": 1024
+  },
+  "611bcc67-e072-493f-b218-6ff08f8019e8": {
+    "section": "01-hero",
+    "slug": "image5",
+    "files": {
+      "desktopWebp": "/img/01-hero/image5-611bcc67-1456w.webp",
+      "mobileWebp": "/img/01-hero/image5-611bcc67-640w.webp",
+      "avif": "/img/01-hero/image5-611bcc67-1456w.avif"
+    },
+    "width": 1537,
+    "height": 1023
+  },
+  "6cd454f9-a186-478c-b138-5741f24ae324": {
+    "section": "01-hero",
+    "slug": "image3",
+    "files": {
+      "desktopWebp": "/img/01-hero/image3-6cd454f9-158w.webp",
+      "mobileWebp": "/img/01-hero/image3-6cd454f9-640w.webp",
+      "avif": "/img/01-hero/image3-6cd454f9-158w.avif"
+    },
+    "width": 1640,
+    "height": 551
+  },
+  "4f607dd0-4637-49fb-bf0a-76c1b684affa": {
+    "section": "01-hero",
+    "slug": "image4",
+    "files": {
+      "desktopWebp": "/img/01-hero/image4-4f607dd0-152w.webp",
+      "mobileWebp": "/img/01-hero/image4-4f607dd0-640w.webp",
+      "avif": "/img/01-hero/image4-4f607dd0-152w.avif"
+    },
+    "width": 800,
+    "height": 800
+  },
+  "8b38f743-5644-4d9e-bea0-ca8ff2feab66": {
+    "section": "01-hero",
+    "slug": "svg",
+    "files": {
+      "svg": "/img/01-hero/svg-8b38f743.svg"
+    }
+  },
+  "2b366bd3-ac49-46e9-aafd-aee5f46d347e": {
+    "section": "01-hero",
+    "slug": "line1",
+    "files": {
+      "svg": "/img/01-hero/line1-2b366bd3.svg"
+    }
+  },
+  "0671023b-5646-4255-b062-de740f72c52b": {
+    "section": "01-hero",
+    "slug": "asset",
+    "files": {
+      "svg": "/img/01-hero/asset-0671023b.svg"
+    }
+  },
+  "efc959bc-7ecf-4382-9365-0321a9981c26": {
+    "section": "02-tebe-k-nam",
+    "slug": "rectangle2",
+    "files": {
+      "desktopWebp": "/img/02-tebe-k-nam/rectangle2-efc959bc-520w.webp",
+      "mobileWebp": "/img/02-tebe-k-nam/rectangle2-efc959bc-640w.webp"
+    },
+    "width": 1536,
+    "height": 1024
+  },
+  "ce94c9f1-265c-4e62-82f1-200fcfb0ef1b": {
+    "section": "02-tebe-k-nam",
+    "slug": "rectangle3",
+    "files": {
+      "desktopWebp": "/img/02-tebe-k-nam/rectangle3-ce94c9f1-520w.webp",
+      "mobileWebp": "/img/02-tebe-k-nam/rectangle3-ce94c9f1-640w.webp"
+    },
+    "width": 1536,
+    "height": 1024
+  },
+  "1961647e-14c4-4222-a857-b4542c57caf3": {
+    "section": "02-tebe-k-nam",
+    "slug": "rectangle4",
+    "files": {
+      "desktopWebp": "/img/02-tebe-k-nam/rectangle4-1961647e-520w.webp",
+      "mobileWebp": "/img/02-tebe-k-nam/rectangle4-1961647e-640w.webp"
+    },
+    "width": 1536,
+    "height": 1024
+  },
+  "f1b08240-83f3-4ed4-a21f-52b0bf9b32ee": {
+    "section": "02-tebe-k-nam",
+    "slug": "rectangle5",
+    "files": {
+      "desktopWebp": "/img/02-tebe-k-nam/rectangle5-f1b08240-520w.webp",
+      "mobileWebp": "/img/02-tebe-k-nam/rectangle5-f1b08240-640w.webp"
+    },
+    "width": 1536,
+    "height": 1024
+  },
+  "dec88355-28b4-4f2e-b003-ca11656c94e5": {
+    "section": "02-tebe-k-nam",
+    "slug": "vector1",
+    "files": {
+      "svg": "/img/02-tebe-k-nam/vector1-dec88355.svg"
+    }
+  },
+  "853d880e-828f-4ac7-b7bc-af0a565430f6": {
+    "section": "03-programma-daet",
+    "slug": "meha-materials-color-glass",
+    "files": {
+      "desktopWebp": "/img/03-programma-daet/meha-materials-color-glass-853d880e-130w.webp",
+      "mobileWebp": "/img/03-programma-daet/meha-materials-color-glass-853d880e-640w.webp"
+    },
+    "width": 1024,
+    "height": 1024
+  },
+  "a11b7e3e-adfb-48d9-a3d2-b3a6e2daf571": {
+    "section": "03-programma-daet",
+    "slug": "dop-elements-control-purple",
+    "files": {
+      "desktopWebp": "/img/03-programma-daet/dop-elements-control-purple-a11b7e3e-122w.webp",
+      "mobileWebp": "/img/03-programma-daet/dop-elements-control-purple-a11b7e3e-640w.webp"
+    },
+    "width": 1240,
+    "height": 1240
+  },
+  "21f54626-fcf2-4a34-9ca0-c6f7d586459c": {
+    "section": "03-programma-daet",
+    "slug": "image2090011445",
+    "files": {
+      "desktopWebp": "/img/03-programma-daet/image2090011445-21f54626-234w.webp",
+      "mobileWebp": "/img/03-programma-daet/image2090011445-21f54626-640w.webp"
+    },
+    "width": 2498,
+    "height": 1329
+  },
+  "ca02c3ca-f46e-4737-8b34-ad0c20ebf3c7": {
+    "section": "03-programma-daet",
+    "slug": "image2090011460",
+    "files": {
+      "desktopWebp": "/img/03-programma-daet/image2090011460-ca02c3ca-172w.webp",
+      "mobileWebp": "/img/03-programma-daet/image2090011460-ca02c3ca-640w.webp"
+    },
+    "width": 1868,
+    "height": 1868
+  },
+  "6a28dd31-305c-43d5-ab32-33f12a88ce00": {
+    "section": "03-programma-daet",
+    "slug": "image2090011482",
+    "files": {
+      "desktopWebp": "/img/03-programma-daet/image2090011482-6a28dd31-160w.webp",
+      "mobileWebp": "/img/03-programma-daet/image2090011482-6a28dd31-640w.webp"
+    },
+    "width": 1709,
+    "height": 2595
+  },
+  "6cf76c99-aa91-4dfb-ae76-a2bd06c727dc": {
+    "section": "03-programma-daet",
+    "slug": "image2090011448",
+    "files": {
+      "desktopWebp": "/img/03-programma-daet/image2090011448-6cf76c99-196w.webp",
+      "mobileWebp": "/img/03-programma-daet/image2090011448-6cf76c99-640w.webp"
+    },
+    "width": 900,
+    "height": 900
+  },
+  "47efdf61-e699-4c6a-aba8-fe0c2407c2a8": {
+    "section": "03-programma-daet",
+    "slug": "meha-materials-metal",
+    "files": {
+      "desktopWebp": "/img/03-programma-daet/meha-materials-metal-47efdf61-452w.webp",
+      "mobileWebp": "/img/03-programma-daet/meha-materials-metal-47efdf61-640w.webp"
+    },
+    "width": 1024,
+    "height": 1024
+  },
+  "e6cee1b5-2e38-4dea-9655-ec54c5ef891c": {
+    "section": "04-programma-obucheniya",
+    "slug": "rectangle7",
+    "files": {
+      "desktopWebp": "/img/04-programma-obucheniya/rectangle7-e6cee1b5-880w.webp",
+      "mobileWebp": "/img/04-programma-obucheniya/rectangle7-e6cee1b5-640w.webp"
+    },
+    "width": 1536,
+    "height": 1024
+  },
+  "a1e555a7-24d3-4d32-a56d-5cefe31eb1d6": {
+    "section": "04-programma-obucheniya",
+    "slug": "rectangle8",
+    "files": {
+      "desktopWebp": "/img/04-programma-obucheniya/rectangle8-a1e555a7-880w.webp",
+      "mobileWebp": "/img/04-programma-obucheniya/rectangle8-a1e555a7-640w.webp"
+    },
+    "width": 1353,
+    "height": 1162
+  },
+  "009309d4-6ba5-450c-9725-443b053a3379": {
+    "section": "04-programma-obucheniya",
+    "slug": "rectangle9",
+    "files": {
+      "desktopWebp": "/img/04-programma-obucheniya/rectangle9-009309d4-880w.webp",
+      "mobileWebp": "/img/04-programma-obucheniya/rectangle9-009309d4-640w.webp"
+    },
+    "width": 1536,
+    "height": 1024
+  },
+  "0718bd37-904c-49a4-88f2-2ce52c234ed0": {
+    "section": "04-programma-obucheniya",
+    "slug": "image16",
+    "files": {
+      "desktopWebp": "/img/04-programma-obucheniya/image16-0718bd37-574w.webp"
+    },
+    "width": 844,
+    "height": 680
+  },
+  "948f3dc0-9dff-4398-94e3-8e2105f0a01f": {
+    "section": "04-programma-obucheniya",
+    "slug": "line3",
+    "files": {
+      "svg": "/img/04-programma-obucheniya/line3-948f3dc0.svg"
+    }
+  },
+  "730197e1-1119-4545-8094-8ef8b246845d": {
+    "section": "04-programma-obucheniya",
+    "slug": "line4",
+    "files": {
+      "svg": "/img/04-programma-obucheniya/line4-730197e1.svg"
+    }
+  },
+  "cb58f6c9-760a-4faf-bd66-8864571ce33c": {
+    "section": "04-programma-obucheniya",
+    "slug": "ellipse4",
+    "files": {
+      "svg": "/img/04-programma-obucheniya/ellipse4-cb58f6c9.svg"
+    }
+  },
+  "d6dba9a8-6412-43da-ab60-3f4972d3f6f9": {
+    "section": "04-programma-obucheniya",
+    "slug": "ellipse5",
+    "files": {
+      "svg": "/img/04-programma-obucheniya/ellipse5-d6dba9a8.svg"
+    }
+  },
+  "200bb17d-4ba6-4bd4-af33-59eab4bdda7b": {
+    "section": "04-programma-obucheniya",
+    "slug": "vector2",
+    "files": {
+      "svg": "/img/04-programma-obucheniya/vector2-200bb17d.svg"
+    }
+  },
+  "d5c0ac0a-6910-4ef2-b4e5-f07d74b53511": {
+    "section": "05-treki",
+    "slug": "image2090011460",
+    "files": {
+      "desktopWebp": "/img/05-treki/image2090011460-d5c0ac0a-444w.webp",
+      "mobileWebp": "/img/05-treki/image2090011460-d5c0ac0a-640w.webp"
+    },
+    "width": 1868,
+    "height": 1868
+  },
+  "a3f641d7-45fb-4d19-b781-745983bde4ab": {
+    "section": "05-treki",
+    "slug": "image2090011458",
+    "files": {
+      "desktopWebp": "/img/05-treki/image2090011458-a3f641d7-356w.webp",
+      "mobileWebp": "/img/05-treki/image2090011458-a3f641d7-640w.webp"
+    },
+    "width": 4096,
+    "height": 4096
+  },
+  "223b43ff-2150-4308-86c0-02fdd577d4fd": {
+    "section": "05-treki",
+    "slug": "image2090011464",
+    "files": {
+      "desktopWebp": "/img/05-treki/image2090011464-223b43ff-434w.webp",
+      "mobileWebp": "/img/05-treki/image2090011464-223b43ff-640w.webp"
+    },
+    "width": 3728,
+    "height": 4096
+  },
+  "caacf6f0-cec8-4977-b61a-9e73879bcf88": {
+    "section": "05-treki",
+    "slug": "image2090011424",
+    "files": {
+      "desktopWebp": "/img/05-treki/image2090011424-caacf6f0-518w.webp",
+      "mobileWebp": "/img/05-treki/image2090011424-caacf6f0-640w.webp"
+    },
+    "width": 1536,
+    "height": 2752
+  },
+  "d7a4c915-a970-4321-ac14-db0374d9e43b": {
+    "section": "05-treki",
+    "slug": "group26",
+    "files": {
+      "svg": "/img/05-treki/group26-d7a4c915.svg"
+    }
+  },
+  "214c7ddf-b4eb-49c7-bc63-45b9708b4b20": {
+    "section": "05-treki",
+    "slug": "group",
+    "files": {
+      "svg": "/img/05-treki/group-214c7ddf.svg"
+    }
+  },
+  "69ecad90-3e9d-4a0c-9032-d8962f355e17": {
+    "section": "05-treki",
+    "slug": "vector",
+    "files": {
+      "svg": "/img/05-treki/vector-69ecad90.svg"
+    }
+  },
+  "64b77f45-201a-4dea-aee6-4769d0d8dcdb": {
+    "section": "06-kak-postupit",
+    "slug": "line5",
+    "files": {
+      "svg": "/img/06-kak-postupit/line5-64b77f45.svg"
+    }
+  },
+  "73be401e-ad21-441e-a488-761c389cc3cb": {
+    "section": "06-kak-postupit",
+    "slug": "line7",
+    "files": {
+      "svg": "/img/06-kak-postupit/line7-73be401e.svg"
+    }
+  },
+  "8f0e9e29-97f0-4758-a877-66d2a41ea1df": {
+    "section": "06-kak-postupit",
+    "slug": "line16",
+    "files": {
+      "svg": "/img/06-kak-postupit/line16-8f0e9e29.svg"
+    }
+  },
+  "96732921-84c9-4e59-8ed7-6460c76a077e": {
+    "section": "06-kak-postupit",
+    "slug": "line17",
+    "files": {
+      "svg": "/img/06-kak-postupit/line17-96732921.svg"
+    }
+  },
+  "6d001bf0-1a71-4f45-a523-829212840a19": {
+    "section": "06-kak-postupit",
+    "slug": "line19",
+    "files": {
+      "svg": "/img/06-kak-postupit/line19-6d001bf0.svg"
+    }
+  },
+  "4d2add02-687f-41d1-8918-c93e240b8c6d": {
+    "section": "06-kak-postupit",
+    "slug": "line20",
+    "files": {
+      "svg": "/img/06-kak-postupit/line20-4d2add02.svg"
+    }
+  },
+  "94bfbddd-0106-41ae-ba6d-cbfef351e686": {
+    "section": "07-prepodavateli",
+    "slug": "image12",
+    "files": {
+      "desktopWebp": "/img/07-prepodavateli/image12-94bfbddd-520w.webp",
+      "mobileWebp": "/img/07-prepodavateli/image12-94bfbddd-640w.webp"
+    },
+    "width": 1023,
+    "height": 1537
+  },
+  "aa4f8ec2-9611-4579-b3ad-c100fa02fc15": {
+    "section": "07-prepodavateli",
+    "slug": "image13",
+    "files": {
+      "desktopWebp": "/img/07-prepodavateli/image13-aa4f8ec2-520w.webp",
+      "mobileWebp": "/img/07-prepodavateli/image13-aa4f8ec2-640w.webp"
+    },
+    "width": 1086,
+    "height": 1449
+  },
+  "8293258c-8d42-49ea-acde-40cce5d30cf8": {
+    "section": "07-prepodavateli",
+    "slug": "image14",
+    "files": {
+      "desktopWebp": "/img/07-prepodavateli/image14-8293258c-520w.webp",
+      "mobileWebp": "/img/07-prepodavateli/image14-8293258c-640w.webp"
+    },
+    "width": 1023,
+    "height": 1537
+  },
+  "d4e4e60a-73e4-4a71-b442-741c38c4a939": {
+    "section": "07-prepodavateli",
+    "slug": "image15",
+    "files": {
+      "desktopWebp": "/img/07-prepodavateli/image15-d4e4e60a-520w.webp",
+      "mobileWebp": "/img/07-prepodavateli/image15-d4e4e60a-640w.webp"
+    },
+    "width": 1023,
+    "height": 1537
+  },
+  "9b080d53-58ee-4b02-9194-47ae42df52a7": {
+    "section": "07-prepodavateli",
+    "slug": "image16",
+    "files": {
+      "desktopWebp": "/img/07-prepodavateli/image16-9b080d53-520w.webp",
+      "mobileWebp": "/img/07-prepodavateli/image16-9b080d53-640w.webp"
+    },
+    "width": 1122,
+    "height": 1402
+  },
+  "bf748ec1-c564-4fb3-bb63-f68c9b0ba54b": {
+    "section": "07-prepodavateli",
+    "slug": "image17",
+    "files": {
+      "desktopWebp": "/img/07-prepodavateli/image17-bf748ec1-520w.webp",
+      "mobileWebp": "/img/07-prepodavateli/image17-bf748ec1-640w.webp"
+    },
+    "width": 1024,
+    "height": 1536
+  },
+  "1f336806-966d-4963-9d17-603082ba3863": {
+    "section": "08-x5-most",
+    "slug": "image2090011510",
+    "files": {
+      "desktopWebp": "/img/08-x5-most/image2090011510-1f336806-80w.webp",
+      "mobileWebp": "/img/08-x5-most/image2090011510-1f336806-515w.webp"
+    },
+    "width": 515,
+    "height": 515
+  },
+  "4d9d1c9b-e049-46d1-94fb-5d4219637843": {
+    "section": "09-tehnologii",
+    "slug": "image2090011460",
+    "files": {
+      "desktopWebp": "/img/09-tehnologii/image2090011460-4d9d1c9b-200w.webp",
+      "mobileWebp": "/img/09-tehnologii/image2090011460-4d9d1c9b-640w.webp"
+    },
+    "width": 1868,
+    "height": 1868
+  },
+  "e4a32506-7401-4431-ba5b-8389e07f2991": {
+    "section": "09-tehnologii",
+    "slug": "image2090011464",
+    "files": {
+      "desktopWebp": "/img/09-tehnologii/image2090011464-e4a32506-226w.webp",
+      "mobileWebp": "/img/09-tehnologii/image2090011464-e4a32506-640w.webp"
+    },
+    "width": 3728,
+    "height": 4096
+  },
+  "93d1a6d4-8d6e-4a38-aa40-0d99c6488cc0": {
+    "section": "09-tehnologii",
+    "slug": "dop-materials-green-plastic",
+    "files": {
+      "desktopWebp": "/img/09-tehnologii/dop-materials-green-plastic-93d1a6d4-204w.webp",
+      "mobileWebp": "/img/09-tehnologii/dop-materials-green-plastic-93d1a6d4-640w.webp"
+    },
+    "width": 1024,
+    "height": 1024
+  },
+  "210de6ae-c6e0-4441-b344-e677304a082f": {
+    "section": "09-tehnologii",
+    "slug": "dop-elements-control-purple",
+    "files": {
+      "desktopWebp": "/img/09-tehnologii/dop-elements-control-purple-210de6ae-184w.webp",
+      "mobileWebp": "/img/09-tehnologii/dop-elements-control-purple-210de6ae-640w.webp"
+    },
+    "width": 1240,
+    "height": 1240
+  },
+  "11be8c2c-c9b6-4e38-8e42-96e3894738b7": {
+    "section": "09-tehnologii",
+    "slug": "image2090011468",
+    "files": {
+      "desktopWebp": "/img/09-tehnologii/image2090011468-11be8c2c-126w.webp",
+      "mobileWebp": "/img/09-tehnologii/image2090011468-11be8c2c-640w.webp"
+    },
+    "width": 2303,
+    "height": 2303
+  },
+  "efbdc704-af45-4291-bfdc-97869a49329f": {
+    "section": "09-tehnologii",
+    "slug": "image2090011509",
+    "files": {
+      "desktopWebp": "/img/09-tehnologii/image2090011509-efbdc704-380w.webp",
+      "mobileWebp": "/img/09-tehnologii/image2090011509-efbdc704-640w.webp"
+    },
+    "width": 1728,
+    "height": 1290
+  },
+  "85a815c7-fb85-48f9-9625-d782edafb02e": {
+    "section": "09-tehnologii",
+    "slug": "image5",
+    "files": {
+      "desktopWebp": "/img/09-tehnologii/image5-85a815c7-226w.webp",
+      "mobileWebp": "/img/09-tehnologii/image5-85a815c7-640w.webp"
+    },
+    "width": 800,
+    "height": 800
+  },
+  "62744316-60df-43f1-a909-834a55be9858": {
+    "section": "09-tehnologii",
+    "slug": "arrow5",
+    "files": {
+      "svg": "/img/09-tehnologii/arrow5-62744316.svg"
+    }
+  },
+  "77c26537-3343-4b6b-a479-1eb1b845fc11": {
+    "section": "10-grant",
+    "slug": "image2090011511",
+    "files": {
+      "desktopWebp": "/img/10-grant/image2090011511-77c26537-600w.webp"
+    },
+    "width": 600,
+    "height": 300
+  },
+  "6eab3432-e85a-4ae9-8ba3-fe612810520b": {
+    "section": "11-novosti",
+    "slug": "asset",
+    "files": {
+      "desktopWebp": "/img/11-novosti/asset-6eab3432-1400w.webp",
+      "mobileWebp": "/img/11-novosti/asset-6eab3432-640w.webp"
+    },
+    "width": 1400,
+    "height": 933
+  },
+  "e2782076-f95f-4ace-8028-cbcd9b6448d7": {
+    "section": "11-novosti",
+    "slug": "svg",
+    "files": {
+      "svg": "/img/11-novosti/svg-e2782076.svg"
+    }
+  },
+  "c1b79cac-3e6f-426a-94f7-464587a6a11e": {
+    "section": "11-novosti",
+    "slug": "svg1",
+    "files": {
+      "svg": "/img/11-novosti/svg1-c1b79cac.svg"
+    }
+  },
+  "893213cd-aab2-4b2e-b31b-acb31a280878": {
+    "section": "12-forma",
+    "slug": "image2090011425",
+    "files": {
+      "desktopWebp": "/img/12-forma/image2090011425-893213cd-1024w.webp",
+      "mobileWebp": "/img/12-forma/image2090011425-893213cd-640w.webp"
+    },
+    "width": 1024,
+    "height": 934
+  },
+  "70a96a39-f3be-4ba3-b92c-003a44544f53": {
+    "section": "13-footer",
+    "slug": "image3",
+    "files": {
+      "desktopWebp": "/img/13-footer/image3-70a96a39-158w.webp",
+      "mobileWebp": "/img/13-footer/image3-70a96a39-640w.webp"
+    },
+    "width": 1640,
+    "height": 551
+  },
+  "7b8506fd-60fa-46cf-8484-6efeffbeeb9d": {
+    "section": "13-footer",
+    "slug": "image4",
+    "files": {
+      "desktopWebp": "/img/13-footer/image4-7b8506fd-152w.webp",
+      "mobileWebp": "/img/13-footer/image4-7b8506fd-640w.webp"
+    },
+    "width": 800,
+    "height": 800
+  },
+  "463eeb0a-6b78-4c61-86ba-500288ab88e4": {
+    "section": "13-footer",
+    "slug": "asset",
+    "files": {
+      "svg": "/img/13-footer/asset-463eeb0a.svg"
+    }
+  }
+}
