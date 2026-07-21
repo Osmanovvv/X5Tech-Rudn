@@ -59,11 +59,11 @@
     },
     "12-forma": {
       "yTop": 16076,
-      "yBottom": 17330,
+      "yBottom": 17232,
       "file": "refs/mobile/section-12-forma.png"
     },
     "13-footer": {
-      "yTop": 17330,
+      "yTop": 17232,
       "yBottom": 18535,
       "file": "refs/mobile/section-13-footer.png"
     }

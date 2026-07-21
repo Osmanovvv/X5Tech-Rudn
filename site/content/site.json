@@ -1,0 +1,42 @@
+{
+  "siteUrl": "https://ai-rudn.example",
+  "leadEndpoint": null,
+  "metrikaId": null,
+  "yandexVerification": null,
+  "footer": {
+    "description": "Бакалавриат «Искусственный\nинтеллект» – совместная\nпрограмма РУДН и X5 Tech.",
+    "address": "117198, Москва,\nул. Миклухо-Маклая, д. 6\nФакультет искусственного интеллекта",
+    "nav": [
+      { "label": "Программа", "href": "#programma" },
+      { "label": "Треки", "href": "#treki" },
+      { "label": "Поступление", "href": "#postuplenie" },
+      { "label": "Преподаватели", "href": "#prepodavateli" },
+      { "label": "Новости", "href": "#novosti" },
+      { "label": "Заявка", "href": "#forma" }
+    ],
+    "contacts": [
+      { "value": "+7 (903) 203-52-42", "href": "tel:+79032035242", "note": "пн–пт, 9:00–18:00 МСК", "size": 15 },
+      { "value": "ai-priem@rudn.ru", "href": "mailto:ai-priem@rudn.ru", "note": "вопросы абитуриентов", "size": 15 },
+      { "value": "ai@rudn.ru", "href": "mailto:ai@rudn.ru", "note": "кураторы программы", "size": 14 }
+    ],
+    "docs": [
+      { "label": "Лицензия и аккредитация", "href": "/docs/licenziya-i-akkreditaciya/" },
+      { "label": "Локальные нормативные акты", "href": "/docs/lokalnye-normativnye-akty/" },
+      { "label": "Правила приёма", "href": "/docs/pravila-priyoma/" },
+      { "label": "Стоимость обучения", "href": "/docs/stoimost-obucheniya/" },
+      { "label": "Противодействие коррупции", "href": "/docs/protivodejstvie-korrupcii/" },
+      { "label": "Карта сайта РУДН", "href": "https://www.rudn.ru/sitemap" }
+    ],
+    "social": [
+      { "label": "Телеграм", "href": "https://t.me/x5_tech" },
+      { "label": "ВК", "href": "https://vk.com/x5tech" },
+      { "label": "Хабр", "href": "https://habr.com/ru/companies/X5Tech/articles/" }
+    ],
+    "legal": [
+      { "label": "Политика конфиденциальности", "href": "/docs/politika-konfidencialnosti/" },
+      { "label": "Согласие на обработку ПД", "href": "/docs/soglasie-na-obrabotku-pd/" },
+      { "label": "Сведения об организации", "href": "/docs/svedeniya-ob-organizacii/" }
+    ],
+    "copyright": "© 2026 ФГАОУ ВО «Российский университет дружбы народов имени Патриса Лумумбы». Все права защищены."
+  }
+}

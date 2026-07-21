@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH ?? "",
   // Оптимизацию изображений делает scripts/optimize-images.mjs на этапе подготовки ассетов
   images: { unoptimized: true },
+  // Кружок-индикатор dev-режима попадает в скриншоты пиксель-сверки
+  devIndicators: false,
 };
 
 export default nextConfig;

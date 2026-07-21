@@ -15,6 +15,10 @@ export async function shoot(url, selector, width, outPath) {
     await page.goto(url, { waitUntil: "networkidle" });
     // Дать догрузиться шрифтам — иначе сверка текста врёт
     await page.evaluate(() => document.fonts.ready);
+    // Липкая шапка перекрывает секции при скролле к ним — прячем (кроме съёмки самой шапки)
+    if (!/^header/.test(selector)) {
+      await page.addStyleTag({ content: "header { visibility: hidden !important }" });
+    }
     const el = page.locator(selector).first();
     await el.waitFor({ state: "visible", timeout: 10_000 });
     mkdirSync(path.dirname(outPath), { recursive: true });
