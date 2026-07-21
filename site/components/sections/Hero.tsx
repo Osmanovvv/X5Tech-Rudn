@@ -208,39 +208,42 @@ export default function Hero() {
         <Stats />
       </div>
 
-      {/* ===== Мобильная: абсолютная калька 824px (макет 60–884, минус шапка) ===== */}
-      <div className="relative h-[824px] overflow-hidden bg-white lg:hidden">
-        <div className="absolute left-[15px] top-[31px]">
-          <Badge mobile />
+      {/* ===== Мобильная: верхняя текстовая зона фиксирована (284px, как в макете),
+          арт в потоке с сохранением пропорций — на 321–430 растёт вниз, ничего не кропится ===== */}
+      <div className="relative overflow-hidden bg-white lg:hidden">
+        <div className="relative h-[284px]">
+          <div className="absolute left-[15px] top-[31px]">
+            <Badge mobile />
+          </div>
+          <h1 className="absolute left-[15px] top-[71px] text-[22px] font-bold leading-[23px] tracking-[-1.3px] text-ink">
+            Изучай ИИ,
+            <br />
+            входи в профессию
+            <br />
+            вместе с <span className="text-lime-deep">X5 Tech</span>
+          </h1>
+          <p className="absolute left-[15px] top-[155px] text-[12px] leading-[14px] text-[#6b6b6b]">
+            Факультет искусственного интеллекта РУДН
+            <br />
+            Образовательная программа:
+            <br />
+            «Искусственный интеллект: разработка
+            <br />и обучение интеллектуальных систем»
+          </p>
         </div>
-        <h1 className="absolute left-[15px] top-[71px] text-[22px] font-bold leading-[23px] tracking-[-1.3px] text-ink">
-          Изучай ИИ,
-          <br />
-          входи в профессию
-          <br />
-          вместе с <span className="text-lime-deep">X5 Tech</span>
-        </h1>
-        <p className="absolute left-[15px] top-[155px] text-[12px] leading-[14px] text-[#6b6b6b]">
-          Факультет искусственного интеллекта РУДН
-          <br />
-          Образовательная программа:
-          <br />
-          «Искусственный интеллект: разработка
-          <br />и обучение интеллектуальных систем»
-        </p>
         <img
           src={asset("/img/01-hero/mobile-art-2x.webp")}
           alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
           fetchPriority="high"
-          className="absolute inset-x-0 top-[284px] h-[233px] w-full object-cover"
+          className="block h-auto w-full"
         />
-        <div className="absolute left-[15px] top-[226px]">
+        <div className="absolute left-[15px] top-[226px] z-10">
           <GlassCard mobile />
         </div>
-        <div className="absolute inset-x-[15px] top-[517px]">
+        <div className="mx-[15px]">
           <Cta mobile />
         </div>
-        <div className="absolute left-[15px] top-[602px]">
+        <div className="ml-[15px] mt-[25px] pb-[30px]">
           <Stats mobile />
         </div>
       </div>
