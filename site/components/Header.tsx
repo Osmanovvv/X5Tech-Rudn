@@ -133,10 +133,11 @@ export default function Header() {
             onClick={() => setOpen(true)}
             className="-mr-[8px] ml-auto flex h-[44px] w-[44px] items-center justify-center lg:hidden"
           >
-            <span className="flex w-[21px] flex-col gap-[5px]">
-              <span className="h-[2px] rounded bg-ink" />
-              <span className="h-[2px] rounded bg-ink" />
-              <span className="h-[2px] rounded bg-ink" />
+            {/* Иконка из макета (узел «menu» 21×16): средняя линия короче — 14px, прижата влево */}
+            <span className="flex w-[21px] flex-col items-start gap-[5px]">
+              <span className="h-[2px] w-full rounded bg-ink" />
+              <span className="h-[2px] w-[14px] rounded bg-ink" />
+              <span className="h-[2px] w-full rounded bg-ink" />
             </span>
           </button>
         </div>
