@@ -1,26 +1,39 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Дизайн-токены из Figma-макета x5-rudn (палитра снята с макета, см. figma-data/) */
+@theme {
+  --color-ink: #272727; /* основной текст, тёмный футер */
+  --color-lime: #b6e835; /* акцент: кнопки, ленты, подчёркивания */
+  --color-lime-deep: #99c726; /* CTA «Отправить заявку» */
+  --color-lime-soft: #c7e047; /* оттенок 3D-блобов hero */
+  --color-lavender: #ebeaff; /* секция X5 Tech, bento-карты */
+  --color-paper: #fafafa; /* капсула шапки, карточки */
+  --color-mist: #f1f1f1; /* нейтральные фоны */
+  --color-card: #fcfcfc; /* карточки новостей */
+  --color-hairline: rgba(216, 216, 216, 0.4); /* бордеры; в макете 0.1 — см. docs/deviations.md D1 */
+
+  --font-sans: var(--font-x5), system-ui, arial, sans-serif;
+  --font-mono: var(--font-plex), ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Контентная колонка: в макете фрейм 1200 с полями 40 → контент 1120 */
+@utility container-site {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 20px;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @media (width >= 768px) {
+    padding-inline: 32px;
+  }
+
+  @media (width >= 1024px) {
+    padding-inline: 40px;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
 }
