@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+figma-data/assets-raw/
+tools/figma-oauth/tokens.json
+tools/figma-oauth/session.json
+figma-data/shots/
+figma-data/diffs/
+*.log
+.DS_Store

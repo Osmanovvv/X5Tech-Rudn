@@ -1,0 +1,676 @@
+Currently selected nodes:
+- 271:1779: 1200х750 first
+
+
+<frame id="271:1778" name="Landing PC" x="-90" y="0" width="1200" height="10415">
+  <frame id="271:1779" name="1200х750 first" x="0" y="0" width="1200" height="750">
+    <frame id="271:1780" name="Group 30" x="418" y="232" width="787.8494873046875" height="485">
+      <rounded-rectangle id="271:1781" name="image 2090011457" x="939" y="260" width="306" height="306" />
+      <rounded-rectangle id="271:1782" name="Meha_Materials_ColorGlass" x="418" y="304.04656982421875" width="386.89438178558885" height="386.89438178558885" />
+      <rounded-rectangle id="271:1783" name="Meha_Materials_Metal" x="908.85546875" y="270" width="440.8500123023987" height="440.8500123023987" />
+      <rounded-rectangle id="271:1784" name="image 2090011472" x="704" y="247" width="234.54634222111963" height="272.7346334019512" />
+      <rounded-rectangle id="271:1785" name="image 5" x="429" y="232" width="728" height="485" />
+    </frame>
+    <frame id="271:1786" name="Group 2" x="40" y="15" width="1120" height="69">
+      <rounded-rectangle id="271:1787" name="Rectangle 1" x="40" y="15" width="1120" height="69" />
+      <frame id="271:1788" name="Group 1" x="70" y="36" width="187" height="27">
+        <rounded-rectangle id="271:1789" name="image 3" x="70" y="36" width="79" height="27" />
+        <rounded-rectangle id="271:1790" name="image 4" x="181" y="37" width="76" height="23" />
+      </frame>
+      <frame id="271:1791" name="Group 3" x="378" y="42" width="443" height="16">
+        <text id="271:1792" name="Link → Программа" x="378" y="42" width="75" height="16" />
+        <text id="271:1793" name="Link → Преподаватели" x="493" y="42" width="103" height="16" />
+        <text id="271:1794" name="Link → Поступление" x="636" y="42" width="88" height="16" />
+        <text id="271:1795" name="Link → Новости" x="764" y="42" width="57" height="16" />
+      </frame>
+      <frame id="271:1796" name="Link" x="980" y="27" width="150" height="45">
+        <text id="271:1797" name="Подать заявку" x="26" y="14" width="97" height="16" />
+      </frame>
+    </frame>
+    <text id="271:1798" name="Факультет искусственного интеллекта РУДН  Образовательная программа:  «Искусственный интеллект: разработка и обучение интеллектуальных систем»  " x="40" y="335" width="340" height="68" />
+    <frame id="271:1799" name="Link" x="40" y="415" width="240" height="60">
+      <text id="271:1800" name="Отправить заявку" x="44" y="18.5" width="130" height="21" />
+      <frame id="271:1801" name="SVG" x="179.97998046875" y="20" width="18" height="18" />
+    </frame>
+    <frame id="271:1804" name="Paragraph+Overlay+Border+OverlayBlur" x="876" y="183" width="254" height="81">
+      <text id="271:1805" name="AI-практика начинается  на 1 курсе, а не после диплома" x="20" y="16" width="224" height="48" />
+    </frame>
+    <frame id="271:1806" name="Background" x="40" y="147" width="170" height="36">
+      <text id="271:1807" name="На реальных данных" x="20.342187881469727" y="9.296339988708496" width="130" height="16" />
+    </frame>
+    <text id="271:1808" name="50" x="40" y="513" width="32" height="24" />
+    <text id="271:1809" name="152" x="40" y="591" width="40" height="24" />
+    <text id="271:1810" name="4 года" x="40" y="668" width="78" height="24" />
+    <text id="271:1811" name="бюджетных мест" x="40" y="543" width="125.64413452148438" height="16.5" />
+    <text id="271:1812" name="мест по договору" x="40" y="622" width="129" height="14" />
+    <text id="271:1813" name="обучение - бакалавриат (очно)" x="40" y="699" width="219" height="14" />
+    <line id="271:1814" name="Line 1" x="40" y="575" width="157" height="0" />
+    <line id="271:1815" name="Line 2" x="40" y="652" width="157" height="0" />
+    <text id="271:1816" name="Heading 1 → Изучай ИИ,
+входи в профессию
+вместе с X5 Tech" x="40" y="191" width="433" height="137" />
+    <vector id="271:1817" name="х" x="164" y="45" width="10" height="10" />
+  </frame>
+  <frame id="271:1818" name="1200х600 second " x="0" y="750" width="1200" height="602">
+    <frame id="271:1819" name="Group 4" x="-47.74462890625" y="72" width="1310.38232421875" height="505.13055419921875">
+      <text id="271:1820" name="Heading 1 → Изучай ИИ,
+входи в профессию
+вместе с X5 Tech" x="40" y="72" width="398" height="50" />
+      <vector id="271:1821" name="Vector 1" x="278" y="126" width="159.92237854003906" height="0" />
+      <frame id="271:1822" name="Overlay+Border" x="40" y="156" width="260" height="300">
+        <rounded-rectangle id="271:1823" name="Rectangle 2" x="0" y="0" width="260" height="182" />
+      </frame>
+      <frame id="271:1824" name="Overlay+Border" x="610" y="156" width="260" height="300">
+        <rounded-rectangle id="271:1825" name="Rectangle 2" x="0" y="0" width="260" height="182" />
+      </frame>
+      <frame id="271:1826" name="Overlay+Border" x="320" y="156" width="260" height="300">
+        <rounded-rectangle id="271:1827" name="Rectangle 2" x="0" y="0" width="260" height="182" />
+      </frame>
+      <frame id="271:1828" name="Overlay+Border" x="900" y="156" width="260" height="300">
+        <rounded-rectangle id="271:1829" name="Rectangle 3" x="0" y="177" width="260" height="123" />
+        <rounded-rectangle id="271:1830" name="Rectangle 2" x="0" y="0" width="260" height="182" />
+      </frame>
+      <text id="271:1831" name="Обладаешь базой  в математике и алгоритмах для создания алгоритмов будущего" x="60" y="364" width="217" height="48" />
+      <text id="271:1832" name="Готов к высокому темпу:  когда учебный план диктует  не только университет,  но и бэклог реального бизнеса" x="630" y="356" width="227" height="64" />
+      <text id="271:1833" name="Хочешь получить реальный опыт в X5 Tech и строить карьеру в крупнейших IT-компаниях с первого курса" x="341" y="356" width="226" height="64" />
+      <text id="271:1834" name="Попадаешь в комьюнити амбициозных студентов и ищешь среду, где рядом такие же заряженные кодеры  и практикующие лиды" x="921" y="356" width="227" height="80" />
+      <rounded-rectangle id="271:1835" name="Rectangle 4" x="-47.74462890625" y="533.1751708984375" width="1310.3822786809178" height="102.93227978103823" />
+      <frame id="271:1836" name="Background" x="19.77783203125" y="534.135498046875" width="272.34618493914604" height="48.16657034307718">
+        <text id="271:1837" name="РУДН × X5 TECH • БАКАЛАВРИАТ ИИ" x="20.34228515625" y="11.29638671875" width="230.39711685478687" height="24.34266258776188" />
+      </frame>
+      <frame id="271:1838" name="Background" x="305.48779296875" y="521.257080078125" width="272.34618493914604" height="48.16657034307718">
+        <text id="271:1839" name="РУДН × X5 TECH • БАКАЛАВРИАТ ИИ" x="20.34228515625" y="11.29638671875" width="230.39711685478687" height="24.34266258776188" />
+      </frame>
+      <frame id="271:1840" name="Background" x="591.197265625" y="508.37841796875" width="272.34618493914604" height="48.16657034307718">
+        <text id="271:1841" name="РУДН × X5 TECH • БАКАЛАВРИАТ ИИ" x="20.34228515625" y="11.29638671875" width="230.39711685478687" height="24.34266258776188" />
+      </frame>
+      <frame id="271:1842" name="Background" x="876.9072265625" y="495.5" width="272.34618493914604" height="48.16657034307718">
+        <text id="271:1843" name="РУДН × X5 TECH • БАКАЛАВРИАТ ИИ" x="20.34228515625" y="11.29638671875" width="230.39711685478687" height="24.34266258776188" />
+      </frame>
+    </frame>
+  </frame>
+  <frame id="271:1844" name="1200х600 third" x="0" y="1352" width="1200" height="602">
+    <frame id="271:1845" name="Group 5" x="40" y="42.0001220703125" width="340" height="50">
+      <text id="271:1846" name="Heading 1 → Изучай ИИ,
+входи в профессию
+вместе с X5 Tech" x="40" y="42.000062465667725" width="340" height="50" />
+    </frame>
+    <rounded-rectangle id="271:1847" name="Rectangle 5" x="40" y="117" width="540" height="417" />
+    <frame id="271:1848" name="Paragraph+Overlay+Border+OverlayBlur" x="599" y="117" width="273" height="129">
+      <text id="271:1849" name="Погружение в индустрию" x="20" y="20" width="156" height="14" />
+      <rounded-rectangle id="271:1850" name="Meha_Materials_ColorGlass" x="172" y="71.564453125" width="82.1323798755775" height="82.1323798755775" />
+      <text id="271:1851" name="Обучение вместе с X5 Tech – это не экскурсии в офис раз  в год, а работа с реальными задачами, которые подготовят тебя к карьере." x="20" y="43" width="166" height="65" />
+      <rounded-rectangle id="271:1852" name="DopElements_ControlPurple" x="198" y="53" width="61" height="61" />
+    </frame>
+    <frame id="271:1853" name="Paragraph+Overlay+Border+OverlayBlur" x="599" y="261" width="273" height="129">
+      <text id="271:1854" name="Нетворкинг и карьера" x="20" y="20" width="136" height="14" />
+      <text id="271:1855" name="Прямой контакт с ML-инженерами  X5 Tech, стажировки  и карьерные треки" x="20" y="48" width="178" height="52" />
+      <rounded-rectangle id="271:1856" name="image 2090011445" x="273" y="46" width="117" height="83" />
+    </frame>
+    <frame id="271:1857" name="Paragraph+Overlay+Border+OverlayBlur" x="599" y="405" width="561" height="129">
+      <text id="271:1858" name="Топовую техническую инфраструктуру" x="20" y="36" width="239" height="14" />
+      <text id="271:1859" name="Вычислительные кластеры, GPU-серверы и облачные платформы для обучения моделей" x="20" y="63" width="322" height="26" />
+    </frame>
+    <frame id="271:1860" name="Paragraph+Overlay+Border+OverlayBlur" x="887" y="117" width="273" height="129">
+      <text id="271:1861" name="Проектный формат" x="20" y="20" width="121" height="14" />
+      <text id="271:1862" name="С первого курса работаешь  над реальными задачами,  а не абстрактными упражнениями" x="20" y="48" width="177" height="52" />
+      <rounded-rectangle id="271:1863" name="image 2090011460" x="273" y="48" width="85.99999945185107" height="81.00001514775272" />
+    </frame>
+    <frame id="271:1864" name="Paragraph+Overlay+Border+OverlayBlur" x="887" y="261" width="273" height="129">
+      <text id="271:1865" name="Доступ к современному кампусу" x="20" y="20" width="200" height="14" />
+      <text id="271:1866" name="Технологичные аудитории,  AI-лаборатории и пространства  для командной работы" x="20" y="48" width="201" height="52" />
+      <rounded-rectangle id="271:1867" name="image 2090011482" x="273" y="47" width="80" height="80" />
+    </frame>
+    <text id="271:1868" name="2 специалиста в одном дипломе" x="70" y="162" width="302" height="22" />
+    <frame id="271:1869" name="Group 6" x="70" y="199" width="435" height="79">
+      <frame id="271:1870" name="Group 8" x="70" y="199" width="417" height="21">
+        <rounded-rectangle id="271:1871" name="Background" x="70" y="207" width="6" height="6" />
+        <text id="271:1872" name="Общая база первые два года: алгоритмы, ML, инженерия данных" x="87" y="199" width="400" height="21" />
+      </frame>
+      <frame id="271:1873" name="Group 7" x="70" y="228" width="435" height="21">
+        <rounded-rectangle id="271:1874" name="Background" x="70" y="236.3900146484375" width="6" height="6" />
+        <text id="271:1875" name="Глубокая специализация и проекты по выбранному треку с 3 курса" x="87" y="228" width="418" height="21" />
+      </frame>
+      <frame id="271:1876" name="Group 9" x="70" y="257" width="335" height="21">
+        <rounded-rectangle id="271:1877" name="Background" x="70" y="265.3900146484375" width="6" height="6" />
+        <text id="271:1878" name="Возможность миксовать дисциплины обоих треков" x="87" y="257" width="318" height="21" />
+      </frame>
+    </frame>
+    <text id="271:1879" name="выбери трек на 3 курсе и углубись в практику" x="329" y="420" width="177" height="32" />
+    <text id="271:1880" name="Компьютерное зрение или обработка естественного языка" x="329" y="350" width="211" height="57" />
+    <rounded-rectangle id="271:1881" name="image 2090011448" x="1057" y="436" width="103.0000119131106" height="97.99999687287914" />
+    <rounded-rectangle id="271:1882" name="Meha_Materials_Metal" x="54" y="293" width="226" height="226" />
+    <rounded-rectangle id="271:1883" name="DopElements_ControlPurple" x="113" y="319" width="157" height="157" />
+  </frame>
+  <frame id="271:1884" name="Frame 5" x="35" y="1974" width="1130" height="1879">
+    <frame id="271:1885" name="Group 5" x="348" y="0" width="444" height="50">
+      <text id="271:1886" name="Heading 1 → Изучай ИИ,
+входи в профессию
+вместе с X5 Tech" x="348" y="0.00006246566772460938" width="444" height="50" />
+    </frame>
+    <frame id="271:1887" name="Background" x="302" y="65" width="537" height="36">
+      <text id="271:1888" name="4 года, которые превратят вас в инженера искусственного интеллекта" x="31" y="10.29638671875" width="475" height="16" />
+    </frame>
+    <text id="271:1889" name="Heading 3 → 1 курс: Фундамент" x="50" y="181" width="268" height="42" />
+    <text id="271:1890" name="Heading 3 → 1 курс: Фундамент" x="50" y="946" width="338" height="42" />
+    <text id="271:1891" name="Heading 3 → 1 курс: Фундамент" x="50" y="1479" width="250" height="42" />
+    <text id="271:1892" name="Heading 3 → 1 курс: Фундамент" x="50" y="531" width="290" height="42" />
+    <text id="271:1893" name="Математика, программирование, основы AI" x="50" y="228" width="351" height="24" />
+    <text id="271:1894" name="Углублённое изучение выбранного трека + реальные проекты X5" x="50" y="993" width="535" height="24" />
+    <text id="271:1895" name="Диплом" x="50" y="1526" width="64" height="24" />
+    <text id="271:1896" name="Алгоритмы, анализ данных, ООП программирование" x="50" y="578" width="428" height="24" />
+    <line id="271:1897" name="Line 3" x="6" y="193" width="0.00007369738268181436" height="1686" />
+    <line id="271:1898" name="Line 4" x="6" y="193" width="0.000004545983273374077" height="104" />
+    <frame id="271:1899" name="Background+Border" x="50" y="273" width="201" height="39">
+      <text id="271:1900" name="Математический анализ" x="20" y="9" width="161" height="21" />
+    </frame>
+    <frame id="271:1901" name="Background+Border" x="50" y="1038" width="178" height="39">
+      <text id="271:1902" name="Глубокое обучение" x="20" y="9" width="138" height="21" />
+    </frame>
+    <frame id="271:1903" name="Background+Border" x="50" y="623" width="266" height="39">
+      <text id="271:1904" name="Алгоритмы и структуры данных" x="20" y="9" width="226" height="21" />
+    </frame>
+    <frame id="271:1905" name="Background+Border" x="328" y="623" width="252" height="39">
+      <text id="271:1906" name="Численная линейная алгебра" x="20" y="9" width="212" height="21" />
+    </frame>
+    <frame id="271:1907" name="Background+Border" x="50" y="1571" width="357" height="39">
+      <text id="271:1908" name="Оптимизация моделей машинного обучения" x="20" y="9" width="317" height="21" />
+    </frame>
+    <frame id="271:1909" name="Background+Border" x="263" y="273" width="162" height="39">
+      <text id="271:1910" name="Линейная алгебра" x="20" y="9" width="122" height="21" />
+    </frame>
+    <frame id="271:1911" name="Background+Border" x="437" y="273" width="168" height="39">
+      <text id="271:1912" name="Питон и алгоритмы" x="20" y="9" width="128" height="21" />
+    </frame>
+    <frame id="271:1913" name="Background+Border" x="50" y="1140" width="148" height="39">
+      <text id="271:1914" name="Hadoop, SPARK" x="20" y="9" width="108" height="21" />
+    </frame>
+    <frame id="271:1915" name="Background+Border" x="419" y="1571" width="160" height="39">
+      <text id="271:1916" name="Нейронные сети" x="20" y="9" width="120" height="21" />
+    </frame>
+    <frame id="271:1917" name="Background+Border" x="50" y="375" width="184" height="39">
+      <text id="271:1918" name="Теория вероятностей" x="20" y="9" width="144" height="21" />
+    </frame>
+    <frame id="271:1919" name="Background+Border" x="246" y="375" width="275" height="39">
+      <text id="271:1920" name="Учебная технологическая практика" x="20" y="9" width="235" height="21" />
+    </frame>
+    <frame id="271:1921" name="Background+Border" x="240" y="1038" width="308" height="39">
+      <text id="271:1922" name="Компьютерное зрение · продвинутый" x="20" y="9" width="268" height="21" />
+    </frame>
+    <frame id="271:1923" name="Background+Border" x="50" y="674" width="417" height="39">
+      <text id="271:1924" name="Статистические методы и первичный анализ данных" x="20" y="9" width="377" height="21" />
+    </frame>
+    <frame id="271:1925" name="Background+Border" x="50" y="725" width="408" height="39">
+      <text id="271:1926" name="Теория вероятностей и математическая статистика" x="20" y="9" width="368" height="21" />
+    </frame>
+    <frame id="271:1927" name="Background+Border" x="50" y="776" width="352" height="39">
+      <text id="271:1928" name="Методы разработки решений на основе ИИ" x="20" y="9" width="312" height="21" />
+    </frame>
+    <frame id="271:1929" name="Background+Border" x="50" y="827" width="264" height="39">
+      <text id="271:1930" name="Дифференциальные уравнения" x="20" y="9" width="224" height="21" />
+    </frame>
+    <frame id="271:1931" name="Background+Border" x="295" y="1089" width="269" height="39">
+      <text id="271:1932" name="Обработка языка · продвинутый" x="20" y="9" width="229" height="21" />
+    </frame>
+    <frame id="271:1933" name="Background+Border" x="50" y="1673" width="398" height="39">
+      <text id="271:1934" name="Безопасность систем искусственного интеллекта" x="20" y="9" width="358" height="21" />
+    </frame>
+    <frame id="271:1935" name="Background+Border" x="210" y="1140" width="381" height="39">
+      <text id="271:1936" name="Эксплуатационная производственная практика" x="20" y="9" width="341" height="21" />
+    </frame>
+    <frame id="271:1937" name="Background+Border" x="52" y="1191" width="508" height="39">
+      <text id="271:1938" name="Массово-параллельные вычисления в машинном обучении (GPU)" x="20" y="9" width="468" height="21" />
+    </frame>
+    <frame id="271:1939" name="Background+Border" x="52" y="1242" width="381" height="39">
+      <text id="271:1940" name="Эксплуатационная производственная практика" x="20" y="9" width="341" height="21" />
+    </frame>
+    <frame id="271:1941" name="Background+Border" x="50" y="1724" width="563" height="39">
+      <text id="271:1942" name="Практическая подготовка на проектах отраслевых индустриальных партнеров" x="20" y="9" width="523" height="21" />
+    </frame>
+    <frame id="271:1943" name="Overlay+Border" x="261" y="324" width="293" height="39">
+      <text id="271:1944" name="Введение в искусственный интеллект" x="20" y="9" width="253" height="21" />
+    </frame>
+    <frame id="271:1945" name="Background+Border" x="50" y="324" width="199" height="39">
+      <text id="271:1946" name="Дискретная математика" x="20" y="9" width="159" height="21" />
+    </frame>
+    <frame id="271:1947" name="Background+Border" x="50" y="1089" width="233" height="39">
+      <text id="271:1948" name="Онтология и графы знаний" x="20" y="9" width="193" height="21" />
+    </frame>
+    <frame id="271:1949" name="Background+Border" x="50" y="1622" width="354" height="39">
+      <text id="271:1950" name="MLOps и промышленная разработка систем" x="20" y="9" width="314" height="21" />
+    </frame>
+    <frame id="271:1951" name="Group 10" x="690" y="181" width="440" height="270">
+      <rounded-rectangle id="271:1952" name="Rectangle 7" x="690" y="181" width="440" height="270" />
+      <ellipse id="271:1953" name="Ellipse 4" x="952" y="243" width="2" height="3" />
+      <ellipse id="271:1954" name="Ellipse 5" x="952" y="244" width="2" height="3" />
+      <ellipse id="271:1955" name="Ellipse 6" x="952" y="243" width="2" height="3" />
+      <ellipse id="271:1956" name="Ellipse 7" x="952" y="243" width="2" height="3" />
+    </frame>
+    <frame id="271:1957" name="Group 29" x="690" y="531" width="440" height="335">
+      <rounded-rectangle id="271:1958" name="Rectangle 7" x="690" y="531" width="440" height="335" />
+      <ellipse id="271:1959" name="Ellipse 4" x="952" y="636.407470703125" width="2" height="4.277777671813965" />
+      <ellipse id="271:1960" name="Ellipse 5" x="952" y="637.833251953125" width="2" height="4.277777671813965" />
+      <ellipse id="271:1961" name="Ellipse 6" x="952" y="636.407470703125" width="2" height="4.277777671813965" />
+      <ellipse id="271:1962" name="Ellipse 7" x="952" y="636.407470703125" width="2" height="4.277777671813965" />
+    </frame>
+    <frame id="271:1963" name="Group 11" x="690" y="946" width="440" height="335">
+      <rounded-rectangle id="271:1964" name="Rectangle 7" x="690" y="946" width="440" height="335" />
+    </frame>
+    <frame id="271:1965" name="Paragraph+Overlay+Border" x="50" y="1308" width="1080" height="91">
+      <text id="271:1966" name="Проектная работа с реальными данными X5 Tech" x="32" y="21" width="581.7164306640625" height="24" />
+      <text id="271:1967" name="Командные проекты, защита перед инженерами X5" x="32" y="49" width="537.8592529296875" height="21" />
+    </frame>
+    <rounded-rectangle id="271:1968" name="Rectangle 24" x="0" y="183" width="14" height="14" />
+    <rounded-rectangle id="271:1969" name="Rectangle 25" x="0" y="548" width="14" height="14" />
+    <rounded-rectangle id="271:1970" name="Rectangle 26" x="0" y="962" width="14" height="14" />
+    <rounded-rectangle id="271:1971" name="Rectangle 27" x="0" y="1496" width="14" height="14" />
+    <frame id="271:1972" name="Group 28" x="690" y="1554" width="440" height="310.9998474121094">
+      <frame id="271:1973" name="Group 12" x="690" y="1554" width="440" height="310">
+        <rounded-rectangle id="271:1974" name="Rectangle 7" x="690" y="1554" width="440" height="310" />
+      </frame>
+      <text id="271:1975" name="50%+" x="728" y="1576" width="226" height="96" />
+      <frame id="271:1976" name="Group 27" x="843.0285949707031" y="1622" width="286.9714050292969" height="242.99984741210938">
+        <rounded-rectangle id="271:1977" name="image 16" x="1130" y="1632.6457090377808" width="286.9714050292969" height="232.35409545898438" />
+        <vector id="271:1978" name="Vector 2" x="992.5314331054688" y="1622.0000000000005" width="36.10285186767578" height="43.50853729248047" />
+      </frame>
+      <text id="271:1979" name="стажеров  переходят в штат в X5 Tech" x="728" y="1675" width="133" height="57" />
+    </frame>
+    <frame id="271:1980" name="Background+Border" x="50" y="1775" width="415" height="39">
+      <text id="271:1981" name="Проектно-технологическая производственная практика" x="20" y="9" width="375" height="21" />
+    </frame>
+    <frame id="271:1982" name="Background+Border" x="50" y="1826" width="212" height="39">
+      <text id="271:1983" name="Преддипломная практика" x="20" y="9" width="172" height="21" />
+    </frame>
+  </frame>
+  <frame id="271:1984" name="Frame 6" x="35" y="3933" width="1130" height="475">
+    <text id="271:1985" name="Heading 1 → Изучай ИИ,
+входи в профессию
+вместе с X5 Tech" x="0" y="0" width="498" height="90" />
+    <text id="271:1986" name="На 3 курсе ты выбираешь специализацию. Каждый трек –  углублённая практика и реальные проекты." x="0" y="107" width="472" height="40" />
+    <frame id="271:1987" name="Frame 1" x="290" y="175" width="260" height="300">
+      <frame id="271:1988" name="Group 26" x="20" y="29" width="32" height="25.143491744995117" />
+      <rounded-rectangle id="271:1993" name="image 2090011460" x="283.01806640625" y="115" width="276.8804085980478" height="276.88040859804823" />
+    </frame>
+    <frame id="271:1994" name="Frame 2" x="580" y="175" width="260" height="300">
+      <rounded-rectangle id="271:1995" name="image 2090011457" x="170.8717803955078" y="328.1003112792969" width="172.74355128407478" height="159.20061081647873" />
+      <text id="271:1996" name="Heading 3 → Обработка естественного
+языка" x="20" y="72" width="186" height="34" />
+      <text id="271:1997" name="Heading 3 → Обработка естественного
+языка" x="20" y="123" width="222" height="42" />
+      <frame id="271:1998" name="Group" x="20" y="27.85009765625" width="28" height="28.000350952148438" />
+      <rounded-rectangle id="271:2005" name="image 2090011458" x="233.76206970214844" y="156" width="248.52290021122826" height="248.78151067211547" />
+    </frame>
+    <frame id="271:2006" name="Frame 3" x="870" y="175" width="260" height="300">
+      <text id="271:2007" name="Heading 3 → Обработка естественного
+языка" x="20" y="72" width="186" height="34" />
+      <text id="271:2008" name="Heading 3 → Обработка естественного
+языка" x="20" y="116" width="222" height="56" />
+      <vector id="271:2009" name="Vector" x="20" y="27.524169921875" width="29" height="27.595779418945312" />
+      <rounded-rectangle id="271:2010" name="image 2090011464" x="302.76556396484375" y="112" width="246.44654301422906" height="265.0417718849185" />
+    </frame>
+    <text id="271:2011" name="Heading 3 → Обработка естественного
+языка" x="310" y="247" width="186" height="34" />
+    <text id="271:2012" name="Heading 3 → Обработка естественного
+языка" x="310" y="291" width="222" height="56" />
+    <rounded-rectangle id="271:2013" name="image 2090011424" x="259" y="175" width="259" height="300" />
+  </frame>
+  <frame id="271:2014" name="Frame 7" x="40" y="4488" width="1120" height="1507.00439453125">
+    <text id="271:2015" name="Heading 1 → Изучай ИИ,
+входи в профессию
+вместе с X5 Tech" x="0" y="0" width="341" height="45" />
+    <text id="271:2016" name="Проверь минимальные баллы ЕГЭ, выбери бюджет или договор и следи  за дедлайнами — мы сопровождаем абитуриентов на каждом этапе" x="0" y="60" width="594" height="40" />
+    <rounded-rectangle id="271:2017" name="Rectangle 8" x="0" y="125" width="1120" height="970" />
+    <rounded-rectangle id="271:2018" name="Rectangle 9" x="0" y="1207" width="1120" height="300" />
+    <rounded-rectangle id="271:2019" name="Rectangle 10" x="0" y="1207" width="1120" height="60" />
+    <frame id="271:2020" name="Group 13" x="29" y="160" width="1062" height="106">
+      <frame id="271:2021" name="Paragraph+Background+Border" x="29" y="160" width="258" height="106">
+        <text id="271:2022" name="Стоимость" x="20" y="20" width="80" height="15" />
+        <text id="271:2023" name="250 000 ₽* / семестр" x="20" y="43" width="196" height="22" />
+        <text id="271:2024" name="* можно в рассрочку" x="20" y="73" width="106" height="12" />
+      </frame>
+      <frame id="271:2025" name="Paragraph+Background+Border" x="297" y="160" width="258" height="106">
+        <text id="271:2026" name="Бюджетных мест" x="20" y="20" width="103" height="15" />
+        <text id="271:2027" name="50" x="168" y="34" width="80" height="72" />
+      </frame>
+      <frame id="271:2028" name="Paragraph+Background+Border" x="565" y="160" width="258" height="106">
+        <text id="271:2029" name="мест по договору" x="20" y="20" width="109" height="15" />
+        <text id="271:2030" name="152" x="147" y="34" width="101" height="72" />
+      </frame>
+      <frame id="271:2031" name="Paragraph+Background+Border" x="833" y="160" width="258" height="106">
+        <text id="271:2032" name="срок обучения" x="20" y="20" width="91" height="15" />
+        <text id="271:2033" name="очное/бакалавриат" x="20" y="37" width="99" height="12" />
+        <text id="271:2034" name="4" x="131" y="34" width="42" height="72" />
+        <text id="271:2035" name="года" x="178" y="62" width="70" height="36" />
+      </frame>
+    </frame>
+    <line id="271:2036" name="Line 5" x="560" y="306" width="0.00003260868771803871" height="746" />
+    <text id="271:2037" name="Heading 3 → Бюджет" x="29" y="306" width="82.07695007324219" height="30" />
+    <text id="271:2038" name="Heading 3 → Бюджет" x="0" y="1135" width="267" height="30" />
+    <text id="271:2039" name="Heading 3 → Бюджет" x="595" y="306" width="117" height="30" />
+    <text id="271:2040" name="Этапы и дедлайны для поступления на бюджет" x="29" y="341" width="336" height="17" />
+    <text id="271:2041" name="Минимальные баллы ЕГЭ для участия в конкурсе" x="0" y="1170" width="352" height="17" />
+    <text id="271:2042" name="Предмет" x="90" y="1229" width="63" height="17" />
+    <text id="271:2043" name="Обязательность предмета" x="455" y="1229" width="187" height="17" />
+    <text id="271:2044" name="Математика (профиль)" x="30" y="1289" width="159" height="17" />
+    <text id="271:2045" name="обязательный" x="500" y="1289" width="101" height="17" />
+    <text id="271:2046" name="65" x="908" y="1286" width="24" height="22" />
+    <text id="271:2047" name="45" x="1040" y="1286" width="24" height="22" />
+    <text id="271:2048" name="65" x="908" y="1346" width="24" height="22" />
+    <text id="271:2049" name="42" x="1040" y="1346" width="24" height="22" />
+    <text id="271:2050" name="65" x="908" y="1406" width="24" height="22" />
+    <text id="271:2051" name="65" x="908" y="1466" width="24" height="22" />
+    <text id="271:2052" name="46" x="1039" y="1406" width="25" height="22" />
+    <text id="271:2053" name="41" x="1040" y="1466" width="20" height="22" />
+    <text id="271:2054" name="Русский язык" x="30" y="1349" width="97" height="17" />
+    <text id="271:2055" name="обязательный" x="500" y="1349" width="101" height="17" />
+    <text id="271:2056" name="Информатика" x="30" y="1408" width="98" height="17" />
+    <text id="271:2057" name="Физика" x="30" y="1468" width="54" height="17" />
+    <text id="271:2058" name="по выбору" x="513" y="1408" width="74" height="17" />
+    <text id="271:2059" name="по выбору" x="513" y="1468" width="74" height="17" />
+    <text id="271:2060" name="Бюджет" x="891" y="1229" width="56" height="17" />
+    <text id="271:2061" name="Контракт" x="1018" y="1229" width="66" height="17" />
+    <text id="271:2062" name="Этапы и дедлайны для поступления по договору" x="595" y="341" width="348" height="17" />
+    <text id="271:2063" name="Проверь свои баллы ЕГЭ" x="29" y="439" width="209" height="24" />
+    <text id="271:2064" name="Подай документы" x="594" y="439" width="148" height="24" />
+    <text id="271:2065" name="Следи за конкурсными списками" x="594" y="590" width="277" height="24" />
+    <text id="271:2066" name="Оплати договор" x="594" y="722" width="134" height="24" />
+    <text id="271:2067" name="Ты студент РУДН!" x="594" y="854" width="146" height="24" />
+    <text id="271:2068" name="Подай документы" x="29" y="590" width="148" height="24" />
+    <text id="271:2069" name="Следи за конкурсными списками" x="29" y="722" width="277" height="24" />
+    <text id="271:2070" name="Подай согласие на зачисление" x="29" y="854" width="258" height="24" />
+    <text id="271:2071" name="Ты студент РУДН!" x="29" y="986" width="146" height="24" />
+    <text id="271:2072" name="Убедись, что баллы по профильным предметам соответствуют минимальным" x="29" y="469.5" width="413" height="39" />
+    <text id="271:2073" name="Через Госуслуги или лично в приёмной комиссии РУДН" x="594" y="469.5" width="372" height="20" />
+    <text id="271:2074" name="Обновляются ежедневно на сайте РУДН" x="594" y="620.5" width="267" height="20" />
+    <text id="271:2075" name="Подпиши согласие и внеси оплату за первый семестр" x="594" y="752.5" width="360" height="20" />
+    <text id="271:2076" name="Приказ о зачислении. Добро пожаловать  на факультет искусственного интеллекта" x="594" y="884.5" width="276" height="39" />
+    <text id="271:2077" name="Через Госуслуги или лично в приёмной комиссии РУДН" x="29" y="620.5" width="372" height="20" />
+    <text id="271:2078" name="Обновляются ежедневно на сайте РУДН" x="29" y="752.5" width="267" height="20" />
+    <text id="271:2079" name="Оригинал аттестата и согласие — для бюджетных мест" x="29" y="884.5" width="359" height="20" />
+    <text id="271:2080" name="Приказ о зачислении. Добро пожаловать на факультет искусственного интеллекта" x="29" y="1016.5" width="276" height="39" />
+    <frame id="271:2081" name="Background" x="29" y="388" width="120" height="36">
+      <text id="271:2082" name="до 25 июля" x="23.34228515625" y="9.29638671875" width="72" height="16" />
+    </frame>
+    <frame id="271:2083" name="Background" x="594" y="388" width="185" height="36">
+      <text id="271:2084" name="20 июня - 18 августа" x="20.34228515625" y="10.29638671875" width="144" height="16" />
+    </frame>
+    <frame id="271:2085" name="Background" x="594" y="539" width="140" height="36">
+      <text id="271:2086" name="до 20 августа" x="22.34228515625" y="10.29638671875" width="94" height="16" />
+    </frame>
+    <frame id="271:2087" name="Background" x="594" y="671" width="176" height="36">
+      <text id="271:2088" name="24 августа до 12:00" x="19.34228515625" y="10.29638671875" width="137" height="16" />
+    </frame>
+    <frame id="271:2089" name="Background" x="594" y="803" width="166" height="36">
+      <text id="271:2090" name="после 28 августа" x="24.34228515625" y="10.29638671875" width="116" height="16" />
+    </frame>
+    <frame id="271:2091" name="Background" x="29" y="539" width="229" height="36">
+      <text id="271:2092" name="20 июня – 25 июля до 17:00" x="20.34228515625" y="10.29638671875" width="188" height="16" />
+    </frame>
+    <frame id="271:2093" name="Background" x="29" y="671" width="121" height="36">
+      <text id="271:2094" name="до 27 июля" x="24.34228515625" y="10.29638671875" width="72" height="16" />
+    </frame>
+    <frame id="271:2095" name="Background" x="29" y="803" width="168" height="36">
+      <text id="271:2096" name="5 августа до 12:00" x="18.34228515625" y="10.29638671875" width="130" height="16" />
+    </frame>
+    <frame id="271:2097" name="Background" x="29" y="935" width="109" height="36">
+      <text id="271:2098" name="7 августа" x="22.34228515625" y="10.29638671875" width="65" height="16" />
+    </frame>
+    <line id="271:2099" name="Line 7" x="29" y="524" width="413" height="0" />
+    <line id="271:2100" name="Line 11" x="594" y="524" width="413" height="0" />
+    <line id="271:2101" name="Line 12" x="594" y="656" width="413" height="0" />
+    <line id="271:2102" name="Line 13" x="594" y="788" width="413" height="0" />
+    <line id="271:2103" name="Line 8" x="29" y="656" width="413" height="0" />
+    <line id="271:2104" name="Line 9" x="29" y="788" width="413" height="0" />
+    <line id="271:2105" name="Line 10" x="29" y="920" width="413" height="0" />
+    <line id="271:2106" name="Line 16" x="984.0166015625" y="1507.00439453125" width="0" height="240.00833129882812" />
+    <line id="271:2107" name="Line 17" x="856" y="1267" width="0" height="240" />
+    <line id="271:2108" name="Line 19" x="244" y="1267" width="0.000012796390080893616" height="240" />
+    <line id="271:2109" name="Line 20" x="1120" y="1327" width="1119" height="0" />
+    <line id="271:2110" name="Line 21" x="1120" y="1387" width="1119" height="0" />
+    <line id="271:2111" name="Line 22" x="1120" y="1447" width="1119" height="0" />
+  </frame>
+  <frame id="271:2112" name="Frame 8" x="43" y="6075" width="1115" height="828">
+    <text id="271:2113" name="Heading 1 → Изучай ИИ,
+входи в профессию
+вместе с X5 Tech" x="0" y="0" width="595" height="45" />
+    <text id="271:2114" name="Преподаватели РУДН и практикующие эксперты X5 Tech. Лекции, семинары  и реальные AI-проекты под руководством тех, кто делает индустрию." x="0" y="60" width="813" height="40" />
+    <frame id="271:2115" name="Overlay+Border" x="0" y="132" width="260" height="332">
+      <rounded-rectangle id="271:2116" name="image 12" x="0" y="0" width="260" height="287" />
+      <rounded-rectangle id="271:2117" name="Rectangle 11" x="0" y="202" width="260" height="130" />
+      <text id="271:2118" name="Heading 3 → Иванов Сергей" x="15" y="217" width="173" height="32" />
+      <text id="271:2119" name="Теория массового обслуживания, стохастические системы, анализ и управление в распределённых и облачных системах" x="15" y="259" width="209" height="56" />
+    </frame>
+    <frame id="271:2120" name="Overlay+Border" x="0" y="496" width="260" height="332">
+      <rounded-rectangle id="271:2121" name="image 12" x="0" y="0" width="260" height="287" />
+      <rounded-rectangle id="271:2122" name="Rectangle 11" x="0" y="202" width="260" height="130" />
+      <text id="271:2123" name="Heading 3 → Иванов Сергей" x="15" y="217" width="134" height="32" />
+      <text id="271:2124" name="Обработка естественного языка (NLP) и разноуровневый анализ текстов" x="15" y="259" width="202" height="42" />
+    </frame>
+    <frame id="271:2125" name="Overlay+Border" x="285" y="132" width="260" height="332">
+      <rounded-rectangle id="271:2126" name="image 12" x="0" y="0" width="260" height="287" />
+      <rounded-rectangle id="271:2127" name="Rectangle 11" x="0" y="202" width="260" height="130" />
+      <text id="271:2128" name="Heading 3 → Иванов Сергей" x="15" y="217" width="121" height="32" />
+      <text id="271:2129" name="ИИ в финансах и платежах, ИИ-агенты, цифровые валюты и инфраструктура" x="15" y="259" width="186" height="42" />
+    </frame>
+    <frame id="271:2130" name="Overlay+Border" x="285" y="496" width="260" height="332">
+      <rounded-rectangle id="271:2131" name="image 12" x="0" y="0" width="260" height="332" />
+      <rounded-rectangle id="271:2132" name="Rectangle 11" x="0" y="202" width="260" height="130" />
+      <text id="271:2133" name="Heading 3 → Иванов Сергей" x="15" y="217" width="151" height="32" />
+      <text id="271:2134" name="ИИ и машинное обучение. Системный анализ, автоматизация и управление производственными процессами" x="15" y="259" width="236" height="42" />
+    </frame>
+    <frame id="271:2135" name="Overlay+Border" x="570" y="132" width="260" height="332">
+      <rounded-rectangle id="271:2136" name="image 12" x="0" y="0" width="260" height="287" />
+      <rounded-rectangle id="271:2137" name="Rectangle 11" x="0" y="202" width="260" height="130" />
+      <text id="271:2138" name="Heading 3 → Иванов Сергей" x="15" y="217" width="148" height="32" />
+      <text id="271:2139" name="Продуктовая и маркетинговая стратегия, продуктовый маркетинг, стратегия коммуникаций, PR и GR, работа с AI, IoT и большими данными" x="15" y="259" width="225" height="56" />
+    </frame>
+    <frame id="271:2140" name="Overlay+Border" x="855" y="132" width="260" height="332">
+      <rounded-rectangle id="271:2141" name="image 12" x="0" y="0" width="260" height="287" />
+      <rounded-rectangle id="271:2142" name="Rectangle 11" x="0" y="202" width="260" height="130" />
+      <text id="271:2143" name="Heading 3 → Иванов Сергей" x="15" y="217" width="153" height="32" />
+      <text id="271:2144" name="Развитие ИИ‑технологий и их внедрение в бизнес‑процессы по отраслям" x="15" y="259" width="193" height="42" />
+    </frame>
+  </frame>
+  <frame id="271:2145" name="1200х750 eight" x="0" y="6973" width="1200" height="599">
+    <text id="271:2146" name="Heading 2 → X5 Tech — мост в реальную
+ИИ-практику" x="40" y="125" width="543.2000122070312" height="92.19000244140625" />
+    <text id="271:2147" name="X5 Tech — технологический центр X5, крупнейшего ритейлера России. ИИ тут — инструмент, который обеспечивает работу  24 000+ магазинов и сотен тысяч сотрудников." x="40" y="236" width="548" height="61" />
+    <text id="271:2148" name="СТРАТЕГИЧЕСКИЙ ПАРТНЕР" x="40" y="95" width="159" height="16" />
+    <frame id="271:2149" name="Overlay+Border" x="40" y="325" width="560" height="170">
+      <frame id="271:2150" name="Background" x="27" y="97.1201171875" width="40" height="40" />
+      <rounded-rectangle id="271:2151" name="image 2090011510" x="27" y="97" width="40" height="40" />
+      <text id="271:2152" name="Михаил Неверов" x="79" y="99.3701171875" width="123" height="17" />
+      <text id="271:2153" name="Директор по развитию искусственного интеллекта в X5 Tech" x="79" y="123.3701171875" width="376" height="14" />
+      <text id="271:2154" name="Нам нужны инженеры, которые умеют доводить модели  до продукта. Студенты программы начнут это делать раньше остальных — на наших задачах, вместе с нашими командами. " x="27" y="28" width="521" height="46" />
+    </frame>
+    <text id="271:2155" name="24 000+" x="752" y="86" width="373" height="104" />
+    <text id="271:2156" name="магазинов в экосистеме Х5" x="755" y="179" width="367" height="31" />
+    <text id="271:2157" name="18 Пб Объём хранения  кластера больших данных  6 000+ IT-специалистов  в команде  83 млн Участников программы лояльности Х5 взаимодействуют с нашими решениями" x="755" y="255" width="401" height="258" />
+  </frame>
+  <frame id="271:2158" name="1200х550 nineth" x="0" y="7642" width="1200" height="545">
+    <text id="271:2159" name="Heading 2 → X5 Tech — мост в реальную
+ИИ-практику" x="40" y="55" width="545" height="44" />
+    <text id="271:2160" name="Вот несколько направлений над которыми работает большая команда инженеров компании" x="40" y="114" width="437" height="38" />
+    <frame id="271:2161" name="Overlay+Border" x="40" y="203" width="270" height="270">
+      <text id="271:2162" name="Машинное обучение в ритейле" x="20" y="160" width="202" height="36" />
+      <text id="271:2163" name="Прогноз спроса, персонализация, управление цепочками" x="20" y="211" width="224" height="28" />
+      <vector id="271:2165" name="Arrow 5" x="220" y="25" width="30" height="0" />
+      <rounded-rectangle id="271:2166" name="image 2090011460" x="120" y="37" width="100.0000011128838" height="100.00001637167134" />
+    </frame>
+    <frame id="271:2167" name="Overlay+Border" x="325" y="203" width="270" height="270">
+      <text id="271:2168" name="ИИ-продукты" x="20" y="160" width="122" height="36" />
+      <text id="271:2169" name="Сервисы для миллионов покупателей" x="20" y="211" width="224" height="28" />
+      <rounded-rectangle id="271:2172" name="image 2090011464" x="19" y="28" width="113" height="132" />
+    </frame>
+    <frame id="271:2173" name="Overlay+Border" x="610" y="203" width="270" height="270">
+      <text id="271:2174" name="ИИ-кодинг" x="20" y="160" width="94" height="36" />
+      <text id="271:2175" name="Помощники разработчика  и автоматизация" x="20" y="211" width="224" height="28" />
+      <rounded-rectangle id="271:2178" name="DopMaterials_GreenPlastic" x="148" y="146" width="103" height="102" />
+      <rounded-rectangle id="271:2179" name="DopElements_ControlPurple" x="68" y="39" width="92" height="92" />
+    </frame>
+    <frame id="271:2180" name="Overlay+Border" x="895" y="203" width="270" height="270">
+      <text id="271:2181" name="Компьютерное зрение" x="20" y="160" width="202" height="36" />
+      <text id="271:2182" name="Ра��познавание товаров  и контроль полок" x="20" y="211" width="224" height="28" />
+      <rounded-rectangle id="271:2185" name="image 2090011468" x="92.91747283935547" y="104.79765319824219" width="85.71691022116897" height="85.7169102211692" />
+      <rounded-rectangle id="271:2186" name="image 2090011509" x="-2" y="25" width="190" height="142" />
+    </frame>
+    <rounded-rectangle id="271:2187" name="image 5" x="606" y="60" width="113" height="33" />
+  </frame>
+  <frame id="271:2188" name="Frame 9" x="0" y="8177" width="1200" height="310">
+    <text id="271:2189" name="Программа &quot;Искусственный интеллект: разработка и обучение интеллектуальных систем&quot; реализуется в рамках Гранта на обеспечение обучения студентов по образовательным программам высшего образования для топ-специалистов в сфере искусственного интеллекта от АНО &quot;Аналитический центр при Правительстве Российской Федерации&quot;." x="708" y="95" width="437" height="133" />
+    <rounded-rectangle id="271:2190" name="image 2090011511" x="55" y="12" width="600" height="300" />
+  </frame>
+  <frame id="271:2191" name="1200х550 nineth" x="0" y="8547" width="1200" height="545">
+    <text id="271:2192" name="Heading 2 → X5 Tech — мост в реальную
+ИИ-практику" x="40" y="55" width="446" height="44" />
+    <frame id="271:2193" name="Group 14" x="40" y="128" width="270" height="304">
+      <frame id="271:2194" name="Overlay+Border" x="40" y="142" width="270" height="290">
+        <text id="271:2195" name="День открытых дверей программы ИИ" x="15" y="168" width="224" height="36" />
+        <text id="271:2196" name="Прогноз спроса, персонализация, управление цепочками" x="15" y="214" width="224" height="28" />
+        <text id="271:2197" name="18.06.2026" x="15" y="257" width="66" height="14" />
+      </frame>
+      <frame id="271:2198" name="День открытых дверей программы ИИ" x="40" y="128" width="270" height="165" />
+    </frame>
+    <frame id="271:2201" name="Group 15" x="325" y="128" width="270" height="304">
+      <frame id="271:2202" name="Overlay+Border" x="325" y="142" width="270" height="290">
+        <text id="271:2203" name="День открытых дверей программы ИИ" x="15" y="168" width="224" height="36" />
+        <text id="271:2204" name="Прогноз спроса, персонализация, управление цепочками" x="15" y="214" width="224" height="28" />
+        <text id="271:2205" name="18.06.2026" x="15" y="257" width="66" height="14" />
+      </frame>
+      <frame id="271:2206" name="День открытых дверей программы ИИ" x="325" y="128" width="270" height="165" />
+    </frame>
+    <frame id="271:2209" name="Group 16" x="610" y="128" width="270" height="304">
+      <frame id="271:2210" name="Overlay+Border" x="610" y="142" width="270" height="290">
+        <text id="271:2211" name="День открытых дверей программы ИИ" x="15" y="168" width="224" height="36" />
+        <text id="271:2212" name="Прогноз спроса, персонализация, управление цепочками" x="15" y="214" width="224" height="28" />
+        <text id="271:2213" name="18.06.2026" x="15" y="257" width="66" height="14" />
+      </frame>
+      <frame id="271:2214" name="День открытых дверей программы ИИ" x="610" y="128" width="270" height="165" />
+    </frame>
+    <frame id="271:2217" name="Group 17" x="895" y="128" width="270" height="304">
+      <frame id="271:2218" name="Overlay+Border" x="895" y="142" width="270" height="290">
+        <text id="271:2219" name="День открытых дверей программы ИИ" x="15" y="168" width="224" height="36" />
+        <text id="271:2220" name="Прогноз спроса, персонализация, управление цепочками" x="15" y="214" width="224" height="28" />
+        <text id="271:2221" name="18.06.2026" x="15" y="257" width="66" height="14" />
+      </frame>
+      <frame id="271:2222" name="День открытых дверей программы ИИ" x="895" y="128" width="270" height="165" />
+    </frame>
+    <frame id="271:2225" name="Button - Назад" x="933" y="55" width="44" height="44">
+      <frame id="271:2226" name="SVG" x="12" y="12" width="20" height="20" />
+    </frame>
+    <frame id="271:2228" name="Button - Вперёд" x="992" y="55" width="44" height="44">
+      <frame id="271:2229" name="SVG" x="12" y="12" width="20" height="20" />
+    </frame>
+    <text id="271:2231" name="Все новости →" x="1056" y="66" width="109" height="21" />
+    <frame id="271:2232" name="Group 24" x="550" y="465" width="100" height="12" />
+  </frame>
+  <frame id="271:2238" name="1200х750 eight" x="0" y="9102" width="1200" height="850">
+    <frame id="271:2239" name="Background+Shadow" x="651" y="140" width="507" height="661.8462524414062">
+      <frame id="271:2240" name="Form" x="37.18000030517578" y="146.8189697265625" width="432.6400146484375" height="481.2275085449219">
+        <text id="271:2241" name="Label → Имя" x="0" y="-43" width="57" height="12" />
+        <text id="271:2242" name="Label → Имя" x="0" y="39.1806640625" width="117" height="12" />
+        <text id="271:2243" name="Label → Имя" x="0.8203125" y="120.1806640625" width="51" height="12" />
+        <text id="271:2244" name="Label → Имя" x="0.8203125" y="201.1806640625" width="130" height="12" />
+        <frame id="271:2245" name="Input" x="0" y="-23.9873046875" width="210.40499877929688" height="42.25">
+          <frame id="271:2246" name="Container" x="15.210312843322754" y="13.097421646118164" width="179.98500061035156" height="16.05500030517578">
+            <text id="271:2247" name="Иван" x="0.0003515625139698386" y="0.9997656345367432" width="33" height="15" />
+          </frame>
+        </frame>
+        <frame id="271:2248" name="Input" x="-0.1796875" y="58.1806640625" width="433" height="42">
+          <frame id="271:2249" name="Container" x="15.210312843322754" y="13.097421646118164" width="402.9849853515625" height="16.05500030517578">
+            <text id="271:2250" name="test@mail.ru" x="0.0003515625139698386" y="0.9997656345367432" width="76" height="15" />
+          </frame>
+        </frame>
+        <frame id="271:2251" name="Input" x="0.8203125" y="139.1806640625" width="432" height="42">
+          <frame id="271:2252" name="Container" x="15.210312843322754" y="13.097421646118164" width="401.9849853515625" height="16.05500030517578">
+            <text id="271:2253" name="+7 900 123 45 67" x="0.0003515625139698386" y="0.9997656345367432" width="108" height="15" />
+          </frame>
+        </frame>
+        <frame id="271:2254" name="Input" x="0.82000732421875" y="220.1806640625" width="432" height="100">
+          <frame id="271:2255" name="Container" x="15.210312843322754" y="13.097421646118164" width="401.9849853515625" height="16.05500030517578">
+            <text id="271:2256" name="напишите, что-нибудь (не обязательно)" x="0.0003515625139698386" y="0.9997656345367432" width="253" height="15" />
+          </frame>
+        </frame>
+        <rounded-rectangle id="271:2257" name="Rectangle" x="0.0003124999930150807" y="64.64261627197266" width="210.40499877929688" height="11.829999923706055" />
+        <text id="271:2258" name="Label → Фамилия" x="222.2353515625" y="-43" width="55" height="12" />
+        <frame id="271:2259" name="Input" x="222.2353515625" y="-23.9873046875" width="210.40499877929688" height="42.25">
+          <frame id="271:2260" name="Container" x="15.2099609375" y="13.097421646118164" width="179.98500061035156" height="16.05500030517578">
+            <text id="271:2261" name="Иванов" x="0" y="0.9997656345367432" width="48" height="15" />
+          </frame>
+        </frame>
+        <rounded-rectangle id="271:2262" name="Rectangle" x="222.2353057861328" y="64.64261627197266" width="210.40499877929688" height="11.829999923706055" />
+        <rounded-rectangle id="271:2263" name="Rectangle" x="0.0003124999930150807" y="152.9451141357422" width="432.6400146484375" height="11.829999923706055" />
+        <rounded-rectangle id="271:2264" name="Rectangle" x="0.0003124999930150807" y="241.24761962890625" width="432.6400146484375" height="11.829999923706055" />
+        <frame id="271:2265" name="Label" x="0" y="335.8974609375" width="432.6400146484375" height="35.4900016784668">
+          <rounded-rectangle id="271:2266" name="Background+Border" x="0.0003124999930150807" y="1.6901562213897705" width="18.59000015258789" height="18.59000015258789" />
+          <text id="271:2267" name="Я выражаю Согласие на обработку персональных данных X5 Tech" x="28.82000732421875" y="0.283203125" width="346" height="33" />
+        </frame>
+        <frame id="288:4" name="Label" x="0" y="383.1806640625" width="432.6400146484375" height="35.4900016784668">
+          <rounded-rectangle id="288:5" name="Background+Border" x="0.0003124999930150807" y="1.6901562213897705" width="18.59000015258789" height="18.59000015258789" />
+          <text id="288:6" name="Я выражаю Согласие на получение рассылок информационного и рекламного содержания от X5 Tech" x="28.82000732421875" y="1" width="381" height="32" />
+        </frame>
+        <frame id="271:2268" name="Button" x="-0.17999267578125" y="430.1806640625" width="240" height="60">
+          <text id="271:2269" name="Отправить заявку" x="55.283203125" y="22.30859375" width="130" height="17" />
+        </frame>
+      </frame>
+      <text id="271:2270" name="Менеджер приёмной комиссии  свяжется с тобой в течение дня" x="37" y="34" width="297" height="44" />
+    </frame>
+    <text id="271:2271" name="Heading 2 → X5 Tech — мост в реальную
+ИИ-практику" x="40" y="56" width="845" height="48" />
+    <rounded-rectangle id="271:2272" name="image 2090011425" x="39" y="140" width="581" height="662" />
+  </frame>
+  <frame id="271:2273" name="Footer" x="0" y="9984" width="1200" height="431">
+    <text id="271:2274" name="Бакалавриат «Искусственный интеллект» – совместная  программа РУДН и X5 Tech." x="40" y="96" width="246.75" height="42" />
+    <text id="271:2275" name="Address → 117198, Москва,
+ул. Миклухо-Маклая, д. 6
+Факультет физико-математических
+и естественных наук" x="40" y="183" width="227.22999572753906" height="56" />
+    <text id="271:2276" name="Heading 4 → Навигация" x="348.6600036621094" y="54" width="80" height="14" />
+    <text id="271:2277" name="Heading 4 → Навигация" x="862" y="273" width="207" height="14" />
+    <text id="271:2278" name="Item → Link → Программа" x="348.6600036621094" y="91.5" width="80.01295471191406" height="17" />
+    <text id="271:2279" name="Item → Link → Программа" x="862" y="307" width="80.01295471191406" height="17" />
+    <text id="271:2280" name="Item → Link → Треки" x="348.6600036621094" y="120.5" width="41.18456268310547" height="17" />
+    <text id="271:2281" name="Item → Link → Треки" x="862" y="336" width="41.18456268310547" height="17" />
+    <text id="271:2282" name="Item → Link → Поступление" x="348.6600036621094" y="149.5" width="90.8698959350586" height="17" />
+    <text id="271:2283" name="Item → Link → Поступление" x="862" y="365" width="90.8698959350586" height="17" />
+    <text id="271:2284" name="Item → Link → Преподаватели" x="348.6600036621094" y="178.5" width="107.13526916503906" height="17" />
+    <text id="271:2285" name="Item → Link → Новости" x="348.6600036621094" y="207.5" width="58.5085334777832" height="17" />
+    <text id="271:2286" name="Item → Link → Заявка" x="348.6600036621094" y="236.5" width="47.985748291015625" height="17" />
+    <text id="271:2287" name="Heading 4 → Приёмная комиссия" x="583.3300170898438" y="54" width="151" height="14" />
+    <frame id="271:2288" name="List" x="583.3300170898438" y="87.5" width="227.3300018310547" height="161">
+      <frame id="271:2289" name="Item" x="0" y="0" width="227.3300018310547" height="44.5">
+        <text id="271:2290" name="Link → +7 (495) 434-53-00" x="0" y="3" width="147" height="18" />
+        <text id="271:2291" name="пн–пт, 9:00–18:00 МСК" x="0" y="28.5" width="140" height="14" />
+      </frame>
+      <frame id="271:2292" name="Item" x="0" y="58.5" width="227.3300018310547" height="44.5">
+        <text id="271:2293" name="Link → priem@rudn.ru" x="0" y="3" width="130" height="18" />
+        <text id="271:2294" name="вопросы абитуриентов" x="0" y="28.5" width="142" height="14" />
+      </frame>
+      <frame id="271:2295" name="Item" x="0" y="117" width="227.3300018310547" height="44">
+        <text id="271:2296" name="Link → ai@rudn.ru" x="0" y="4" width="74" height="17" />
+        <text id="271:2297" name="кураторы программы" x="0" y="28" width="130" height="14" />
+      </frame>
+    </frame>
+    <text id="271:2298" name="Heading 4 → Документы и правовая информация" x="861.6599731445312" y="54" width="268" height="14" />
+    <text id="271:2299" name="Item → Link → Лицензия и
+аккредитация ↗" x="862" y="91" width="175" height="14" />
+    <text id="271:2300" name="Item → Link → Локальные
+нормативные акты ↗" x="862" y="118" width="200" height="14" />
+    <text id="271:2301" name="Item → Link → Правила приёма ↗" x="862" y="145" width="117.62785339355469" height="18.1299991607666" />
+    <text id="271:2302" name="Item → Link → Стоимость обучения
+↗" x="862" y="175" width="142" height="14" />
+    <text id="271:2303" name="Item → Link → Противодействие
+коррупции ↗" x="862" y="202" width="187" height="14" />
+    <text id="271:2304" name="Item → Link → Карта сайта РУДН ↗" x="862" y="229" width="126.9201889038086" height="18.1299991607666" />
+    <text id="271:2305" name="© 2026 ФГАОУ ВО «Российский университет дружбы народов имени Патриса Лумумбы». Все права защищены." x="40" y="330" width="694.0653076171875" height="15" />
+    <text id="271:2306" name="Link → Политика конфиденциальности" x="40" y="362.75" width="194.22988891601562" height="18.75" />
+    <text id="271:2307" name="Link → Согласие на обработку ПД" x="264.22998046875" y="362.75" width="167.1595458984375" height="18.75" />
+    <text id="271:2308" name="Link → Сведения об организации" x="461.3896484375" y="364.75" width="161" height="14" />
+    <frame id="271:2309" name="Group 1" x="40" y="54" width="187" height="27">
+      <rounded-rectangle id="271:2310" name="image 3" x="40" y="54" width="79" height="27" />
+      <rounded-rectangle id="271:2311" name="image 4" x="151" y="55" width="76" height="23" />
+    </frame>
+    <vector id="271:2312" name="х" x="124" y="62" width="10" height="10" />
+  </frame>
+</frame>
+IMPORTANT: After you call this tool, you MUST call get_design_context if trying to implement the design, since this tool only returns metadata. If you do not call get_design_context, the agent will not be able to implement the design.

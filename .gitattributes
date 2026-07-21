@@ -1,0 +1,9 @@
+* text=auto
+*.png binary
+*.jpg binary
+*.webp binary
+*.avif binary
+*.svg text
+*.woff2 binary
+*.ico binary
+*.docx binary
