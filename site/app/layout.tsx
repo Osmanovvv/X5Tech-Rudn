@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Header from "@/components/Header";
 import { fontSans, fontMono } from "./fonts";
 import "./globals.css";
 
@@ -19,7 +20,10 @@ export default function RootLayout({
       lang="ru"
       className={`${fontSans.variable} ${fontMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

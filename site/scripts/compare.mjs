@@ -9,12 +9,18 @@ import { readFileSync, writeFileSync, mkdirSync } from "fs";
 import path from "path";
 
 export async function compare(shotPath, refPath, diffPath, thresholdPct = 2) {
-  const shot = PNG.sync.read(readFileSync(shotPath));
-  const refResized = await sharp(refPath)
-    .resize(shot.width, shot.height, { fit: "fill" })
-    .png()
-    .toBuffer();
-  const ref = PNG.sync.read(refResized);
+  // Приводим к МЕНЬШЕМУ из двух размеров: downscale честнее, чем растягивание
+  // (апскейл эталона размывает края и даёт ложные расхождения).
+  const shotMeta = await sharp(shotPath).metadata();
+  const refMeta = await sharp(refPath).metadata();
+  const w = Math.min(shotMeta.width, refMeta.width);
+  const h = Math.round((w / shotMeta.width) * shotMeta.height);
+  const shot = PNG.sync.read(
+    await sharp(shotPath).resize(w, h, { fit: "fill" }).png().toBuffer()
+  );
+  const ref = PNG.sync.read(
+    await sharp(refPath).resize(w, h, { fit: "fill" }).png().toBuffer()
+  );
   const diff = new PNG({ width: shot.width, height: shot.height });
   const mismatched = pixelmatch(shot.data, ref.data, diff.data, shot.width, shot.height, {
     threshold: 0.15, // допуск на антиалиасинг текста браузер-vs-Figma
