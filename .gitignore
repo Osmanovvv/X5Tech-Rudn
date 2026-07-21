@@ -8,3 +8,4 @@ figma-data/shots/
 figma-data/diffs/
 *.log
 .DS_Store
+site/scripts/.selftest/
