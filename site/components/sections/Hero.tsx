@@ -96,7 +96,7 @@ function GlassCard({ mobile }: { mobile?: boolean }) {
   return (
     <div
       className={`rounded-[14.8px] border-[1.06px] border-hairline bg-paper/95 backdrop-blur-[7.4px] ${
-        mobile ? "relative z-10 h-[81px] w-[254px]" : "absolute left-[876px] top-[99px] h-[81px] w-[254px]"
+        mobile ? "relative h-[81px] w-[254px]" : "absolute left-[876px] top-[99px] h-[81px] w-[254px]"
       }`}
     >
       <p
@@ -231,13 +231,14 @@ export default function Hero() {
             <br />и обучение интеллектуальных систем»
           </p>
         </div>
+        {/* Порядок слоёв макета: арт (слой 21) ПОВЕРХ карточки (слой 2) — головы наезжают на карточку */}
         <img
           src={asset("/img/01-hero/mobile-art-2x.webp")}
           alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
           fetchPriority="high"
-          className="block h-auto w-full"
+          className="relative z-[1] block h-auto w-full"
         />
-        <div className="absolute left-[15px] top-[226px] z-10">
+        <div className="absolute left-[15px] top-[226px] z-0">
           <GlassCard mobile />
         </div>
         <div className="mx-[15px]">
