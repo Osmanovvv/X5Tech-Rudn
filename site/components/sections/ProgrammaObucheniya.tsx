@@ -92,19 +92,15 @@ function StatCard({ mobile }: { mobile?: boolean }) {
         mobile ? "h-[200px] rounded-[14px]" : "h-full rounded-[15px]"
       }`}
     >
-      {/* Блоб-иллюстрация (фиолетовый круг + зелёный угол + тень) — вырезана из эталона макета */}
+      {/* Иллюстрация-блоб в правом-нижнем углу (image 16, повёрнута как в макете) */}
       <img
-        src={asset(
-          mobile
-            ? "/img/04-programma-obucheniya/stat-blob-mobile.webp"
-            : "/img/04-programma-obucheniya/stat-blob.webp",
-        )}
+        src={asset("/img/04-programma-obucheniya/blob-stat-v2-574w.webp")}
         alt=""
         aria-hidden
         className={
           mobile
-            ? "absolute bottom-0 right-0 w-[55%]"
-            : "absolute left-[150px] top-[88px] h-[222px] w-[290px]"
+            ? "absolute bottom-0 right-0 h-[142px] w-[175px] rotate-180 -scale-y-100 object-cover object-left-top"
+            : "absolute left-[153px] top-[78px] h-[232px] w-[287px] rotate-180 -scale-y-100 object-cover object-left-top"
         }
       />
       <div className="relative">
