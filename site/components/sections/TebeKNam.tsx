@@ -80,14 +80,15 @@ export default function TebeKNam() {
             className="absolute top-[156px] h-[300px] w-[260px] rounded-[18px] border border-hairline bg-paper"
             style={{ left }}
           >
-            <img
-              src={asset(`/img/02-tebe-k-nam/${CARDS[i].img}-520w.webp`)}
-              alt=""
-              className="h-[182px] w-full rounded-[18px] object-cover"
-            />
+            {/* Плашка — нижний слой (child 0 в макете), фото рисуется поверх неё */}
             {i === 3 && (
               <div className="absolute left-0 top-[176px] h-[123px] w-full rounded-[18px] bg-paper/60 backdrop-blur-[5px]" />
             )}
+            <img
+              src={asset(`/img/02-tebe-k-nam/${CARDS[i].img}-520w.webp`)}
+              alt=""
+              className="relative h-[182px] w-full rounded-[18px] object-cover"
+            />
             <p
               className="absolute left-[20px] w-[220px] -translate-y-1/2 text-[13px] leading-[normal] text-ink"
               style={{ top: i === 3 ? 240 : 232 }}
@@ -127,14 +128,15 @@ export default function TebeKNam() {
               className="relative rounded-[18px] border border-hairline bg-paper"
               style={{ height: [280, 290, 290, 300][i] }}
             >
-              <img
-                src={asset(`/img/02-tebe-k-nam/${card.img}-640w.webp`)}
-                alt=""
-                className="h-[190px] w-full rounded-[18px] object-cover"
-              />
+              {/* Плашка — нижний слой (child 0 в макете), фото поверх */}
               {i === 3 && (
                 <div className="absolute left-0 top-[177px] h-[123px] w-full rounded-[18px] bg-paper/60 backdrop-blur-[5px]" />
               )}
+              <img
+                src={asset(`/img/02-tebe-k-nam/${card.img}-640w.webp`)}
+                alt=""
+                className="relative h-[190px] w-full rounded-[18px] object-cover"
+              />
               <p
                 className="absolute top-[210px] whitespace-pre-line text-[12px] leading-[14px] text-ink"
                 style={{ left: i === 0 ? 21 : 20, width: MOBILE_TEXT_W[i] }}
