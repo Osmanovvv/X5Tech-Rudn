@@ -6,7 +6,7 @@
 import admission from "@/content/admission.json";
 
 type Step = { date: string; title: string; text: string; m?: string };
-type Column = { heading: string; caption: string; steps: Step[] };
+type Column = { heading: string; caption: string; captionM?: string; steps: Step[] };
 const A = admission as {
   title: string;
   subtitle: string;
@@ -18,6 +18,7 @@ const A = admission as {
   exams: {
     title: string;
     caption: string;
+    captionM?: string;
     columns: string[];
     rows: { subject: string; required: string; budget: string; contract: string }[];
   };
@@ -87,7 +88,7 @@ function MobileColumn({ col }: { col: Column }) {
     <div>
       <h3 className="text-[18px] font-bold leading-[26px] text-ink">{col.heading}</h3>
       <p className="mt-[6px] whitespace-pre-line text-[12px] leading-[16px] text-black">
-        {col.caption}
+        {col.captionM || col.caption}
       </p>
       <div className="mt-[16px] flex flex-col">
         {col.steps.map((s, i) => (
@@ -232,7 +233,9 @@ export default function KakPostupit() {
 
         {/* Вступительные экзамены */}
         <h3 className="mt-[30px] text-[18px] font-bold leading-[24px] text-ink">{exams.title}</h3>
-        <p className="mt-[6px] whitespace-pre-line text-[12px] leading-[16px] text-ink">{exams.caption}</p>
+        <p className="mt-[6px] whitespace-pre-line text-[12px] leading-[16px] text-ink">
+          {exams.captionM || exams.caption}
+        </p>
         <div className="mt-[16px] flex flex-col gap-[16px]">
           {exams.rows.map((r, i) => (
             <div key={i} className="overflow-hidden rounded-[14px] border border-[#ececec]">
