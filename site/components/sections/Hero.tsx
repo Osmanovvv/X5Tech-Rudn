@@ -39,7 +39,16 @@ function HeroArt({ mobile }: { mobile?: boolean }) {
           decoding="async"
           className="absolute left-[19px] top-[19px] h-[349px] w-[349px] rotate-[-6.59deg]"
         />
-        <div className="absolute left-[19px] top-[19px] h-[349px] w-[349px] bg-lime-soft mix-blend-hue" />
+        <div
+          className="absolute left-[19px] top-[19px] h-[349px] w-[349px] bg-lime-soft mix-blend-hue"
+          style={{
+            maskImage: `url(${asset("/img/01-hero/meha-materials-color-glass-55403441-700w.webp")})`,
+            maskSize: "100% 100%",
+            WebkitMaskImage: `url(${asset("/img/01-hero/meha-materials-color-glass-55403441-700w.webp")})`,
+            WebkitMaskSize: "100% 100%",
+            rotate: "-6.59deg",
+          }}
+        />
       </div>
       <img
         src={asset("/img/01-hero/meha-materials-metal-5b128cb2-660w.webp")}

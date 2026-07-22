@@ -1,4 +1,5 @@
 import Hero from "@/components/sections/Hero";
+import ProgrammaDaet from "@/components/sections/ProgrammaDaet";
 import TebeKNam from "@/components/sections/TebeKNam";
 
 // Витрина токенов ниже hero — временная, исчезнет по мере вёрстки секций Фазы 2.
@@ -18,6 +19,7 @@ export default function Home() {
     <main>
       <Hero />
       <TebeKNam />
+      <ProgrammaDaet />
       <div className="container-site py-16 space-y-12">
       <section>
         <p className="font-mono text-xs uppercase tracking-wide border border-lime rounded-full inline-block px-5 py-2">
