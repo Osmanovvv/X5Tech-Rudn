@@ -10,14 +10,16 @@ type Course = {
   num: string;
   name: string;
   subtitle: string;
+  subM?: string;
   photo?: string;
   stat?: boolean;
   disciplines: Discipline[];
 };
 
-const { title, badge, courses, highlight, stat } = program as {
+const { title, badge, badgeM, courses, highlight, stat } = program as {
   title: string;
   badge: string;
+  badgeM: string;
   courses: Course[];
   highlight: { after: number; title: string; text: string };
   stat: { value: string; note: string };
@@ -64,7 +66,9 @@ function StatNote({ mobile }: { mobile?: boolean }) {
   if (mobile) {
     return (
       <p className="text-[14px] leading-[18px] text-ink">
-        стажеров переходят
+        стажеров
+        <br />
+        переходят
         <br />
         {x5}
       </p>
@@ -203,8 +207,8 @@ export default function ProgrammaObucheniya() {
         <h2 className="pt-[30px] text-center text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
           {title}
         </h2>
-        <p className="mx-auto mt-[16px] w-full max-w-[280px] rounded-[18px] border border-[#b6e835] px-[18px] py-[9px] text-center font-mono text-[11px] uppercase leading-[16px] text-ink">
-          {badge}
+        <p className="mx-auto mt-[16px] w-fit whitespace-pre-line rounded-[18px] border border-[#b6e835] px-[24px] py-[10px] text-center font-mono text-[11px] uppercase leading-[16px] text-ink">
+          {badgeM}
         </p>
 
         <div className="mt-[24px] flex flex-col gap-[30px]">
@@ -213,8 +217,8 @@ export default function ProgrammaObucheniya() {
               <h3 className="text-[22px] font-bold leading-[26px] text-ink">
                 {course.num}: {course.name}
               </h3>
-              <p className="mt-[5px] text-[13px] leading-[18px] text-[rgba(39,39,39,0.85)]">
-                {course.subtitle}
+              <p className="mt-[5px] whitespace-pre-line text-[13px] leading-[18px] text-[rgba(39,39,39,0.85)]">
+                {course.subM || course.subtitle}
               </p>
 
               {course.stat ? (
