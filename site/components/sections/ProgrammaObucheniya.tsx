@@ -94,12 +94,16 @@ function StatCard({ mobile }: { mobile?: boolean }) {
     >
       {/* Блоб-иллюстрация (фиолетовый круг + зелёный угол + тень) — вырезана из эталона макета */}
       <img
-        src={asset("/img/04-programma-obucheniya/stat-blob.webp")}
+        src={asset(
+          mobile
+            ? "/img/04-programma-obucheniya/stat-blob-mobile.webp"
+            : "/img/04-programma-obucheniya/stat-blob.webp",
+        )}
         alt=""
         aria-hidden
         className={
           mobile
-            ? "absolute bottom-0 right-0 w-[186px]"
+            ? "absolute bottom-0 right-0 w-[55%]"
             : "absolute left-[150px] top-[88px] h-[222px] w-[290px]"
         }
       />
