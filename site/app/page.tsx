@@ -1,4 +1,5 @@
 import Hero from "@/components/sections/Hero";
+import TebeKNam from "@/components/sections/TebeKNam";
 
 // Витрина токенов ниже hero — временная, исчезнет по мере вёрстки секций Фазы 2.
 const swatches = [
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
+      <TebeKNam />
       <div className="container-site py-16 space-y-12">
       <section>
         <p className="font-mono text-xs uppercase tracking-wide border border-lime rounded-full inline-block px-5 py-2">
