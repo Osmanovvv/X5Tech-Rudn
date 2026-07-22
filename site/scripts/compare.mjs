@@ -15,11 +15,14 @@ export async function compare(shotPath, refPath, diffPath, thresholdPct = 2) {
   const refMeta = await sharp(refPath).metadata();
   const w = Math.min(shotMeta.width, refMeta.width);
   const h = Math.round((w / shotMeta.width) * shotMeta.height);
+  // Эталоны Figma часто экспортируются с прозрачным фоном (alpha 0). Скриншот — непрозрачный
+  // на белом, поэтому прозрачный фон эталона надо привести к белому, иначе pixelmatch
+  // считает весь фон расхождением. Флэттеним оба на белый — для непрозрачного это no-op.
   const shot = PNG.sync.read(
-    await sharp(shotPath).resize(w, h, { fit: "fill" }).png().toBuffer()
+    await sharp(shotPath).flatten({ background: "#ffffff" }).resize(w, h, { fit: "fill" }).png().toBuffer()
   );
   const ref = PNG.sync.read(
-    await sharp(refPath).resize(w, h, { fit: "fill" }).png().toBuffer()
+    await sharp(refPath).flatten({ background: "#ffffff" }).resize(w, h, { fit: "fill" }).png().toBuffer()
   );
   const diff = new PNG({ width: shot.width, height: shot.height });
   const mismatched = pixelmatch(shot.data, ref.data, diff.data, shot.width, shot.height, {
