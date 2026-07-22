@@ -1,5 +1,6 @@
 import Hero from "@/components/sections/Hero";
 import KakPostupit from "@/components/sections/KakPostupit";
+import Most from "@/components/sections/Most";
 import Prepodavateli from "@/components/sections/Prepodavateli";
 import ProgrammaDaet from "@/components/sections/ProgrammaDaet";
 import ProgrammaObucheniya from "@/components/sections/ProgrammaObucheniya";
@@ -16,6 +17,7 @@ export default function Home() {
       <Treki />
       <KakPostupit />
       <Prepodavateli />
+      <Most />
     </main>
   );
 }
