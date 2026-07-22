@@ -92,8 +92,8 @@ function TrackCard({ track, i, mobile }: { track: Track; i: number; mobile?: boo
 export default function Treki() {
   return (
     <section aria-label="Треки третьего курса">
-      {/* ===== Десктоп: калька 1130×475 ===== */}
-      <div className="relative mx-auto hidden h-[475px] max-w-[1130px] overflow-hidden bg-white lg:block">
+      {/* ===== Десктоп: калька 1130×475 (зазор до предыдущей секции — 80px по макету) ===== */}
+      <div className="relative mx-auto mt-[80px] hidden h-[475px] max-w-[1130px] overflow-hidden bg-white lg:block">
         <h2 className="absolute left-0 top-0 whitespace-pre-line text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
           {title}
         </h2>
