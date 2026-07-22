@@ -5,7 +5,7 @@
 import { asset } from "@/lib/asset";
 import program from "@/content/program.json";
 
-type Discipline = string | { label: string; ghost?: boolean };
+type Discipline = string | { label: string; ghost?: boolean; m?: string };
 type Course = {
   num: string;
   name: string;
@@ -25,6 +25,8 @@ const { title, badge, courses, highlight, stat } = program as {
 
 const dLabel = (d: Discipline) => (typeof d === "string" ? d : d.label);
 const dGhost = (d: Discipline) => (typeof d === "string" ? false : !!d.ghost);
+// Мобильная форма чипа: точные переносы из макета (жёсткие \n), иначе — та же подпись
+const dMobile = (d: Discipline) => (typeof d === "string" ? d : d.m || d.label);
 
 // Визуальные якоря десктоп-кальки (в системе координат ноды 271:1884)
 type Anchor = { head: number; sub: number; chips: number; dot: number; photo?: { top: number; h: number } };
@@ -43,11 +45,11 @@ function Chip({ d, mobile }: { d: Discipline; mobile?: boolean }) {
         ghost ? "bg-transparent" : "bg-white"
       } ${
         mobile
-          ? "inline-flex w-fit max-w-full items-center px-[15px] py-[8px] text-[13px] leading-[17px]"
-          : "inline-flex h-[39px] items-center px-[19px] text-[14px] leading-none"
+          ? "inline-flex w-fit items-center whitespace-pre px-[16px] py-[9px] text-[13px] leading-[18px]"
+          : "inline-flex h-[39px] items-center whitespace-nowrap px-[19px] text-[14px] leading-none"
       }`}
     >
-      {dLabel(d)}
+      {mobile ? dMobile(d) : dLabel(d)}
     </span>
   );
 }
