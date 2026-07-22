@@ -2,6 +2,7 @@ import Hero from "@/components/sections/Hero";
 import ProgrammaDaet from "@/components/sections/ProgrammaDaet";
 import ProgrammaObucheniya from "@/components/sections/ProgrammaObucheniya";
 import TebeKNam from "@/components/sections/TebeKNam";
+import Treki from "@/components/sections/Treki";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <TebeKNam />
       <ProgrammaDaet />
       <ProgrammaObucheniya />
+      <Treki />
     </main>
   );
 }
