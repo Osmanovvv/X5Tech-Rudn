@@ -43,7 +43,7 @@ function Chip({ d, mobile }: { d: Discipline; mobile?: boolean }) {
   const ghost = dGhost(d);
   return (
     <span
-      className={`rounded-[20px] border border-[#b6e835] text-ink ${
+      className={`rounded-full border border-[#b6e835] text-ink ${
         ghost ? "bg-transparent" : "bg-white"
       } ${
         mobile
@@ -207,7 +207,7 @@ export default function ProgrammaObucheniya() {
         <h2 className="pt-[30px] text-center text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
           {title}
         </h2>
-        <p className="mx-auto mt-[16px] w-fit whitespace-pre-line rounded-[18px] border border-[#b6e835] px-[24px] py-[10px] text-center font-mono text-[11px] uppercase leading-[16px] text-ink">
+        <p className="mx-auto mt-[16px] w-fit whitespace-pre-line rounded-full border border-[#b6e835] px-[24px] py-[10px] text-center font-mono text-[11px] uppercase leading-[16px] text-ink">
           {badgeM}
         </p>
 
