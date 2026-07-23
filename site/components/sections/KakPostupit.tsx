@@ -140,7 +140,7 @@ function ExamTableDesktop() {
 export default function KakPostupit() {
   const { title, subtitle, subtitleM, price, stats, budget, contract, exams } = A;
   return (
-    <section aria-label="Как поступить">
+    <section id="postuplenie" aria-label="Как поступить">
       {/* ===== Десктоп: калька 1120×1507 (зазор до предыдущей секции — 80px) ===== */}
       <div className="relative mx-auto mt-[80px] hidden h-[1507px] max-w-[1120px] bg-white lg:block">
         <h2 className="absolute left-0 top-0 text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">

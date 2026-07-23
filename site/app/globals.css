@@ -32,6 +32,25 @@
   }
 }
 
+/* Плавный переход по якорям меню (Task 1.1). scroll-padding обязателен: шапка sticky,
+   иначе цель уезжает под капсулу. Высота = отступ 15 + капсула 45 (моб) / 69 (деск) + запас. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+@media (width >= 1024px) {
+  html {
+    scroll-padding-top: 96px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   background: #ffffff;
   color: var(--color-ink);

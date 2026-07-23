@@ -6,6 +6,10 @@ import { asset } from "@/lib/asset";
 
 const photo640 = "/img/01-hero/image5-611bcc67-640w.webp";
 const photo1456 = "/img/01-hero/image5-611bcc67-1456w.webp";
+const photo640Avif = "/img/01-hero/image5-611bcc67-640w.avif";
+const photo1456Avif = "/img/01-hero/image5-611bcc67-1456w.avif";
+const mobileArt = "/img/01-hero/mobile-art-2x.webp";
+const mobileArtAvif = "/img/01-hero/mobile-art-2x.avif";
 
 function HeroArt({ mobile }: { mobile?: boolean }) {
   // Группа 3D-блобов + фото; порядок слоёв как в макете (блобы под фото)
@@ -172,11 +176,15 @@ function Stats({ mobile }: { mobile?: boolean }) {
 }
 
 export default function Hero() {
-  preload(asset(photo1456), {
+  // Предзагружаем AVIF-набор: браузеры без поддержки AVIF просто игнорируют такой preload
+  // (type не совпал) и берут webp обычным путём — лишней загрузки нет.
+  // imageSizes совпадает с sizes у <img>, иначе preload и вёрстка выберут разных кандидатов.
+  preload(asset(photo1456Avif), {
     as: "image",
+    type: "image/avif",
     fetchPriority: "high",
-    imageSrcSet: `${asset(photo640)} 640w, ${asset(photo1456)} 1456w`,
-    imageSizes: "(max-width: 1023px) 100vw, 728px",
+    imageSrcSet: `${asset(photo640Avif)} 640w, ${asset(photo1456Avif)} 1456w`,
+    imageSizes: "728px",
   });
 
   return (
@@ -184,14 +192,22 @@ export default function Hero() {
       {/* ===== Десктоп: абсолютная калька 1200×666 (750 минус шапка) ===== */}
       <div className="relative mx-auto hidden h-[666px] max-w-[1200px] overflow-hidden bg-white lg:block">
         <HeroArt />
-        <img
-          src={asset(photo1456)}
-          srcSet={`${asset(photo640)} 640w, ${asset(photo1456)} 1456w`}
-          sizes="728px"
-          alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
-          fetchPriority="high"
-          className="absolute left-[429px] top-[148px] h-[485px] w-[728px] object-cover"
-        />
+        {/* display:contents — <picture> не создаёт своего бокса, раскладка img не меняется */}
+        <picture className="contents">
+          <source
+            type="image/avif"
+            srcSet={`${asset(photo640Avif)} 640w, ${asset(photo1456Avif)} 1456w`}
+            sizes="728px"
+          />
+          <img
+            src={asset(photo1456)}
+            srcSet={`${asset(photo640)} 640w, ${asset(photo1456)} 1456w`}
+            sizes="728px"
+            alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
+            fetchPriority="high"
+            className="absolute left-[429px] top-[148px] h-[485px] w-[728px] object-cover"
+          />
+        </picture>
         <div className="absolute left-[40px] top-[63px]">
           <Badge />
         </div>
@@ -241,12 +257,15 @@ export default function Hero() {
           </p>
         </div>
         {/* Порядок слоёв макета: арт (слой 21) ПОВЕРХ карточки (слой 2) — головы наезжают на карточку */}
-        <img
-          src={asset("/img/01-hero/mobile-art-2x.webp")}
-          alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
-          fetchPriority="high"
-          className="relative z-[1] block h-auto w-full"
-        />
+        <picture className="contents">
+          <source type="image/avif" srcSet={asset(mobileArtAvif)} />
+          <img
+            src={asset(mobileArt)}
+            alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
+            fetchPriority="high"
+            className="relative z-[1] block h-auto w-full"
+          />
+        </picture>
         <div className="absolute left-[15px] top-[226px] z-0">
           <GlassCard mobile />
         </div>

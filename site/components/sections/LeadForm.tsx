@@ -8,6 +8,10 @@ import site from "@/content/site.json";
 
 const photo = asset("/img/12-forma/image2090011425-893213cd-1024w.webp");
 const leadEndpoint = (site as { leadEndpoint: string | null }).leadEndpoint;
+// Почта приёмной комиссии берётся из site.json, чтобы адрес не жил в двух местах
+const contactEmail =
+  site.footer.contacts.find((c) => c.href.startsWith("mailto:"))?.href.replace("mailto:", "") ??
+  "ai-priem@rudn.ru";
 
 // Маска российского телефона: любые цифры → «+7 900 123 45 67». 8/пустой ведущий → 7.
 function formatPhone(value: string): string {
@@ -80,7 +84,8 @@ function Consent({ name, required, children }: { name: string; required?: boolea
 }
 
 export default function LeadForm() {
-  const [sent, setSent] = useState(false);
+  // idle → pending → sent | error;  notice — эндпойнт не настроен (заявка НЕ отправлена)
+  const [status, setStatus] = useState<"idle" | "pending" | "sent" | "notice" | "error">("idle");
   const [error, setError] = useState("");
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -88,19 +93,27 @@ export default function LeadForm() {
     setError("");
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
+
+    // Приёмник заявок не подключён — честно об этом говорим, а не показываем «Спасибо»
+    if (!leadEndpoint) {
+      console.log("[LeadForm] заявка НЕ отправлена: leadEndpoint не настроен. Данные формы:", data);
+      setStatus("notice");
+      return;
+    }
+
+    setStatus("pending");
     try {
-      if (leadEndpoint) {
-        const res = await fetch(leadEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        if (!res.ok) throw new Error();
-      }
-      setSent(true);
+      const res = await fetch(leadEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      setStatus("sent");
       form.reset();
     } catch {
-      setError("Не удалось отправить. Попробуйте позже или напишите на ai-priem@rudn.ru.");
+      setStatus("error");
+      setError(`Не удалось отправить. Попробуйте ещё раз или напишите на ${contactEmail}.`);
     }
   }
 
@@ -124,12 +137,30 @@ export default function LeadForm() {
 
           {/* Карточка-форма */}
           <div className="rounded-[15px] border border-[#eee] bg-[#fcfcfc] p-[24px] lg:flex-1 lg:px-[36px] lg:py-[46px]">
-            {sent ? (
+            {status === "sent" ? (
               <div className="flex h-full flex-col items-center justify-center py-[40px] text-center">
                 <p className="text-[20px] font-bold text-ink">Спасибо, заявка отправлена!</p>
                 <p className="mt-[8px] text-[14px] text-[rgba(39,39,39,0.85)]">
                   Менеджер приёмной комиссии свяжется с тобой в течение дня.
                 </p>
+              </div>
+            ) : status === "notice" ? (
+              <div className="flex h-full flex-col items-center justify-center py-[40px] text-center">
+                <p className="text-[20px] font-bold text-ink">Отправка заявок пока не подключена</p>
+                <p className="mt-[8px] text-[14px] text-[rgba(39,39,39,0.85)]">
+                  Приём заявок с сайта скоро заработает. Пока напишите нам на{" "}
+                  <a href={`mailto:${contactEmail}`} className="font-medium text-[#3b63c9] underline">
+                    {contactEmail}
+                  </a>{" "}
+                  — ответим и всё расскажем.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-[20px] h-[45px] rounded-[5px] border border-[#eee] px-[24px] text-[13px] font-bold text-ink hover:bg-[#f5f5f5]"
+                >
+                  Вернуться к форме
+                </button>
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate>
@@ -187,9 +218,10 @@ export default function LeadForm() {
 
                 <button
                   type="submit"
-                  className="mt-[24px] h-[60px] w-full rounded-[5px] bg-lime text-[14px] font-bold text-ink transition-[filter] hover:brightness-95 lg:w-[242px]"
+                  disabled={status === "pending"}
+                  className="mt-[24px] h-[60px] w-full rounded-[5px] bg-lime text-[14px] font-bold text-ink transition-[filter] hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 lg:w-[242px]"
                 >
-                  Отправить заявку
+                  {status === "pending" ? "Отправляем…" : "Отправить заявку"}
                 </button>
               </form>
             )}

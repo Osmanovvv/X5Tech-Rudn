@@ -6,8 +6,23 @@ import { useCallback, useRef, useState } from "react";
 import { asset } from "@/lib/asset";
 import news from "@/content/news.json";
 
-type Item = { tag: string; image: string; title: string; excerpt: string; date: string };
+type Item = {
+  slug: string;
+  title: string;
+  category: string;
+  date: string; // ISO: YYYY-MM-DD
+  cover: string;
+  excerpt: string;
+  body: string;
+};
 const { title, allLabel, items } = news as { title: string; allLabel: string; items: Item[] };
+
+// Правило роста (Task 2.11): в карусели — последние 6 новостей по дате.
+// ISO-даты сравнимы лексикографически, поэтому сортировка строкой корректна.
+const latest = [...items].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6);
+
+// В карточке дата показывается в формате макета: 2026-06-18 → 18.06.2026
+const formatDate = (iso: string) => iso.split("-").reverse().join(".");
 
 const DOTS = 5;
 const backIcon = asset("/img/11-novosti/svg-e2782076.svg");
@@ -15,21 +30,23 @@ const fwdIcon = asset("/img/11-novosti/svg1-c1b79cac.svg");
 
 function NewsCard({ item }: { item: Item }) {
   return (
-    <article className="w-[290px] shrink-0 overflow-hidden rounded-[15px] bg-paper lg:w-[270px]">
+    <article className="w-[290px] shrink-0 snap-start overflow-hidden rounded-[15px] bg-paper lg:w-[270px]">
       <div className="relative aspect-[270/165] overflow-hidden">
         <img
-          src={asset(`/img/11-novosti/${item.image}-640w.webp`)}
+          src={asset(`/img/11-novosti/${item.cover}-640w.webp`)}
           alt=""
           className="absolute inset-0 size-full object-cover"
         />
         <span className="absolute left-[12px] top-[12px] inline-flex h-[25px] items-center rounded-full bg-white px-[17px] font-mono text-[12px] uppercase text-ink">
-          {item.tag}
+          {item.category}
         </span>
       </div>
       <div className="px-[14px] pb-[24px] pt-[16px]">
         <h3 className="text-[16px] font-bold leading-[18px] tracking-[-0.175px] text-ink">{item.title}</h3>
         <p className="mt-[10px] text-[12px] leading-[normal] text-[rgba(39,39,39,0.85)]">{item.excerpt}</p>
-        <p className="mt-[16px] text-[12px] leading-[normal] text-[rgba(39,39,39,0.85)]">{item.date}</p>
+        <p className="mt-[16px] text-[12px] leading-[normal] text-[rgba(39,39,39,0.85)]">
+          {formatDate(item.date)}
+        </p>
       </div>
     </article>
   );
@@ -104,10 +121,10 @@ export default function Novosti() {
         <div
           ref={trackRef}
           onScroll={onScroll}
-          className="mt-[26px] flex gap-[15px] overflow-x-auto scroll-smooth pb-[6px] pl-[15px] pr-[15px] [scrollbar-width:none] lg:mt-[29px] lg:w-[calc(100%-35px)] lg:pl-[40px] lg:pr-0 [&::-webkit-scrollbar]:hidden"
+          className="mt-[26px] flex snap-x snap-mandatory gap-[15px] scroll-pl-[15px] overflow-x-auto scroll-smooth pb-[6px] pl-[15px] pr-[15px] [scrollbar-width:none] lg:mt-[29px] lg:w-[calc(100%-35px)] lg:scroll-pl-[40px] lg:pl-[40px] lg:pr-0 [&::-webkit-scrollbar]:hidden"
         >
-          {items.map((item, i) => (
-            <NewsCard key={i} item={item} />
+          {latest.map((item) => (
+            <NewsCard key={item.slug} item={item} />
           ))}
         </div>
 
