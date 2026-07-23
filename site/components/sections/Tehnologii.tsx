@@ -67,12 +67,8 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
     );
   return (
     <>
-      <img
-        src={img("image2090011509-efbdc704-640w.webp")}
-        alt=""
-        aria-hidden
-        className="absolute left-[-1.1%] top-[8.9%] h-[52.6%] w-[70.4%] max-w-none object-cover"
-      />
+      {/* Порядок слоёв макета (ctx): диск 271:2185 идёт РАНЬШЕ тележки 271:2186 —
+          тележка рисуется поверх, от диска остаётся только серп справа */}
       <div className="absolute left-[38.3%] top-[22.6%] size-[23.2%] rotate-30 -scale-y-100 overflow-hidden rounded-[36px]">
         <img
           src={img("image2090011468-11be8c2c-640w.webp")}
@@ -82,6 +78,12 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
           style={{ left: "-29.45%", top: "-55.57%", width: "157.91%", height: "157.91%" }}
         />
       </div>
+      <img
+        src={img("image2090011509-efbdc704-640w.webp")}
+        alt=""
+        aria-hidden
+        className="absolute left-[-1.1%] top-[8.9%] h-[52.6%] w-[70.4%] max-w-none object-cover"
+      />
     </>
   );
 }
