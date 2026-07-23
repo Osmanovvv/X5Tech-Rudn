@@ -19,7 +19,7 @@ function FooterLogos() {
         src={asset("/img/13-footer/asset-463eeb0a.svg")}
         alt=""
         aria-hidden
-        className="ml-[15px] mr-[7px] h-[10px] w-[10px]"
+        className="ml-[7px] mr-[15px] h-[10px] w-[10px]"
       />
       <img
         src={asset("/img/13-footer/logo-x5-2x.webp")}

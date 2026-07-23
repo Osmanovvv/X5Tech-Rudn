@@ -93,7 +93,7 @@ export default function Novosti() {
         {/* ===== Мобильная: шапка ===== */}
         <div className="px-[15px] pt-[30px] lg:hidden">
           <h2 className="text-center text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
-          <div className="mt-[18px] flex items-center justify-center gap-[24px]">
+          <div className="mt-[18px] flex items-center justify-between">
             <ArrowBtn icon={backIcon} onClick={() => scrollByCard(-1)} label="Предыдущие новости" />
             {AllLink}
             <ArrowBtn icon={fwdIcon} onClick={() => scrollByCard(1)} label="Следующие новости" />

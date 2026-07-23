@@ -35,7 +35,7 @@ export default function Grant() {
         <img
           src={emblem}
           alt="Аналитический центр при Правительстве Российской Федерации"
-          className="mx-auto w-[220px] max-w-full"
+          className="w-full rounded-[10px]"
         />
         <p className="mt-[20px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {LEAD_M}

@@ -73,7 +73,7 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
         aria-hidden
         className="absolute left-[-1.1%] top-[8.9%] h-[52.6%] w-[70.4%] max-w-none object-cover"
       />
-      <div className="absolute left-[34%] top-[18.3%] size-[23.2%] rotate-30 -scale-y-100 overflow-hidden rounded-[36px]">
+      <div className="absolute left-[38.3%] top-[22.6%] size-[23.2%] rotate-30 -scale-y-100 overflow-hidden rounded-[36px]">
         <img
           src={img("image2090011468-11be8c2c-640w.webp")}
           alt=""

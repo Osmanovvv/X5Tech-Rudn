@@ -111,7 +111,7 @@ export default function LeadForm() {
           Оставь заявку – расскажем, как поступить
         </h2>
 
-        <div className="mt-[20px] flex flex-col gap-[20px] lg:mt-[20px] lg:flex-row lg:gap-[30px]">
+        <div className="mt-[20px] flex flex-col gap-[20px] lg:mt-[40px] lg:flex-row lg:gap-[30px]">
           {/* Фото */}
           <div className="overflow-hidden rounded-[15px] lg:h-[662px] lg:w-[581px] lg:shrink-0">
             <img
@@ -133,7 +133,7 @@ export default function LeadForm() {
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate>
-                <p className="whitespace-pre-line text-[18px] font-medium leading-[normal] text-ink">
+                <p className="whitespace-pre-line text-[14px] font-medium leading-[normal] text-ink lg:text-[18px]">
                   {"Менеджер приёмной комиссии\nсвяжется с тобой в течение дня"}
                 </p>
 

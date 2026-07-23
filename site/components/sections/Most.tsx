@@ -73,7 +73,7 @@ export default function Most() {
           СТРАТЕГИЧЕСКИЙ ПАРТНЕР
         </p>
         <h2 className="absolute left-[40px] top-[125px] text-[40px] font-bold leading-[43.2px] tracking-[-0.88px] text-ink">
-          X5 Tech — мост в реальную
+          {"X5 Tech — мост в реальную"}
           <br />
           ИИ-практику
         </h2>
@@ -105,7 +105,7 @@ export default function Most() {
       <div className="px-[15px] pb-[30px] pt-[30px] lg:hidden">
         <p className="font-mono text-[11px] uppercase text-ink">СТРАТЕГИЧЕСКИЙ ПАРТНЕР</p>
         <h2 className="mt-[12px] text-[20px] font-bold leading-[25px] tracking-[-0.5px] text-ink">
-          X5 Tech — мост в реальную
+          {"X5 Tech — мост в реальную"}
           <br />
           ИИ-практику
         </h2>
