@@ -37,7 +37,7 @@ export default function Footer() {
   return (
     <footer className="bg-ink text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
       {/* ===== Десктоп ≥1024: координаты из ctx-13 дословно (центры + translate) ===== */}
-      <div className="relative mx-auto hidden h-[431px] max-w-[1200px] lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[431px] max-w-[1200px] lg:block">
         <div className="absolute left-[40px] top-[54px]">
           <FooterLogos />
         </div>

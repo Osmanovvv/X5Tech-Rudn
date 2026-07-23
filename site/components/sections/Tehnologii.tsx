@@ -105,7 +105,7 @@ export default function Tehnologii() {
   return (
     <section aria-label="Прикоснись к технологиям" className="mt-[70px] bg-white">
       {/* ===== Десктоп: калька 1200×545 ===== */}
-      <div className="relative mx-auto hidden h-[545px] w-[1200px] lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[545px] w-[1200px] lg:block">
         <h2 className="absolute left-[40px] top-[56px] text-[40px] font-bold leading-[43.2px] tracking-[-0.88px] text-ink">
           Прикоснись к технологиям
         </h2>

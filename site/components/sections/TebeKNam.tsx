@@ -63,7 +63,7 @@ export default function TebeKNam() {
   return (
     <section aria-label="Тебе к нам, если ты">
       {/* ===== Десктоп: калька 1200×602 ===== */}
-      <div className="relative mx-auto hidden h-[602px] max-w-[1200px] overflow-hidden bg-white lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[602px] max-w-[1200px] overflow-hidden bg-white lg:block">
         <h2 className="absolute left-[40px] top-[76px] text-[42px] font-bold leading-[normal] tracking-[-1.26px] text-ink">
           Тебе к нам, если ты
         </h2>

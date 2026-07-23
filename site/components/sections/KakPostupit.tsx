@@ -142,7 +142,7 @@ export default function KakPostupit() {
   return (
     <section id="postuplenie" aria-label="Как поступить">
       {/* ===== Десктоп: калька 1120×1507 (зазор до предыдущей секции — 80px) ===== */}
-      <div className="relative mx-auto mt-[80px] hidden h-[1507px] max-w-[1120px] bg-white lg:block">
+      <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[1507px] max-w-[1120px] bg-white lg:block">
         <h2 className="absolute left-0 top-0 text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
           {title}
         </h2>

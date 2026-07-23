@@ -123,7 +123,7 @@ export default function ProgrammaObucheniya() {
   return (
     <section aria-label={title}>
       {/* ===== Десктоп: калька 1130×1879 (зазор до предыдущей секции — 20px по макету) ===== */}
-      <div className="relative mx-auto mt-[20px] hidden h-[1879px] max-w-[1130px] overflow-hidden bg-white lg:block">
+      <div className="calque-1200 relative mx-auto mt-[20px] hidden h-[1879px] max-w-[1130px] overflow-hidden bg-white lg:block">
         {/* Заголовок + бейдж */}
         <h2 className="absolute left-0 right-0 top-[4px] text-center text-[42px] font-bold leading-[normal] tracking-[-1.26px] text-ink">
           {title}

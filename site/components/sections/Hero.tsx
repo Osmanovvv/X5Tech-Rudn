@@ -190,7 +190,7 @@ export default function Hero() {
   return (
     <section aria-label="Факультет искусственного интеллекта РУДН и X5 Tech">
       {/* ===== Десктоп: абсолютная калька 1200×666 (750 минус шапка) ===== */}
-      <div className="relative mx-auto hidden h-[666px] max-w-[1200px] overflow-hidden bg-white lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[666px] max-w-[1200px] overflow-hidden bg-white lg:block">
         <HeroArt />
         {/* display:contents — <picture> не создаёт своего бокса, раскладка img не меняется */}
         <picture className="contents">

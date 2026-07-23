@@ -39,7 +39,7 @@ export default function Prepodavateli() {
   return (
     <section id="prepodavateli" aria-label="Преподаватели и эксперты">
       {/* ===== Десктоп: калька 1115×828 (зазор до предыдущей секции — 80px) ===== */}
-      <div className="relative mx-auto mt-[80px] hidden h-[828px] max-w-[1115px] bg-white lg:block">
+      <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[828px] max-w-[1115px] bg-white lg:block">
         <h2 className="absolute left-0 top-0 text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
           {title}
         </h2>

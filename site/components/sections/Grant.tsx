@@ -18,7 +18,7 @@ export default function Grant() {
   return (
     <section aria-label="Грант" className="bg-[#fcfcfc]">
       {/* ===== Десктоп: калька 1200×310 ===== */}
-      <div className="relative mx-auto hidden h-[310px] w-[1200px] lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[310px] w-[1200px] lg:block">
         <img
           src={emblem}
           alt="Аналитический центр при Правительстве Российской Федерации"

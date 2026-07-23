@@ -68,7 +68,7 @@ export default function Most() {
   return (
     <section aria-label="X5 Tech — мост в реальную ИИ-практику" className="mt-[70px] bg-[#ebeaff]">
       {/* ===== Десктоп: калька 1200×599 ===== */}
-      <div className="relative mx-auto hidden h-[599px] w-[1200px] lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[599px] w-[1200px] lg:block">
         <p className="absolute left-[40px] top-[97px] font-mono text-[12px] uppercase text-ink">
           СТРАТЕГИЧЕСКИЙ ПАРТНЕР
         </p>
