@@ -123,7 +123,7 @@ export default function ProgrammaObucheniya() {
   return (
     <section aria-label={title}>
       {/* ===== Десктоп: калька 1130×1879 (зазор до предыдущей секции — 20px по макету) ===== */}
-      <div className="calque-1200 relative mx-auto mt-[20px] hidden h-[1879px] max-w-[1130px] overflow-hidden bg-white lg:block">
+      <div className="calque-1200 relative mx-auto mt-[20px] hidden h-[1879px] max-w-[1130px] overflow-hidden bg-white md:block">
         {/* Заголовок + бейдж */}
         <h2 className="absolute left-0 right-0 top-[4px] text-center text-[42px] font-bold leading-[normal] tracking-[-1.26px] text-ink">
           {title}
@@ -203,7 +203,7 @@ export default function ProgrammaObucheniya() {
       </div>
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
-      <div className="bg-white px-[15px] pb-[10px] lg:hidden">
+      <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
         <h2 className="pt-[30px] text-center text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
           {title}
         </h2>

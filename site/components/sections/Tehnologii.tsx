@@ -105,7 +105,7 @@ export default function Tehnologii() {
   return (
     <section aria-label="Прикоснись к технологиям" className="mt-[70px] bg-white">
       {/* ===== Десктоп: калька 1200×545 ===== */}
-      <div className="calque-1200 relative mx-auto hidden h-[545px] w-[1200px] lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[545px] w-[1200px] md:block">
         <h2 className="absolute left-[40px] top-[56px] text-[40px] font-bold leading-[43.2px] tracking-[-0.88px] text-ink">
           Прикоснись к технологиям
         </h2>
@@ -125,7 +125,7 @@ export default function Tehnologii() {
       </div>
 
       {/* ===== Мобильная: вертикальный стек ===== */}
-      <div className="bg-white px-[15px] pb-[30px] pt-[30px] lg:hidden">
+      <div className="canvas-320 bg-white px-[15px] pb-[30px] pt-[30px] md:hidden">
         <div className="flex items-center justify-between">
           <h2 className="text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
             Прикоснись

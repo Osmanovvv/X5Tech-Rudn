@@ -142,7 +142,7 @@ export default function KakPostupit() {
   return (
     <section id="postuplenie" aria-label="Как поступить">
       {/* ===== Десктоп: калька 1120×1507 (зазор до предыдущей секции — 80px) ===== */}
-      <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[1507px] max-w-[1120px] bg-white lg:block">
+      <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[1507px] max-w-[1120px] bg-white md:block">
         <h2 className="absolute left-0 top-0 text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
           {title}
         </h2>
@@ -194,7 +194,7 @@ export default function KakPostupit() {
       </div>
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
-      <div className="bg-white px-[15px] pb-[10px] lg:hidden">
+      <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
         <h2 className="pt-[30px] text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
         <p className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {subtitleM}

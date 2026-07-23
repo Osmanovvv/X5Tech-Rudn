@@ -213,7 +213,7 @@ export default function ProgrammaDaet() {
   return (
     <section aria-label="Программа даёт" id="programma">
       {/* ===== Десктоп: калька 1200×602 ===== */}
-      <div className="calque-1200 relative mx-auto hidden h-[602px] max-w-[1200px] overflow-hidden bg-white lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[602px] max-w-[1200px] overflow-hidden bg-white md:block">
         <h2 className="absolute left-[40px] top-[46px] text-[42px] font-bold leading-[normal] tracking-[-1.26px] text-ink">
           Программа даёт
         </h2>
@@ -275,7 +275,7 @@ export default function ProgrammaDaet() {
       </div>
 
       {/* ===== Мобильная: флоу по узлам 2264–3607 ===== */}
-      <div className="relative overflow-hidden bg-white lg:hidden">
+      <div className="canvas-320 relative overflow-hidden bg-white md:hidden">
         <h2 className="ml-[15px] pt-[30px] text-[22px] font-bold leading-[26px] text-ink">
           Программа даёт
         </h2>

@@ -68,7 +68,7 @@ export default function Most() {
   return (
     <section aria-label="X5 Tech — мост в реальную ИИ-практику" className="mt-[70px] bg-[#ebeaff]">
       {/* ===== Десктоп: калька 1200×599 ===== */}
-      <div className="calque-1200 relative mx-auto hidden h-[599px] w-[1200px] lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[599px] w-[1200px] md:block">
         <p className="absolute left-[40px] top-[97px] font-mono text-[12px] uppercase text-ink">
           СТРАТЕГИЧЕСКИЙ ПАРТНЕР
         </p>
@@ -102,7 +102,7 @@ export default function Most() {
       </div>
 
       {/* ===== Мобильная: вертикальный стек ===== */}
-      <div className="px-[15px] pb-[30px] pt-[30px] lg:hidden">
+      <div className="canvas-320 px-[15px] pb-[30px] pt-[30px] md:hidden">
         <p className="font-mono text-[11px] uppercase text-ink">СТРАТЕГИЧЕСКИЙ ПАРТНЕР</p>
         <h2 className="mt-[12px] text-[20px] font-bold leading-[25px] tracking-[-0.5px] text-ink">
           {"X5 Tech — мост в реальную"}

@@ -93,7 +93,7 @@ export default function Treki() {
   return (
     <section id="treki" aria-label="Треки третьего курса">
       {/* ===== Десктоп: калька 1130×475 (зазор до предыдущей секции — 80px по макету) ===== */}
-      <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[475px] max-w-[1130px] overflow-hidden bg-white lg:block">
+      <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[475px] max-w-[1130px] overflow-hidden bg-white md:block">
         <h2 className="absolute left-0 top-0 whitespace-pre-line text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
           {title}
         </h2>
@@ -123,7 +123,7 @@ export default function Treki() {
       </div>
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
-      <div className="bg-white px-[15px] pb-[10px] lg:hidden">
+      <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
         <h2 className="whitespace-pre-line pt-[30px] text-[22px] font-bold leading-[26px] tracking-[-0.3px] text-ink">
           {title}
         </h2>

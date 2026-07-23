@@ -39,7 +39,7 @@ export default function Prepodavateli() {
   return (
     <section id="prepodavateli" aria-label="Преподаватели и эксперты">
       {/* ===== Десктоп: калька 1115×828 (зазор до предыдущей секции — 80px) ===== */}
-      <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[828px] max-w-[1115px] bg-white lg:block">
+      <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[828px] max-w-[1115px] bg-white md:block">
         <h2 className="absolute left-0 top-0 text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
           {title}
         </h2>
@@ -58,7 +58,7 @@ export default function Prepodavateli() {
       </div>
 
       {/* ===== Мобильная: вертикальный стек ===== */}
-      <div className="bg-white px-[15px] pb-[10px] lg:hidden">
+      <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
         <h2 className="pt-[30px] text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
         <p className="mt-[12px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {subtitleM}

@@ -28,11 +28,9 @@ const DOTS = 5;
 const backIcon = asset("/img/11-novosti/svg-e2782076.svg");
 const fwdIcon = asset("/img/11-novosti/svg1-c1b79cac.svg");
 
-// 1024–1199: жёсткие 270px не дают уместить ровно 4 карточки — 4-я срезается краем окна.
-// В этом диапазоне ширина считается от дорожки, на >=1200 возвращается 270px из макета.
 function NewsCard({ item }: { item: Item }) {
   return (
-    <article className="w-[290px] shrink-0 snap-start overflow-hidden rounded-[15px] bg-paper lg:max-dt:w-[calc((100%-45px)/4)] dt:w-[270px]">
+    <article className="w-[290px] shrink-0 snap-start overflow-hidden rounded-[15px] bg-paper md:w-[270px]">
       <div className="relative aspect-[270/165] overflow-hidden">
         <img
           src={asset(`/img/11-novosti/${item.cover}-640w.webp`)}
@@ -99,9 +97,9 @@ export default function Novosti() {
 
   return (
     <section id="novosti" aria-label={title} className="mt-[60px] bg-white">
-      <div className="mx-auto max-w-[1200px]">
+      <div className="canvas-320 calque-fluid mx-auto max-w-[1200px]">
         {/* ===== Десктоп: шапка ===== */}
-        <div className="hidden items-center justify-between pl-[40px] pr-[35px] pt-[55px] lg:flex">
+        <div className="hidden items-center justify-between pl-[40px] pr-[35px] pt-[55px] md:flex">
           <h2 className="text-[40px] font-bold leading-[43.2px] tracking-[-0.88px] text-ink">{title}</h2>
           <div className="flex items-center gap-[15px]">
             {Controls}
@@ -110,7 +108,7 @@ export default function Novosti() {
         </div>
 
         {/* ===== Мобильная: шапка ===== */}
-        <div className="px-[15px] pt-[30px] lg:hidden">
+        <div className="px-[15px] pt-[30px] md:hidden">
           <h2 className="text-center text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
           <div className="mt-[18px] flex items-center justify-between">
             <ArrowBtn icon={backIcon} onClick={() => scrollByCard(-1)} label="Предыдущие новости" />
@@ -123,7 +121,7 @@ export default function Novosti() {
         <div
           ref={trackRef}
           onScroll={onScroll}
-          className="mt-[26px] flex snap-x snap-mandatory gap-[15px] scroll-pl-[15px] overflow-x-auto scroll-smooth pb-[6px] pl-[15px] pr-[15px] [scrollbar-width:none] lg:mt-[29px] lg:w-[calc(100%-35px)] lg:scroll-pl-[40px] lg:pl-[40px] lg:pr-0 [&::-webkit-scrollbar]:hidden"
+          className="mt-[26px] flex snap-x snap-mandatory gap-[15px] scroll-pl-[15px] overflow-x-auto scroll-smooth pb-[6px] pl-[15px] pr-[15px] [scrollbar-width:none] md:mt-[29px] md:w-[calc(100%-35px)] md:scroll-pl-[40px] md:pl-[40px] md:pr-0 [&::-webkit-scrollbar]:hidden"
         >
           {latest.map((item) => (
             <NewsCard key={item.slug} item={item} />
@@ -131,7 +129,7 @@ export default function Novosti() {
         </div>
 
         {/* ===== Точки ===== */}
-        <div className="mt-[24px] flex items-center justify-center gap-[12px] pb-[10px] lg:mt-[33px] lg:pb-[68px]">
+        <div className="mt-[24px] flex items-center justify-center gap-[12px] pb-[10px] md:mt-[33px] md:pb-[68px]">
           {Array.from({ length: DOTS }).map((_, i) => (
             <span
               key={i}

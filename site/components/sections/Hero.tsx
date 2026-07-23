@@ -190,7 +190,7 @@ export default function Hero() {
   return (
     <section aria-label="Факультет искусственного интеллекта РУДН и X5 Tech">
       {/* ===== Десктоп: абсолютная калька 1200×666 (750 минус шапка) ===== */}
-      <div className="calque-1200 relative mx-auto hidden h-[666px] max-w-[1200px] overflow-hidden bg-white lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[666px] max-w-[1200px] overflow-hidden bg-white md:block">
         <HeroArt />
         {/* display:contents — <picture> не создаёт своего бокса, раскладка img не меняется */}
         <picture className="contents">
@@ -235,7 +235,7 @@ export default function Hero() {
 
       {/* ===== Мобильная: верхняя текстовая зона фиксирована (284px, как в макете),
           арт в потоке с сохранением пропорций — на 321–430 растёт вниз, ничего не кропится ===== */}
-      <div className="relative overflow-hidden bg-white lg:hidden">
+      <div className="canvas-320 relative overflow-hidden bg-white md:hidden">
         <div className="relative h-[284px]">
           <div className="absolute left-[15px] top-[31px]">
             <Badge mobile />

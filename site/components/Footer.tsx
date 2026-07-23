@@ -37,7 +37,7 @@ export default function Footer() {
   return (
     <footer className="bg-ink text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
       {/* ===== Десктоп ≥1024: координаты из ctx-13 дословно (центры + translate) ===== */}
-      <div className="calque-1200 relative mx-auto hidden h-[431px] max-w-[1200px] lg:block">
+      <div className="calque-1200 relative mx-auto hidden h-[431px] max-w-[1200px] md:block">
         <div className="absolute left-[40px] top-[54px]">
           <FooterLogos />
         </div>
@@ -120,7 +120,7 @@ export default function Footer() {
       </div>
 
       {/* ===== Мобильная стопка: точные интервалы из mobile-abs.json (футер 17232–18535) ===== */}
-      <div className="px-[15px] pb-[129px] pt-[33px] lg:hidden">
+      <div className="canvas-320 px-[15px] pb-[129px] pt-[33px] md:hidden">
         <FooterLogos />
         <p className="mt-[20px] w-[247px] whitespace-pre-line text-[12px] leading-[14px]">{f.description}</p>
 

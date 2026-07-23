@@ -51,7 +51,7 @@ function Field({
     <div className={half ? "" : "w-full"}>
       <label
         htmlFor={name}
-        className="mb-[5px] block text-[12px] text-[rgba(39,39,39,0.85)] lg:text-[10px] lg:uppercase"
+        className="mb-[5px] block text-[12px] text-[rgba(39,39,39,0.85)] md:text-[10px] md:uppercase"
       >
         {label}
       </label>
@@ -119,16 +119,14 @@ export default function LeadForm() {
 
   return (
     <section id="forma" aria-label="Оставь заявку" className="bg-white">
-      <div className="mx-auto max-w-[1200px] px-[15px] py-[30px] lg:px-[40px] lg:pb-[48px] lg:pt-[40px]">
-        <h2 className="text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink lg:text-[40px] lg:leading-[normal] lg:tracking-[-0.88px]">
+      <div className="canvas-320 calque-fluid mx-auto max-w-[1200px] px-[15px] py-[30px] md:px-[40px] md:pb-[48px] md:pt-[40px]">
+        <h2 className="text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink md:text-[40px] md:leading-[normal] md:tracking-[-0.88px]">
           Оставь заявку – расскажем, как поступить
         </h2>
 
-        <div className="mt-[20px] flex flex-col gap-[20px] lg:mt-[40px] lg:flex-row lg:gap-[30px]">
+        <div className="mt-[20px] flex flex-col gap-[20px] md:mt-[40px] md:flex-row md:gap-[30px]">
           {/* Фото */}
-          {/* 1024–1199: фото фиксированных 581px оставляло форме ~260px. Здесь оно
-              пропорциональное, размеры макета возвращаются на >=1200. */}
-          <div className="overflow-hidden rounded-[15px] lg:max-dt:w-[48%] lg:shrink-0 dt:h-[662px] dt:w-[581px]">
+          <div className="overflow-hidden rounded-[15px] md:h-[662px] md:w-[581px] md:shrink-0">
             <img
               src={photo}
               alt="Абитуриентка оставляет заявку на программу"
@@ -138,7 +136,7 @@ export default function LeadForm() {
           </div>
 
           {/* Карточка-форма */}
-          <div className="rounded-[15px] border border-[#eee] bg-[#fcfcfc] p-[24px] lg:flex-1 lg:max-dt:px-[24px] lg:max-dt:py-[32px] dt:px-[36px] dt:py-[46px]">
+          <div className="rounded-[15px] border border-[#eee] bg-[#fcfcfc] p-[24px] md:flex-1 md:px-[36px] md:py-[46px]">
             {status === "sent" ? (
               <div className="flex h-full flex-col items-center justify-center py-[40px] text-center">
                 <p className="text-[20px] font-bold text-ink">Спасибо, заявка отправлена!</p>
@@ -166,12 +164,12 @@ export default function LeadForm() {
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate>
-                <p className="whitespace-pre-line text-[14px] font-medium leading-[normal] text-ink lg:text-[18px]">
+                <p className="whitespace-pre-line text-[14px] font-medium leading-[normal] text-ink md:text-[18px]">
                   {"Менеджер приёмной комиссии\nсвяжется с тобой в течение дня"}
                 </p>
 
                 <div className="mt-[20px] flex flex-col gap-[19px]">
-                  <div className="flex flex-col gap-[19px] dt:flex-row dt:gap-[10px]">
+                  <div className="flex flex-col gap-[19px] md:flex-row md:gap-[10px]">
                     <Field name="name" label="Ваше имя" placeholder="Иван" required half />
                     <Field name="surname" label="Фамилия" placeholder="Иванов" half />
                   </div>
@@ -190,7 +188,7 @@ export default function LeadForm() {
                   <div>
                     <label
                       htmlFor="comment"
-                      className="mb-[5px] block text-[12px] text-[rgba(39,39,39,0.85)] lg:text-[10px] lg:uppercase"
+                      className="mb-[5px] block text-[12px] text-[rgba(39,39,39,0.85)] md:text-[10px] md:uppercase"
                     >
                       Комментарий/вопрос
                     </label>
@@ -221,7 +219,7 @@ export default function LeadForm() {
                 <button
                   type="submit"
                   disabled={status === "pending"}
-                  className="mt-[24px] h-[60px] w-full rounded-[5px] bg-lime text-[14px] font-bold text-ink transition-[filter] hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 lg:w-[242px]"
+                  className="mt-[24px] h-[60px] w-full rounded-[5px] bg-lime text-[14px] font-bold text-ink transition-[filter] hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 md:w-[242px]"
                 >
                   {status === "pending" ? "Отправляем…" : "Отправить заявку"}
                 </button>
