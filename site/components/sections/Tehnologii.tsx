@@ -110,9 +110,9 @@ export default function Tehnologii() {
           Прикоснись к технологиям
         </h2>
         <img
-          src={img("image5-85a815c7-640w.webp")}
+          src={img("x5tech-logo.webp")}
           alt="X5 Tech"
-          className="absolute left-[606px] top-[60px] h-[33px] w-[113px] object-fill"
+          className="absolute left-[610px] top-[60px] h-[33px] w-auto"
         />
         <p className="absolute left-[40px] top-[113px] whitespace-pre-line text-[16px] leading-[20px] text-[rgba(39,39,39,0.85)]">
           {"Вот несколько направлений над которыми работает\nбольшая команда инженеров компании"}
@@ -132,9 +132,9 @@ export default function Tehnologii() {
             <br />к технологиям
           </h2>
           <img
-            src={img("image5-85a815c7-640w.webp")}
+            src={img("x5tech-logo.webp")}
             alt="X5 Tech"
-            className="mt-[2px] h-[24px] w-[82px] object-fill"
+            className="mt-[2px] h-[24px] w-auto"
           />
         </div>
         <p className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">

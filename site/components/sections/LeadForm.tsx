@@ -2,7 +2,7 @@
 // Функциональная форма (client): поля имя/фамилия/почта/телефон/комментарий, 2 чекбокса согласий,
 // кнопка. Отправка на site.leadEndpoint (пока null → локальный экран «спасибо»). id=forma (якорь навигации).
 "use client";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { asset } from "@/lib/asset";
 import site from "@/content/site.json";
 
@@ -31,8 +31,7 @@ function Field({
   type = "text",
   required,
   half,
-  value,
-  onChange,
+  onInput,
   inputMode,
 }: {
   name: string;
@@ -41,8 +40,7 @@ function Field({
   type?: string;
   required?: boolean;
   half?: boolean;
-  value?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onInput?: (e: FormEvent<HTMLInputElement>) => void;
   inputMode?: "text" | "tel" | "email" | "numeric";
 }) {
   return (
@@ -60,8 +58,7 @@ function Field({
         inputMode={inputMode}
         required={required}
         placeholder={placeholder}
-        value={value}
-        onChange={onChange}
+        onInput={onInput}
         className="h-[42px] w-full rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] text-[13px] text-ink outline-none placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835]"
       />
     </div>
@@ -85,7 +82,6 @@ function Consent({ name, required, children }: { name: string; required?: boolea
 export default function LeadForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
-  const [phone, setPhone] = useState("");
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -103,7 +99,6 @@ export default function LeadForm() {
       }
       setSent(true);
       form.reset();
-      setPhone("");
     } catch {
       setError("Не удалось отправить. Попробуйте позже или напишите на ai-priem@rudn.ru.");
     }
@@ -155,8 +150,9 @@ export default function LeadForm() {
                     type="tel"
                     inputMode="tel"
                     required
-                    value={phone}
-                    onChange={(e) => setPhone(formatPhone(e.target.value))}
+                    onInput={(e) => {
+                      e.currentTarget.value = formatPhone(e.currentTarget.value);
+                    }}
                   />
                   <div>
                     <label
