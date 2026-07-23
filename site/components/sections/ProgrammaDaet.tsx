@@ -275,13 +275,15 @@ export default function ProgrammaDaet() {
       </div>
 
       {/* ===== Мобильная: флоу по узлам 2264–3607 ===== */}
-      <div className="relative overflow-hidden bg-white lg:hidden">
+      <div className="stack-mobile relative overflow-hidden bg-white lg:hidden">
         <h2 className="ml-[15px] pt-[30px] text-[22px] font-bold leading-[26px] text-ink">
           Программа даёт
         </h2>
 
         {/* Лавандовая карта 290×520 (в потоке, абсолюты внутри) */}
-        <div className="relative mx-[15px] mt-[20px] h-[520px] rounded-[15px] bg-[#f0efff]">
+        {/* Внутри карты абсолютные координаты под 290px — на планшете ограничиваем ширину,
+            иначе контент липнет к левому краю, а справа остаётся пустая лаванда */}
+        <div className="relative mx-[15px] mt-[20px] h-[520px] rounded-[15px] bg-[#f0efff] sm:mx-auto sm:max-w-[360px]">
           <p className="absolute left-[20px] top-[25px] whitespace-pre-line text-[14px] font-bold leading-[17px] text-black">
             {"2 специалиста\nв одном дипломе"}
           </p>
@@ -314,7 +316,7 @@ export default function ProgrammaDaet() {
         </div>
 
         {/* 5 карточек */}
-        <div className="mx-[15px] mt-[15px] flex flex-col gap-[15px] pb-[30px]">
+        <div className="mx-[15px] mt-[15px] flex flex-col gap-[15px] pb-[30px] md:mx-[32px] sm:grid sm:grid-cols-2 md:gap-[20px]">
           {[
             { c: CARDS[0], mtext: "Обучение вместе с X5 Tech – это не экскурсии в офис раз\nв год, а работа с реальными задачами, которые подготовят тебя к карьере.", h: 129, tW: 166 },
             { c: CARDS[1], mtext: "С первого курса работаешь\nнад реальными задачами,\nа не абстрактными упражнениями", h: 129, tW: 177 },

@@ -194,14 +194,15 @@ export default function KakPostupit() {
       </div>
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
-      <div className="bg-white px-[15px] pb-[10px] lg:hidden">
+      {/* md: = 768–1023 (ветка скрыта на lg) */}
+      <div className="stack-mobile bg-white px-[15px] pb-[10px] md:px-[32px] lg:hidden">
         <h2 className="pt-[30px] text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
         <p className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {subtitleM}
         </p>
 
-        {/* Статы стеком */}
-        <div className="mt-[20px] flex flex-col gap-[10px]">
+        {/* Статы стеком; на планшете — 2 колонки, иначе полосы во всю ширину с пустотой */}
+        <div className="mt-[20px] flex flex-col gap-[10px] sm:grid sm:grid-cols-2 md:gap-[12px]">
           <div className="relative h-[100px] rounded-[14px] bg-[#f0efff]">
             <p className="absolute left-[20px] top-[20px] text-[10px] font-medium uppercase leading-[15px] text-ink">
               {price.label}
@@ -226,7 +227,7 @@ export default function KakPostupit() {
         </div>
 
         {/* Таймлайны */}
-        <div className="mt-[26px] flex flex-col gap-[26px]">
+        <div className="mt-[26px] flex flex-col gap-[26px] sm:grid sm:grid-cols-2 md:gap-x-[40px]">
           <MobileColumn col={budget} />
           <MobileColumn col={contract} />
         </div>
@@ -236,7 +237,7 @@ export default function KakPostupit() {
         <p className="mt-[6px] whitespace-pre-line text-[12px] leading-[16px] text-ink">
           {exams.captionM || exams.caption}
         </p>
-        <div className="mt-[16px] flex flex-col gap-[16px]">
+        <div className="mt-[16px] flex flex-col gap-[16px] sm:grid sm:grid-cols-2">
           {exams.rows.map((r, i) => (
             <div key={i} className="overflow-hidden rounded-[14px] border border-[#ececec]">
               <div className="flex h-[42px] items-center justify-center bg-lime text-[14px] font-medium text-ink">

@@ -123,7 +123,7 @@ export default function Treki() {
       </div>
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
-      <div className="bg-white px-[15px] pb-[10px] lg:hidden">
+      <div className="stack-mobile bg-white px-[15px] pb-[10px] lg:hidden">
         <h2 className="whitespace-pre-line pt-[30px] text-[22px] font-bold leading-[26px] tracking-[-0.3px] text-ink">
           {title}
         </h2>
@@ -132,7 +132,7 @@ export default function Treki() {
         </p>
 
         <div
-          className="relative mt-[20px] w-full overflow-hidden rounded-[10px]"
+          className="relative mt-[20px] w-full overflow-hidden rounded-[10px] sm:mx-auto sm:max-w-[440px]"
           style={{ aspectRatio: "290/335", transform: "scaleX(-1)" }}
         >
           <img
@@ -143,7 +143,7 @@ export default function Treki() {
           />
         </div>
 
-        <div className="mt-[20px] flex flex-col gap-[20px]">
+        <div className="mt-[20px] flex flex-col gap-[20px] sm:grid sm:grid-cols-2 md:mx-auto md:max-w-[780px]">
           {TRACKS.map((track, i) => (
             <TrackCard key={i} track={track} i={i} mobile />
           ))}

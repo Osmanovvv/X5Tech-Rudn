@@ -102,7 +102,7 @@ export default function Most() {
       </div>
 
       {/* ===== Мобильная: вертикальный стек ===== */}
-      <div className="px-[15px] pb-[30px] pt-[30px] lg:hidden">
+      <div className="stack-mobile px-[15px] pb-[30px] pt-[30px] md:px-[32px] lg:hidden">
         <p className="font-mono text-[11px] uppercase text-ink">СТРАТЕГИЧЕСКИЙ ПАРТНЕР</p>
         <h2 className="mt-[12px] text-[20px] font-bold leading-[25px] tracking-[-0.5px] text-ink">
           {"X5 Tech — мост в реальную"}
@@ -113,7 +113,8 @@ export default function Most() {
           {"X5 Tech — технологический центр X5,\nкрупнейшего ритейлера России. ИИ тут —\nинструмент, который обеспечивает работу\n24 000+ магазинов и сотен тысяч сотрудников."}
         </p>
 
-        <div className="mt-[24px] flex flex-col gap-[20px]">
+        {/* md: = 768–1023 (ветка скрыта на lg): статы в 2 колонки, а не узкой лентой слева */}
+        <div className="mt-[24px] flex flex-col gap-[20px] sm:grid sm:grid-cols-2 md:gap-x-[40px] md:gap-y-[28px]">
           {STATS_M.map((s) => (
             <div key={s.num}>
               <p className="text-[26px] font-bold leading-none text-ink">{s.num}</p>

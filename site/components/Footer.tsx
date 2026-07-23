@@ -120,7 +120,8 @@ export default function Footer() {
       </div>
 
       {/* ===== Мобильная стопка: точные интервалы из mobile-abs.json (футер 17232–18535) ===== */}
-      <div className="px-[15px] pb-[129px] pt-[33px] lg:hidden">
+      {/* md: = 768–1023 (ветка скрыта на lg): колонки в 2 ряда вместо одной узкой ленты */}
+      <div className="stack-mobile px-[15px] pb-[129px] pt-[33px] sm:grid sm:grid-cols-2 md:gap-x-[48px] md:px-[32px] md:pb-[60px] lg:hidden">
         <FooterLogos />
         <p className="mt-[20px] w-[247px] whitespace-pre-line text-[12px] leading-[14px]">{f.description}</p>
 

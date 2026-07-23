@@ -58,12 +58,13 @@ export default function Prepodavateli() {
       </div>
 
       {/* ===== Мобильная: вертикальный стек ===== */}
-      <div className="bg-white px-[15px] pb-[10px] lg:hidden">
+      {/* Мобильная ветка скрыта на lg, поэтому здесь md: = ровно 768–1023 (планшет) */}
+      <div className="stack-mobile bg-white px-[15px] pb-[10px] md:px-[32px] lg:hidden">
         <h2 className="pt-[30px] text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
         <p className="mt-[12px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {subtitleM}
         </p>
-        <div className="mt-[20px] flex flex-col gap-[20px]">
+        <div className="mt-[20px] flex flex-col gap-[20px] sm:grid sm:grid-cols-2 md:mx-auto md:max-w-[780px]">
           {list.map((t, i) => (
             <TeacherCard key={i} t={t} />
           ))}

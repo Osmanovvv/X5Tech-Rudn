@@ -111,7 +111,7 @@ export default function TebeKNam() {
       </div>
 
       {/* ===== Мобильная: флоу по узлам 884–2264 ===== */}
-      <div className="relative overflow-hidden bg-white lg:hidden">
+      <div className="stack-mobile relative overflow-hidden bg-white lg:hidden">
         <h2 className="ml-[15px] pt-[30px] text-[22px] font-bold leading-[26px] text-ink">
           Тебе к нам, если ты
         </h2>
@@ -121,7 +121,8 @@ export default function TebeKNam() {
           aria-hidden
           className="ml-[134px] mt-[1px] h-[2px] w-[80px]"
         />
-        <div className="mx-[15px] mt-[20px] flex flex-col gap-[15px]">
+        {/* md: = 768–1023 (ветка скрыта на lg): 4 карточки в 2 колонки вместо ленты */}
+        <div className="mx-[15px] mt-[20px] flex flex-col gap-[15px] md:mx-[32px] sm:grid sm:grid-cols-2 md:gap-[20px] md:mx-auto md:max-w-[780px]">
           {CARDS.map((card, i) => (
             <div
               key={card.img}
