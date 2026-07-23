@@ -1,6 +1,7 @@
 import Grant from "@/components/sections/Grant";
 import Hero from "@/components/sections/Hero";
 import KakPostupit from "@/components/sections/KakPostupit";
+import LeadForm from "@/components/sections/LeadForm";
 import Most from "@/components/sections/Most";
 import Novosti from "@/components/sections/Novosti";
 import Prepodavateli from "@/components/sections/Prepodavateli";
@@ -24,6 +25,7 @@ export default function Home() {
       <Tehnologii />
       <Grant />
       <Novosti />
+      <LeadForm />
     </main>
   );
 }
