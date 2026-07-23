@@ -1,3 +1,4 @@
+import Grant from "@/components/sections/Grant";
 import Hero from "@/components/sections/Hero";
 import KakPostupit from "@/components/sections/KakPostupit";
 import Most from "@/components/sections/Most";
@@ -20,6 +21,7 @@ export default function Home() {
       <Prepodavateli />
       <Most />
       <Tehnologii />
+      <Grant />
     </main>
   );
 }
