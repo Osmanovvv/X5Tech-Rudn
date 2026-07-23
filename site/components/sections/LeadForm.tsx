@@ -126,7 +126,9 @@ export default function LeadForm() {
 
         <div className="mt-[20px] flex flex-col gap-[20px] lg:mt-[40px] lg:flex-row lg:gap-[30px]">
           {/* Фото */}
-          <div className="overflow-hidden rounded-[15px] lg:h-[662px] lg:w-[581px] lg:shrink-0">
+          {/* 1024–1199: фото фиксированных 581px оставляло форме ~260px. Здесь оно
+              пропорциональное, размеры макета возвращаются на >=1200. */}
+          <div className="overflow-hidden rounded-[15px] lg:max-dt:w-[48%] lg:shrink-0 dt:h-[662px] dt:w-[581px]">
             <img
               src={photo}
               alt="Абитуриентка оставляет заявку на программу"
@@ -136,7 +138,7 @@ export default function LeadForm() {
           </div>
 
           {/* Карточка-форма */}
-          <div className="rounded-[15px] border border-[#eee] bg-[#fcfcfc] p-[24px] lg:flex-1 lg:px-[36px] lg:py-[46px]">
+          <div className="rounded-[15px] border border-[#eee] bg-[#fcfcfc] p-[24px] lg:flex-1 lg:max-dt:px-[24px] lg:max-dt:py-[32px] dt:px-[36px] dt:py-[46px]">
             {status === "sent" ? (
               <div className="flex h-full flex-col items-center justify-center py-[40px] text-center">
                 <p className="text-[20px] font-bold text-ink">Спасибо, заявка отправлена!</p>
@@ -169,7 +171,7 @@ export default function LeadForm() {
                 </p>
 
                 <div className="mt-[20px] flex flex-col gap-[19px]">
-                  <div className="flex flex-col gap-[19px] lg:flex-row lg:gap-[10px]">
+                  <div className="flex flex-col gap-[19px] dt:flex-row dt:gap-[10px]">
                     <Field name="name" label="Ваше имя" placeholder="Иван" required half />
                     <Field name="surname" label="Фамилия" placeholder="Иванов" half />
                   </div>

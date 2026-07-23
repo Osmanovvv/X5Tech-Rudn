@@ -14,6 +14,10 @@
 
   --font-sans: var(--font-x5), system-ui, arial, sans-serif;
   --font-mono: var(--font-plex), ui-monospace, monospace;
+
+  /* Макетная точка десктопа. Нужен именно именованный брейкпоинт: произвольный
+     min-[1200px]: Tailwind сортирует ДО lg и он не переопределяет lg-значения. */
+  --breakpoint-dt: 1200px;
 }
 
 /* Контентная колонка: в макете фрейм 1200 с полями 40 → контент 1120 */

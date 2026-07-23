@@ -28,9 +28,11 @@ const DOTS = 5;
 const backIcon = asset("/img/11-novosti/svg-e2782076.svg");
 const fwdIcon = asset("/img/11-novosti/svg1-c1b79cac.svg");
 
+// 1024–1199: жёсткие 270px не дают уместить ровно 4 карточки — 4-я срезается краем окна.
+// В этом диапазоне ширина считается от дорожки, на >=1200 возвращается 270px из макета.
 function NewsCard({ item }: { item: Item }) {
   return (
-    <article className="w-[290px] shrink-0 snap-start overflow-hidden rounded-[15px] bg-paper lg:w-[270px]">
+    <article className="w-[290px] shrink-0 snap-start overflow-hidden rounded-[15px] bg-paper lg:max-dt:w-[calc((100%-45px)/4)] dt:w-[270px]">
       <div className="relative aspect-[270/165] overflow-hidden">
         <img
           src={asset(`/img/11-novosti/${item.cover}-640w.webp`)}

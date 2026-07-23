@@ -99,7 +99,9 @@ export default function Header() {
           </a>
 
           {/* Десктопное меню: позиции из макета (первый пункт на 378px секции, шаги 46/46/52) */}
-          <nav className="ml-[121px] flex shrink items-center gap-x-[46px] text-[13px] max-lg:hidden">
+          {/* 1024–1199: отступы макета (121/46) не влезают — кнопка наезжает на «Новости».
+              Сжимаем их в этом диапазоне, на >=1200 возвращаем значения макета. */}
+          <nav className="ml-[40px] flex shrink items-center gap-x-[28px] text-[13px] max-lg:hidden dt:ml-[121px] dt:gap-x-[46px]">
             {NAV.map((item, i) => (
               <a
                 key={item.href}
