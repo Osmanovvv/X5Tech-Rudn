@@ -126,7 +126,7 @@ export default function Tehnologii() {
 
       {/* ===== Мобильная: вертикальный стек ===== */}
       <div className="bg-white px-[15px] pb-[30px] pt-[30px] lg:hidden">
-        <div className="flex items-start justify-between">
+        <div className="flex items-center justify-between">
           <h2 className="text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
             Прикоснись
             <br />к технологиям
@@ -134,7 +134,7 @@ export default function Tehnologii() {
           <img
             src={img("x5tech-logo.webp")}
             alt="X5 Tech"
-            className="mt-[2px] h-[24px] w-auto"
+            className="h-[26px] w-auto shrink-0"
           />
         </div>
         <p className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
