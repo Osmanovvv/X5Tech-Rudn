@@ -31,14 +31,13 @@ export default function Grant() {
       </div>
 
       {/* ===== Мобильная: изображение сверху, текст под ним ===== */}
-      {/* md: = 768–1023 — эмблема и текст рядом, как на десктопе, а не друг под другом */}
-      <div className="stack-mobile px-[15px] pb-[24px] pt-[24px] md:flex md:items-center md:gap-[32px] md:px-[32px] lg:hidden">
+      <div className="px-[15px] pb-[24px] pt-[24px] lg:hidden">
         <img
           src={emblem}
           alt="Аналитический центр при Правительстве Российской Федерации"
-          className="w-full rounded-[10px] md:w-[45%] md:shrink-0"
+          className="w-full rounded-[10px]"
         />
-        <p className="mt-[20px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)] md:mt-0">
+        <p className="mt-[20px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {LEAD_M}
           <span className="font-bold text-ink">{BOLD_M}</span>
         </p>

@@ -125,8 +125,7 @@ export default function Tehnologii() {
       </div>
 
       {/* ===== Мобильная: вертикальный стек ===== */}
-      {/* Мобильная ветка скрыта на lg, поэтому здесь md: = ровно 768–1023 (планшет) */}
-      <div className="stack-mobile bg-white px-[15px] pb-[30px] pt-[30px] md:px-[32px] lg:hidden">
+      <div className="bg-white px-[15px] pb-[30px] pt-[30px] lg:hidden">
         <div className="flex items-center justify-between">
           <h2 className="text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
             Прикоснись
@@ -141,7 +140,7 @@ export default function Tehnologii() {
         <p className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {"Вот несколько направлений над которыми\nработает большая команда инженеров\nкомпании"}
         </p>
-        <div className="mt-[20px] flex flex-col gap-[20px] sm:grid sm:grid-cols-2 md:mx-auto md:max-w-[780px]">
+        <div className="mt-[20px] flex flex-col gap-[20px]">
           {CARDS.map((_, i) => (
             <TechCard key={i} i={i} mobile />
           ))}

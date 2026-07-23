@@ -235,9 +235,7 @@ export default function Hero() {
 
       {/* ===== Мобильная: верхняя текстовая зона фиксирована (284px, как в макете),
           арт в потоке с сохранением пропорций — на 321–430 растёт вниз, ничего не кропится ===== */}
-      {/* md: = 768–1023 — текстовая зона свёрстана абсолютами под 290px, поэтому колонку
-          ограничиваем: иначе текст липнет к левому краю, а справа полоса пустоты */}
-      <div className="stack-mobile relative overflow-hidden bg-white sm:mx-auto sm:max-w-[600px] lg:hidden">
+      <div className="relative overflow-hidden bg-white lg:hidden">
         <div className="relative h-[284px]">
           <div className="absolute left-[15px] top-[31px]">
             <Badge mobile />

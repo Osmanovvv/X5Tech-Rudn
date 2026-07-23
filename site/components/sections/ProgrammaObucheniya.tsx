@@ -203,8 +203,7 @@ export default function ProgrammaObucheniya() {
       </div>
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
-      {/* md: = 768–1023 — колонка ограничена, иначе строки и фото растягиваются на всю ширину */}
-      <div className="stack-mobile bg-white px-[15px] pb-[10px] sm:mx-auto sm:max-w-[640px] lg:hidden">
+      <div className="bg-white px-[15px] pb-[10px] lg:hidden">
         <h2 className="pt-[30px] text-center text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
           {title}
         </h2>
