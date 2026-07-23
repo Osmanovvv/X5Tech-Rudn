@@ -104,7 +104,7 @@ export default function Novosti() {
         <div
           ref={trackRef}
           onScroll={onScroll}
-          className="mt-[26px] flex gap-[15px] overflow-x-auto scroll-smooth pb-[6px] pl-[15px] pr-[15px] [scrollbar-width:none] lg:mt-[29px] lg:pl-[40px] lg:pr-[40px] [&::-webkit-scrollbar]:hidden"
+          className="mt-[26px] flex gap-[15px] overflow-x-auto scroll-smooth pb-[6px] pl-[15px] pr-[15px] [scrollbar-width:none] lg:mt-[29px] lg:w-[calc(100%-35px)] lg:pl-[40px] lg:pr-0 [&::-webkit-scrollbar]:hidden"
         >
           {items.map((item, i) => (
             <NewsCard key={i} item={item} />
