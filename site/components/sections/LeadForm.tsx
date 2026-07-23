@@ -2,12 +2,27 @@
 // Функциональная форма (client): поля имя/фамилия/почта/телефон/комментарий, 2 чекбокса согласий,
 // кнопка. Отправка на site.leadEndpoint (пока null → локальный экран «спасибо»). id=forma (якорь навигации).
 "use client";
-import { useState, type FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { asset } from "@/lib/asset";
 import site from "@/content/site.json";
 
 const photo = asset("/img/12-forma/image2090011425-893213cd-1024w.webp");
 const leadEndpoint = (site as { leadEndpoint: string | null }).leadEndpoint;
+
+// Маска российского телефона: любые цифры → «+7 900 123 45 67». 8/пустой ведущий → 7.
+function formatPhone(value: string): string {
+  let digits = value.replace(/\D/g, "");
+  if (!digits) return "";
+  if (digits[0] === "8") digits = "7" + digits.slice(1);
+  if (digits[0] !== "7") digits = "7" + digits;
+  const rest = digits.slice(1, 11); // до 10 цифр после «7»
+  let out = "+7";
+  if (rest.length) out += " " + rest.slice(0, 3);
+  if (rest.length > 3) out += " " + rest.slice(3, 6);
+  if (rest.length > 6) out += " " + rest.slice(6, 8);
+  if (rest.length > 8) out += " " + rest.slice(8, 10);
+  return out;
+}
 
 function Field({
   name,
@@ -16,6 +31,9 @@ function Field({
   type = "text",
   required,
   half,
+  value,
+  onChange,
+  inputMode,
 }: {
   name: string;
   label: string;
@@ -23,6 +41,9 @@ function Field({
   type?: string;
   required?: boolean;
   half?: boolean;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  inputMode?: "text" | "tel" | "email" | "numeric";
 }) {
   return (
     <div className={half ? "" : "w-full"}>
@@ -36,8 +57,11 @@ function Field({
         id={name}
         name={name}
         type={type}
+        inputMode={inputMode}
         required={required}
         placeholder={placeholder}
+        value={value}
+        onChange={onChange}
         className="h-[42px] w-full rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] text-[13px] text-ink outline-none placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835]"
       />
     </div>
@@ -61,6 +85,7 @@ function Consent({ name, required, children }: { name: string; required?: boolea
 export default function LeadForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const [phone, setPhone] = useState("");
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -78,6 +103,7 @@ export default function LeadForm() {
       }
       setSent(true);
       form.reset();
+      setPhone("");
     } catch {
       setError("Не удалось отправить. Попробуйте позже или напишите на ai-priem@rudn.ru.");
     }
@@ -122,7 +148,16 @@ export default function LeadForm() {
                     <Field name="surname" label="Фамилия" placeholder="Иванов" half />
                   </div>
                   <Field name="email" label="Электронная почта" placeholder="test@mail.ru" type="email" required />
-                  <Field name="phone" label="Телефон" placeholder="+7 900 123 45 67" type="tel" required />
+                  <Field
+                    name="phone"
+                    label="Телефон"
+                    placeholder="+7 900 123 45 67"
+                    type="tel"
+                    inputMode="tel"
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(formatPhone(e.target.value))}
+                  />
                   <div>
                     <label
                       htmlFor="comment"
