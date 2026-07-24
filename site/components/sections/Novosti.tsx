@@ -4,22 +4,12 @@
 "use client";
 import { useCallback, useRef, useState } from "react";
 import { asset } from "@/lib/asset";
-import news from "@/content/news.json";
+import { latest, newsMeta, type NewsItem } from "@/lib/news";
 
-type Item = {
-  slug: string;
-  title: string;
-  category: string;
-  date: string; // ISO: YYYY-MM-DD
-  cover: string;
-  excerpt: string;
-  body: string;
-};
-const { title, allLabel, items } = news as { title: string; allLabel: string; items: Item[] };
+const { title, allLabel } = newsMeta;
 
-// Правило роста (Task 2.11): в карусели — последние 6 новостей по дате.
-// ISO-даты сравнимы лексикографически, поэтому сортировка строкой корректна.
-const latest = [...items].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6);
+// Правило роста (Task 2.11): в карусели — последние 6 новостей по дате (см. lib/news.ts).
+const latestNews = latest(6);
 
 // В карточке дата показывается в формате макета: 2026-06-18 → 18.06.2026
 const formatDate = (iso: string) => iso.split("-").reverse().join(".");
@@ -28,7 +18,7 @@ const DOTS = 5;
 const backIcon = asset("/img/11-novosti/svg-e2782076.svg");
 const fwdIcon = asset("/img/11-novosti/svg1-c1b79cac.svg");
 
-function NewsCard({ item }: { item: Item }) {
+function NewsCard({ item }: { item: NewsItem }) {
   return (
     <article className="w-[290px] shrink-0 snap-start overflow-hidden rounded-[15px] bg-paper md:w-[270px]">
       <div className="relative aspect-[270/165] overflow-hidden">
@@ -124,7 +114,7 @@ export default function Novosti() {
           data-reveal
           className="mt-[26px] flex snap-x snap-mandatory gap-[15px] scroll-pl-[15px] overflow-x-auto scroll-smooth pb-[6px] pl-[15px] pr-[15px] [scrollbar-width:none] md:mt-[29px] md:w-[calc(100%-35px)] md:scroll-pl-[40px] md:pl-[40px] md:pr-0 [&::-webkit-scrollbar]:hidden"
         >
-          {latest.map((item) => (
+          {latestNews.map((item) => (
             <NewsCard key={item.slug} item={item} />
           ))}
         </div>
