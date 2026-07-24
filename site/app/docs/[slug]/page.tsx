@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import site from "@/content/site.json";
+import { withBasePath } from "@/lib/asset";
 import { allLegalPages, getLegalPage } from "@/lib/legal";
 
 export const dynamicParams = false;
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${page.title} — Факультет ИИ РУДН × X5 Tech`,
     description: `${page.title}. Официальная информация факультета искусственного интеллекта РУДН и X5 Tech.`,
-    alternates: { canonical: `/docs/${page.slug}/` },
+    alternates: { canonical: withBasePath(`/docs/${page.slug}/`) },
     robots: { index: false, follow: true },
   };
 }
@@ -40,7 +41,7 @@ export default async function LegalPage({ params }: Props) {
     <main className="bg-white">
       <div className="container-site pb-[80px] pt-[28px] md:pt-[48px]">
         <div className="mx-auto max-w-[760px]">
-          <nav aria-label="Хлебные крошки" className="text-[13px] text-[rgba(39,39,39,0.6)]">
+          <nav aria-label="Хлебные крошки" className="text-[13px] text-[rgba(39,39,39,0.72)]">
             <Link href="/" className="transition-colors duration-200 ease-motion hover:text-ink">
               Главная
             </Link>

@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import NewsCard from "@/components/NewsCard";
-import { asset } from "@/lib/asset";
+import { asset, withBasePath } from "@/lib/asset";
 import { allNews, getNews, otherNews, formatNewsDate } from "@/lib/news";
 
 // Неизвестные слаги не рендерятся on-demand (в статике этого и нет) → 404.
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description: item.excerpt,
-    alternates: { canonical: `/news/${item.slug}/` },
+    alternates: { canonical: withBasePath(`/news/${item.slug}/`) },
     openGraph: {
       title: item.title,
       description: item.excerpt,
@@ -48,7 +48,7 @@ export default async function NewsArticle({ params }: Props) {
     <main className="bg-white">
       <article className="container-site pt-[28px] md:pt-[48px]">
         <div className="mx-auto max-w-[760px]">
-          <nav aria-label="Хлебные крошки" className="text-[13px] text-[rgba(39,39,39,0.6)]">
+          <nav aria-label="Хлебные крошки" className="text-[13px] text-[rgba(39,39,39,0.72)]">
             <Link href="/" className="transition-colors duration-200 ease-motion hover:text-ink">
               Главная
             </Link>
@@ -64,7 +64,7 @@ export default async function NewsArticle({ params }: Props) {
             <span className="inline-flex h-[25px] items-center rounded-full border border-lime px-[16px] font-mono text-[12px] uppercase text-ink">
               {item.category}
             </span>
-            <time dateTime={item.date} className="text-[13px] text-[rgba(39,39,39,0.6)]">
+            <time dateTime={item.date} className="text-[13px] text-[rgba(39,39,39,0.72)]">
               {formatNewsDate(item.date)}
             </time>
           </div>

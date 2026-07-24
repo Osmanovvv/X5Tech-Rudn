@@ -5,6 +5,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import NewsCard from "@/components/NewsCard";
+import { withBasePath } from "@/lib/asset";
 import { allNews, newsMeta } from "@/lib/news";
 
 const TITLE = `${newsMeta.title} — Факультет ИИ РУДН × X5 Tech`;
@@ -14,7 +15,7 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "/news/" },
+  alternates: { canonical: withBasePath("/news/") },
   openGraph: { title: TITLE, description: DESCRIPTION, type: "website", locale: "ru_RU" },
 };
 
@@ -24,7 +25,7 @@ export default function NewsIndex() {
   return (
     <main className="bg-white">
       <div className="container-site pb-[80px] pt-[28px] md:pt-[48px]">
-        <nav aria-label="Хлебные крошки" className="text-[13px] text-[rgba(39,39,39,0.6)]">
+        <nav aria-label="Хлебные крошки" className="text-[13px] text-[rgba(39,39,39,0.72)]">
           <Link href="/" className="transition-colors duration-200 ease-motion hover:text-ink">
             Главная
           </Link>
@@ -44,11 +45,11 @@ export default function NewsIndex() {
         {items.length > 0 ? (
           <div className="mt-[28px] grid grid-cols-1 gap-[20px] sm:grid-cols-2 lg:grid-cols-3 md:mt-[40px]">
             {items.map((item, i) => (
-              <NewsCard key={item.slug} item={item} priority={i < 3} />
+              <NewsCard key={item.slug} item={item} priority={i < 3} headingLevel={2} />
             ))}
           </div>
         ) : (
-          <p className="mt-[40px] text-[14px] text-[rgba(39,39,39,0.6)]">Пока нет опубликованных новостей.</p>
+          <p className="mt-[40px] text-[14px] text-[rgba(39,39,39,0.72)]">Пока нет опубликованных новостей.</p>
         )}
       </div>
     </main>

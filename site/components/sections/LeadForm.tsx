@@ -2,7 +2,7 @@
 // Функциональная форма (client): поля имя/фамилия/почта/телефон/комментарий, 2 чекбокса согласий,
 // кнопка. Отправка на site.leadEndpoint (пока null → локальный экран «спасибо»). id=forma (якорь навигации).
 "use client";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { asset } from "@/lib/asset";
 import site from "@/content/site.json";
@@ -88,6 +88,14 @@ export default function LeadForm() {
   // idle → pending → sent | error;  notice — эндпойнт не настроен (заявка НЕ отправлена)
   const [status, setStatus] = useState<"idle" | "pending" | "sent" | "notice" | "error">("idle");
   const [error, setError] = useState("");
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  // Форма при sent/notice заменяется экраном результата — фокусированная кнопка исчезает, и без
+  // этого фокус упал бы на body, а результат остался бы «немым» для скринридера. Переносим фокус
+  // на контейнер результата (role=status его озвучит). WCAG 4.1.3.
+  useEffect(() => {
+    if (status === "sent" || status === "notice") resultRef.current?.focus();
+  }, [status]);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -139,14 +147,14 @@ export default function LeadForm() {
           {/* Карточка-форма */}
           <div className="rounded-[15px] border border-[#eee] bg-[#fcfcfc] p-[24px] md:flex-1 md:px-[36px] md:py-[46px]">
             {status === "sent" ? (
-              <div className="flex h-full flex-col items-center justify-center py-[40px] text-center">
+              <div ref={resultRef} role="status" tabIndex={-1} className="flex h-full flex-col items-center justify-center py-[40px] text-center outline-none">
                 <p className="text-[20px] font-bold text-ink">Спасибо, заявка отправлена!</p>
                 <p className="mt-[8px] text-[14px] text-[rgba(39,39,39,0.85)]">
                   Менеджер приёмной комиссии свяжется с тобой в течение дня.
                 </p>
               </div>
             ) : status === "notice" ? (
-              <div className="flex h-full flex-col items-center justify-center py-[40px] text-center">
+              <div ref={resultRef} role="status" tabIndex={-1} className="flex h-full flex-col items-center justify-center py-[40px] text-center outline-none">
                 <p className="text-[20px] font-bold text-ink">Отправка заявок пока не подключена</p>
                 <p className="mt-[8px] text-[14px] text-[rgba(39,39,39,0.85)]">
                   Приём заявок с сайта скоро заработает. Пока напишите нам на{" "}
@@ -212,6 +220,7 @@ export default function LeadForm() {
                       className="text-[#3b63c9]"
                     >
                       Согласие на обработку персональных данных X5 Tech
+                      <span className="sr-only"> (откроется в новой вкладке)</span>
                     </Link>
                   </Consent>
                   <Consent name="consent_ads">
@@ -223,15 +232,21 @@ export default function LeadForm() {
                       className="text-[#3b63c9]"
                     >
                       Согласие на получение рассылок информационного и рекламного содержания от X5 Tech
+                      <span className="sr-only"> (откроется в новой вкладке)</span>
                     </Link>
                   </Consent>
                 </div>
 
-                {error && <p className="mt-[12px] text-[12px] text-red-600">{error}</p>}
+                {error && (
+                  <p id="lead-error" role="alert" className="mt-[12px] text-[12px] text-red-600">
+                    {error}
+                  </p>
+                )}
 
                 <button
                   type="submit"
                   disabled={status === "pending"}
+                  aria-describedby={error ? "lead-error" : undefined}
                   className="mt-[24px] h-[60px] w-full rounded-[5px] bg-lime text-[14px] font-bold text-ink transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:active:scale-100 md:w-[242px]"
                 >
                   {status === "pending" ? "Отправляем…" : "Отправить заявку"}

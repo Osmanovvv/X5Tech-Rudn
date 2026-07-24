@@ -6,7 +6,18 @@ import Link from "next/link";
 import { asset } from "@/lib/asset";
 import { formatNewsDate, type NewsItem } from "@/lib/news";
 
-export default function NewsCard({ item, priority }: { item: NewsItem; priority?: boolean }) {
+// headingLevel: на сетке /news карточки идут прямо под h1 страницы → нужен h2 (не пропускать
+// уровень); в блоке «Другие новости» над ними есть h2 → там h3 (по умолчанию).
+export default function NewsCard({
+  item,
+  priority,
+  headingLevel = 3,
+}: {
+  item: NewsItem;
+  priority?: boolean;
+  headingLevel?: 2 | 3;
+}) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   return (
     <Link
       href={`/news/${item.slug}/`}
@@ -24,11 +35,11 @@ export default function NewsCard({ item, priority }: { item: NewsItem; priority?
         </span>
       </div>
       <div className="px-[16px] pb-[24px] pt-[16px]">
-        <h3 className="text-[16px] font-bold leading-[20px] tracking-[-0.175px] text-ink">{item.title}</h3>
+        <Heading className="text-[16px] font-bold leading-[20px] tracking-[-0.175px] text-ink">{item.title}</Heading>
         <p className="mt-[10px] line-clamp-2 text-[13px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {item.excerpt}
         </p>
-        <p className="mt-[16px] text-[12px] leading-[normal] text-[rgba(39,39,39,0.6)]">
+        <p className="mt-[16px] text-[12px] leading-[normal] text-[rgba(39,39,39,0.72)]">
           {formatNewsDate(item.date)}
         </p>
       </div>

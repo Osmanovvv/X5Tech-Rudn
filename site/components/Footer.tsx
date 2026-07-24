@@ -26,6 +26,7 @@ function FLink({
     return (
       <a href={href} className={className} style={style} {...(blank ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
         {children}
+        {blank && <span className="sr-only"> (откроется в новой вкладке)</span>}
       </a>
     );
   }
@@ -116,22 +117,20 @@ export default function Footer() {
             className={`absolute left-[862px] -translate-y-1/2 leading-[normal] ${link}`}
             style={{ top: [97, 124, 153, 181, 208, 237][i] }}
           >
-            {d.label} <span className="text-[15px] leading-none">↗</span>
+            {d.label} <span aria-hidden className="text-[15px] leading-none">↗</span>
           </FLink>
         ))}
 
         <p className={`absolute left-[862px] top-[279px] -translate-y-1/2 ${h}`}>X5 Tech в социальных сетях</p>
         {f.social.map((s, i) => (
-          <a
+          <FLink
             key={s.label}
             href={s.href}
-            target="_blank"
-            rel="noopener noreferrer"
             className={`absolute left-[862px] leading-[normal] ${link}`}
             style={{ top: 306 + i * 29 }}
           >
-            {s.label} <span className="text-[15px] leading-none">↗</span>
-          </a>
+            {s.label} <span aria-hidden className="text-[15px] leading-none">↗</span>
+          </FLink>
         ))}
 
         <p className="absolute left-[40px] top-[calc(50%+121.5px)] -translate-y-1/2 text-[12px] leading-[normal] text-white">
@@ -179,7 +178,7 @@ export default function Footer() {
         <div className="mt-[12px] flex flex-col gap-[12px]">
           {f.docs.map((d) => (
             <FLink key={d.label} href={d.href} className={`leading-[15px] ${link}`}>
-              {d.label} <span className="text-[15px] leading-none">↗</span>
+              {d.label} <span aria-hidden className="text-[15px] leading-none">↗</span>
             </FLink>
           ))}
         </div>
@@ -187,9 +186,9 @@ export default function Footer() {
         <p className={`mt-[31px] ${h}`}>X5 Tech в социальных сетях</p>
         <div className="mt-[16px] flex flex-col gap-[12px]">
           {f.social.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className={`leading-[17px] ${link}`}>
-              {s.label} <span className="text-[15px] leading-none">↗</span>
-            </a>
+            <FLink key={s.label} href={s.href} className={`leading-[17px] ${link}`}>
+              {s.label} <span aria-hidden className="text-[15px] leading-none">↗</span>
+            </FLink>
           ))}
         </div>
 
