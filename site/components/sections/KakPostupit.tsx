@@ -4,6 +4,7 @@
 // таблица превращается в блоки-карточки по предметам. Цена 250 000 ₽ (в мобильном макете 225 000 —
 // расхождение макета, стандартизировано на десктопное значение).
 import admission from "@/content/admission.json";
+import Num from "@/components/Num";
 
 type Step = { date: string; title: string; text: string; m?: string };
 type Column = { heading: string; caption: string; captionM?: string; steps: Step[] };
@@ -174,7 +175,7 @@ export default function KakPostupit() {
             </p>
             {s.sub && <p className="absolute left-[20px] top-[38px] text-[10px] text-ink">{s.sub}</p>}
             <p className="absolute bottom-[8px] right-[10px] text-[60px] font-bold leading-none text-ink">
-              {s.value}
+              <Num>{s.value}</Num>
               {s.unit && <span className="ml-[6px] align-baseline text-[30px]">{s.unit}</span>}
             </p>
           </div>
@@ -226,7 +227,7 @@ export default function KakPostupit() {
               </p>
               {s.sub && <p className="absolute left-[20px] top-[40px] text-[10px] text-ink">{s.sub}</p>}
               <p className="absolute bottom-[10px] right-[20px] text-[44px] font-bold leading-none text-ink">
-                {s.value}
+                <Num>{s.value}</Num>
                 {s.unit && <span className="ml-[4px] text-[22px]">{s.unit}</span>}
               </p>
             </div>

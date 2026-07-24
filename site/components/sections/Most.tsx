@@ -2,6 +2,7 @@
 // Слева: лейбл, заголовок, подзаголовок, карточка-цитата Неверова. Справа: hero-стат 24 000+ и три стата.
 // Мобильная — вертикальный стек. Контент секции фиксированный (не повторяющийся список) — инлайн.
 import { asset } from "@/lib/asset";
+import Num from "@/components/Num";
 
 const avatar = asset("/img/08-x5-most/image2090011510-1f336806-80w.webp");
 
@@ -85,7 +86,7 @@ export default function Most() {
 
         {/* Правая колонка — статы */}
         <p data-reveal className="absolute left-[752px] top-[100px] w-[373px] text-center text-[87px] font-bold leading-none text-ink">
-          24 000+
+          <Num>{"24 000+"}</Num>
         </p>
         <p data-reveal className="absolute left-[755px] top-[182px] w-[367px] text-center text-[26px] text-ink">
           магазинов в экосистеме Х5
@@ -97,7 +98,9 @@ export default function Most() {
             className="absolute left-[755px] w-[401px] whitespace-pre-line text-[22px] leading-[28px] text-ink"
             style={{ top: s.top }}
           >
-            <span className="text-[26px] font-bold">{s.num}</span>
+            <span className="text-[26px] font-bold">
+              <Num>{s.num}</Num>
+            </span>
             {s.text}
           </p>
         ))}
@@ -118,7 +121,9 @@ export default function Most() {
         <div data-reveal className="mt-[24px] flex flex-col gap-[20px]">
           {STATS_M.map((s) => (
             <div key={s.num}>
-              <p className="text-[26px] font-bold leading-none text-ink">{s.num}</p>
+              <p className="text-[26px] font-bold leading-none text-ink">
+                <Num>{s.num}</Num>
+              </p>
               <p className="mt-[8px] whitespace-pre-line text-[12px] leading-[16px] text-ink">{s.text}</p>
             </div>
           ))}
