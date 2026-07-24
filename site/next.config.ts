@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   // Кружок-индикатор dev-режима попадает в скриншоты пиксель-сверки
   devIndicators: false,
+  // sharp (оптимизация загруженных обложек в админке) содержит нативные бинарники — трассировщик
+  // их не видит и не кладёт в standalone-сборку. Без этого загрузка обложки падает уже на VPS.
+  outputFileTracingIncludes: {
+    "/api/**": ["node_modules/sharp/**/*", "node_modules/@img/**/*"],
+    "/admin/**": ["node_modules/sharp/**/*", "node_modules/@img/**/*"],
+  },
 };
 
 export default nextConfig;

@@ -6,11 +6,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import NewsCard from "@/components/NewsCard";
 import { asset, withBasePath } from "@/lib/asset";
-import { getNews, otherNews, formatNewsDate } from "@/lib/news";
+import { getNews, otherNews, formatNewsDate, coverPath } from "@/lib/news";
 import { getAllNews } from "@/lib/server/news-store";
 
-// Неизвестные слаги не рендерятся on-demand (в статике этого и нет) → 404.
-export const dynamicParams = false;
+// dynamicParams НЕ объявляем намеренно. Дефолт (true) позволяет Node-режиму отрисовать
+// новость, добавленную админкой уже после сборки, — иначе свежая новость отдаёт 404 (поймано
+// e2e). Явное «true» при этом писать нельзя: с output:'export' оно роняет сборку, а вычисляемое
+// значение Next не принимает (конфиг сегмента должен быть литералом). Статическому экспорту
+// дефолт не мешает: он просто выгружает пути из generateStaticParams.
+// Несуществующая новость в обоих режимах даёт 404 — её отсекает notFound() ниже.
 
 export function generateStaticParams() {
   return getAllNews().map((item) => ({ slug: item.slug }));
@@ -44,7 +48,12 @@ export default async function NewsArticle({ params }: Props) {
   if (!item) notFound();
 
   const others = otherNews(all, slug, 3);
-  const paragraphs = item.body.split("\n\n").filter(Boolean);
+  // Абзацы разделяются пустой строкой. Регулярка терпима к CRLF и лишним пробелам —
+  // текст может прийти как из репозитория, так и из формы админки.
+  const paragraphs = item.body
+    .split(/\r?\n\s*\r?\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
 
   return (
     <main className="bg-white">
@@ -77,7 +86,7 @@ export default async function NewsArticle({ params }: Props) {
 
           <div className="mt-[24px] overflow-hidden rounded-[15px]">
             <img
-              src={asset(`/img/11-novosti/${item.cover}-1400w.webp`)}
+              src={asset(coverPath(item.cover, 1400))}
               alt=""
               className="aspect-[270/165] w-full object-cover"
             />

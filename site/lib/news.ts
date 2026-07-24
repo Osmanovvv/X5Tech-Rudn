@@ -30,3 +30,13 @@ export const otherNews = (items: NewsItem[], slug: string, n = 3): NewsItem[] =>
 
 // Дата новости в формате макета: «2026-06-18» → «18.06.2026».
 export const formatNewsDate = (iso: string): string => iso.split("-").reverse().join(".");
+
+// Путь к обложке. Два источника:
+//   «asset-6eab3432»      — картинки из макета, лежат в public/img/11-novosti (пайплайн Task 0.3);
+//   «upload:<имя>»        — загруженные через админку, лежат в DATA_DIR/uploads и отдаются
+//                           роутом /api/uploads (переживают пересборку, бэкапятся с данными).
+// Результат ещё нужно прогнать через asset() — он добавит basePath.
+export const coverPath = (cover: string, width: 640 | 1400): string =>
+  cover.startsWith("upload:")
+    ? `/api/uploads/${cover.slice("upload:".length)}-${width}w.webp`
+    : `/img/11-novosti/${cover}-${width}w.webp`;

@@ -4,7 +4,7 @@
 // карусели на главной, но кликабельная и резиновая (grid-элемент, а не фикс-ширина карусели).
 import Link from "next/link";
 import { asset } from "@/lib/asset";
-import { formatNewsDate, type NewsItem } from "@/lib/news";
+import { coverPath, formatNewsDate, type NewsItem } from "@/lib/news";
 
 // headingLevel: на сетке /news карточки идут прямо под h1 страницы → нужен h2 (не пропускать
 // уровень); в блоке «Другие новости» над ними есть h2 → там h3 (по умолчанию).
@@ -25,7 +25,7 @@ export default function NewsCard({
     >
       <div className="relative aspect-[270/165] overflow-hidden">
         <img
-          src={asset(`/img/11-novosti/${item.cover}-640w.webp`)}
+          src={asset(coverPath(item.cover, 640))}
           alt=""
           loading={priority ? "eager" : "lazy"}
           className="absolute inset-0 size-full object-cover transition-transform duration-300 ease-motion group-hover:scale-[1.03]"
