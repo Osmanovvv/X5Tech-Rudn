@@ -1,5 +1,8 @@
-// Проверка якорей: каждая внутренняя ссылка href="#id" в собранном HTML обязана иметь цель.
-// Ловит рассинхрон «пункт меню есть, а id секции забыли» — так уже терялись 3 пункта из 6.
+// Проверка якорей в собранном HTML. Ловит рассинхрон «пункт меню есть, а id секции забыли».
+// Две формы ссылок:
+//   href="#id"   — одностраничный якорь: цель обязана быть в ТОМ ЖЕ файле (актуально для главной);
+//   href="/#id"  — межстраничная навигация на секцию главной (шапка/футер на /news, /docs после
+//                  Фазы 4): цель обязана быть в index.html.
 // Запуск: npm run build && node scripts/check-anchors.mjs
 import { readFileSync, readdirSync, statSync, existsSync } from "fs";
 import path from "path";
@@ -20,27 +23,37 @@ function htmlFiles(dir) {
   return res;
 }
 
+const idsOf = (html) => new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+
+// id-цели главной (для проверки корневых ссылок /#id со всех страниц).
+const homeFile = path.join(OUT, "index.html");
+const homeIds = existsSync(homeFile) ? idsOf(readFileSync(homeFile, "utf8")) : new Set();
+
 let failed = 0;
 for (const file of htmlFiles(OUT)) {
   const html = readFileSync(file, "utf8");
-  const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
-  // href="#" (кнопка «Наверх») не имеет группы захвата и сюда не попадает — это валидно
-  const anchors = new Set([...html.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]));
-  const missing = [...anchors].filter((a) => !ids.has(a));
+  const ids = idsOf(html);
   const rel = path.relative(OUT, file) || "index.html";
 
-  // Строго спрашиваем только со страниц, где секции реально есть (сейчас — главная).
-  // На служебных страницах шапка/футер ссылаются на секции главной: это межстраничная
-  // навигация, её чинить корневыми basePath-ссылками в Фазе 4 (появятся /news и /docs).
-  const isLanding = rel === "index.html";
+  // href="#id" — цель в этом же документе. href="#" (кнопки) сюда не попадает.
+  const same = new Set([...html.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]));
+  const missingSame = [...same].filter((a) => !ids.has(a));
 
-  if (!missing.length) {
-    console.log(`✓ ${rel}: якорей ${anchors.size}, все резолвятся`);
-  } else if (isLanding) {
+  // href="/#id" (в т.ч. с basePath: href="/base/#id") — цель на главной.
+  const root = new Set([...html.matchAll(/href="\/[^"]*#([^"]+)"/g)].map((m) => m[1]));
+  const missingRoot = [...root].filter((a) => !homeIds.has(a));
+
+  if (!missingSame.length && !missingRoot.length) {
+    console.log(`✓ ${rel}: якорей ${same.size + root.size}, все резолвятся`);
+    continue;
+  }
+  if (missingSame.length) {
     failed++;
-    console.error(`✗ ${rel}: нет целей → ${missing.map((m) => "#" + m).join(", ")}`);
-  } else {
-    console.warn(`! ${rel}: ссылки на секции главной (${missing.length}) — нужны корневые ссылки, Фаза 4`);
+    console.error(`✗ ${rel}: локальные якоря без целей → ${missingSame.map((m) => "#" + m).join(", ")}`);
+  }
+  if (missingRoot.length) {
+    failed++;
+    console.error(`✗ ${rel}: корневые ссылки без целей на главной → ${missingRoot.map((m) => "/#" + m).join(", ")}`);
   }
 }
 
@@ -48,4 +61,4 @@ if (failed) {
   console.error(`\nБитых страниц: ${failed}`);
   process.exit(1);
 }
-console.log("\nЯкоря главной на месте.");
+console.log("\nВсе якоря (локальные и корневые /#) резолвятся.");

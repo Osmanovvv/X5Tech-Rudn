@@ -1,0 +1,14 @@
+{
+  "note": "Шаблонные правовые страницы (Task 4.4). Слаги совпадают с ссылками в site.json (футер) и согласиями формы. Тексты предоставит университет — пока страницы-заглушки. См. README.",
+  "pages": [
+    { "slug": "licenziya-i-akkreditaciya", "title": "Лицензия и аккредитация" },
+    { "slug": "lokalnye-normativnye-akty", "title": "Локальные нормативные акты" },
+    { "slug": "pravila-priyoma", "title": "Правила приёма" },
+    { "slug": "stoimost-obucheniya", "title": "Стоимость обучения" },
+    { "slug": "protivodejstvie-korrupcii", "title": "Противодействие коррупции" },
+    { "slug": "politika-konfidencialnosti", "title": "Политика конфиденциальности" },
+    { "slug": "soglasie-na-obrabotku-pd", "title": "Согласие на обработку персональных данных" },
+    { "slug": "soglasie-na-rassylku", "title": "Согласие на получение рекламных и информационных рассылок" },
+    { "slug": "svedeniya-ob-organizacii", "title": "Сведения об образовательной организации" }
+  ]
+}

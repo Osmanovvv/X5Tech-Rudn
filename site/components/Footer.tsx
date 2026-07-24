@@ -1,10 +1,40 @@
 // Футер по макету ctx-13 (узел 271:2273, 1200×431, фон #272727, верхний бордер белый 4%).
 // ≥1024 — точная абсолютная раскладка макета; ниже — flow-стопка по мобильному эталону.
 // Контент целиком из content/site.json. Опечатка макета «Противодействи» исправлена (D4).
+import Link from "next/link";
 import site from "@/content/site.json";
 import { asset } from "@/lib/asset";
 
 const f = site.footer;
+
+// Внутренние ссылки — next/link (применяет basePath при деплое в подпапку, Task 0.1).
+// Внешние (http) и tel/mailto — обычный <a>; http открываем в новой вкладке. И там и там
+// это <a> с теми же классами/стилями, поэтому раскладка футера не меняется (d-13/m-13).
+function FLink({
+  href,
+  className,
+  style,
+  children,
+}: {
+  href: string;
+  className?: string;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}) {
+  if (/^https?:|^tel:|^mailto:/.test(href)) {
+    const blank = href.startsWith("http");
+    return (
+      <a href={href} className={className} style={style} {...(blank ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className} style={style}>
+      {children}
+    </Link>
+  );
+}
 
 function FooterLogos() {
   // Лого — чёткие 2x-рендеры узлов макета (271:2310/2311), не деформированные исходники
@@ -51,14 +81,14 @@ export default function Footer() {
         <p className={`absolute left-[348.66px] top-[60px] -translate-y-1/2 ${h}`}>Навигация</p>
         <nav aria-label="Навигация по сайту">
           {f.nav.map((item, i) => (
-            <a
+            <FLink
               key={item.href}
-              href={item.href}
+              href={`/${item.href}`}
               className={`absolute left-[348.66px] leading-[normal] ${link}`}
               style={{ top: 90.5 + i * 29 }}
             >
               {item.label}
-            </a>
+            </FLink>
           ))}
         </nav>
 
@@ -80,14 +110,14 @@ export default function Footer() {
 
         <p className={`absolute left-[861.66px] top-[60px] -translate-y-1/2 ${h}`}>Документы и правовая информация</p>
         {f.docs.map((d, i) => (
-          <a
+          <FLink
             key={d.label}
             href={d.href}
             className={`absolute left-[862px] -translate-y-1/2 leading-[normal] ${link}`}
             style={{ top: [97, 124, 153, 181, 208, 237][i] }}
           >
             {d.label} <span className="text-[15px] leading-none">↗</span>
-          </a>
+          </FLink>
         ))}
 
         <p className={`absolute left-[862px] top-[279px] -translate-y-1/2 ${h}`}>X5 Tech в социальных сетях</p>
@@ -108,14 +138,14 @@ export default function Footer() {
           {f.copyright}
         </p>
         {f.legal.map((l, i) => (
-          <a
+          <FLink
             key={l.label}
             href={l.href}
             className="absolute top-[calc(50%+156px)] -translate-y-1/2 text-[12px] leading-[normal] text-mist transition-colors hover:text-lime"
             style={{ left: [40, 264.23, 461.39][i] }}
           >
             {l.label}
-          </a>
+          </FLink>
         ))}
       </div>
 
@@ -127,9 +157,9 @@ export default function Footer() {
         <p className={`mt-[35px] ${h}`}>Навигация</p>
         <nav aria-label="Навигация по сайту" className="mt-[15px] flex flex-col gap-[12px]">
           {f.nav.map((item) => (
-            <a key={item.href} href={item.href} className={`leading-[17px] ${link}`}>
+            <FLink key={item.href} href={`/${item.href}`} className={`leading-[17px] ${link}`}>
               {item.label}
-            </a>
+            </FLink>
           ))}
         </nav>
 
@@ -148,9 +178,9 @@ export default function Footer() {
         <p className={`mt-[30px] ${h}`}>Документы и правовая информация</p>
         <div className="mt-[12px] flex flex-col gap-[12px]">
           {f.docs.map((d) => (
-            <a key={d.label} href={d.href} className={`leading-[15px] ${link}`}>
+            <FLink key={d.label} href={d.href} className={`leading-[15px] ${link}`}>
               {d.label} <span className="text-[15px] leading-none">↗</span>
-            </a>
+            </FLink>
           ))}
         </div>
 
@@ -167,9 +197,9 @@ export default function Footer() {
 
         <div className="mt-[30px] flex flex-col gap-[10px]">
           {f.legal.map((l) => (
-            <a key={l.label} href={l.href} className="text-[12px] leading-[19px] text-mist">
+            <FLink key={l.label} href={l.href} className="text-[12px] leading-[19px] text-mist">
               {l.label}
-            </a>
+            </FLink>
           ))}
         </div>
         <p className="mt-[30px] text-[12px] leading-[14px]">{f.copyright}</p>

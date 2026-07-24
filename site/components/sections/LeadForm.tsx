@@ -3,6 +3,7 @@
 // кнопка. Отправка на site.leadEndpoint (пока null → локальный экран «спасибо»). id=forma (якорь навигации).
 "use client";
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { asset } from "@/lib/asset";
 import site from "@/content/site.json";
 
@@ -204,13 +205,25 @@ export default function LeadForm() {
                 <div className="mt-[20px] flex flex-col gap-[16px]">
                   <Consent name="consent_pd" required>
                     Я выражаю{" "}
-                    <span className="text-[#3b63c9]">Согласие на обработку персональных данных X5 Tech</span>
+                    <Link
+                      href="/docs/soglasie-na-obrabotku-pd/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#3b63c9]"
+                    >
+                      Согласие на обработку персональных данных X5 Tech
+                    </Link>
                   </Consent>
                   <Consent name="consent_ads">
                     Я выражаю{" "}
-                    <span className="text-[#3b63c9]">
+                    <Link
+                      href="/docs/soglasie-na-rassylku/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#3b63c9]"
+                    >
                       Согласие на получение рассылок информационного и рекламного содержания от X5 Tech
-                    </span>
+                    </Link>
                   </Consent>
                 </div>
 

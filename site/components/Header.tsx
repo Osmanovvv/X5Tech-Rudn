@@ -4,13 +4,16 @@
 // мобильная — meta-mobile (271:2320–2804, капсула 290×45, бургер 21×16).
 // Открытое состояние бургера в макете не нарисовано — см. docs/deviations.md D3.
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { asset } from "@/lib/asset";
 
+// Корневые пути (не голые якоря): на подстраницах /news, /docs якорь #programma указывал бы в
+// пустоту. next/link + «/#…» уводит на главную к секции и корректно применяет basePath.
 const NAV = [
-  { href: "#programma", label: "Программа" },
-  { href: "#prepodavateli", label: "Преподаватели" },
-  { href: "#postuplenie", label: "Поступление" },
-  { href: "#novosti", label: "Новости" },
+  { href: "/#programma", label: "Программа" },
+  { href: "/#prepodavateli", label: "Преподаватели" },
+  { href: "/#postuplenie", label: "Поступление" },
+  { href: "/#novosti", label: "Новости" },
 ];
 
 function Logos({ compact }: { compact?: boolean }) {
@@ -91,34 +94,34 @@ export default function Header() {
             scrolled ? "shadow-[0_8px_24px_rgba(39,39,39,0.10)]" : ""
           }`}
         >
-          <a href="#" aria-label="Наверх" className="max-lg:hidden">
+          <Link href="/" aria-label="На главную" className="max-lg:hidden">
             <Logos />
-          </a>
-          <a href="#" aria-label="Наверх" className="lg:hidden">
+          </Link>
+          <Link href="/" aria-label="На главную" className="lg:hidden">
             <Logos compact />
-          </a>
+          </Link>
 
           {/* Десктопное меню: позиции из макета (первый пункт на 378px секции, шаги 46/46/52) */}
           {/* 1024–1199: отступы макета (121/46) не влезают — кнопка наезжает на «Новости».
               Сжимаем их в этом диапазоне, на >=1200 возвращаем значения макета. */}
           <nav className="ml-[40px] flex shrink items-center gap-x-[28px] text-[13px] max-lg:hidden dt:ml-[121px] dt:gap-x-[46px]">
             {NAV.map((item, i) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 className={`whitespace-nowrap text-ink transition-opacity duration-200 ease-motion hover:opacity-70 ${i === 3 ? "ml-[6px]" : ""}`}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
-          <a
-            href="#forma"
+          <Link
+            href="/#forma"
             className="ml-auto flex h-[45px] w-[150px] items-center rounded-full bg-lime pl-[26px] text-[13px] font-bold text-ink transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98] max-lg:hidden"
           >
             Подать заявку
-          </a>
+          </Link>
 
           <button
             ref={burgerRef}
@@ -161,23 +164,23 @@ export default function Header() {
           </div>
           <nav className="mt-[32px] flex flex-col">
             {NAV.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
                 className="border-b border-hairline py-[18px] text-[24px] font-medium text-ink"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
-          <a
-            href="#forma"
+          <Link
+            href="/#forma"
             onClick={() => setOpen(false)}
             className="mt-auto flex h-[56px] items-center justify-center rounded-[5px] bg-lime-deep text-[14px] font-bold text-white transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98]"
           >
             Подать заявку
-          </a>
+          </Link>
         </div>
       )}
     </header>

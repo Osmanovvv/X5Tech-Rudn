@@ -31,3 +31,10 @@ export const latest = (n: number): NewsItem[] => sorted.slice(0, Math.max(0, n))
 // Поиск одной новости по слагу; undefined — если не найдена (для notFound() в Task 4.3).
 export const getNews = (slug: string): NewsItem | undefined =>
   sorted.find((item) => item.slug === slug);
+
+// Три другие новости (для блока «Другие новости» на странице новости, Task 4.3).
+export const otherNews = (slug: string, n = 3): NewsItem[] =>
+  sorted.filter((item) => item.slug !== slug).slice(0, Math.max(0, n));
+
+// Дата новости в формате макета: «2026-06-18» → «18.06.2026».
+export const formatNewsDate = (iso: string): string => iso.split("-").reverse().join(".");

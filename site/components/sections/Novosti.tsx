@@ -3,16 +3,14 @@
 // Контент в content/news.json (редактируется/пополняется через админку — Фаза 4). Client — скролл-снап.
 "use client";
 import { useCallback, useRef, useState } from "react";
+import Link from "next/link";
 import { asset } from "@/lib/asset";
-import { latest, newsMeta, type NewsItem } from "@/lib/news";
+import { latest, newsMeta, formatNewsDate, type NewsItem } from "@/lib/news";
 
 const { title, allLabel } = newsMeta;
 
 // Правило роста (Task 2.11): в карусели — последние 6 новостей по дате (см. lib/news.ts).
 const latestNews = latest(6);
-
-// В карточке дата показывается в формате макета: 2026-06-18 → 18.06.2026
-const formatDate = (iso: string) => iso.split("-").reverse().join(".");
 
 const DOTS = 5;
 const backIcon = asset("/img/11-novosti/svg-e2782076.svg");
@@ -20,7 +18,10 @@ const fwdIcon = asset("/img/11-novosti/svg1-c1b79cac.svg");
 
 function NewsCard({ item }: { item: NewsItem }) {
   return (
-    <article className="w-[290px] shrink-0 snap-start overflow-hidden rounded-[15px] bg-paper md:w-[270px]">
+    <Link
+      href={`/news/${item.slug}/`}
+      className="block w-[290px] shrink-0 snap-start overflow-hidden rounded-[15px] bg-paper md:w-[270px]"
+    >
       <div className="relative aspect-[270/165] overflow-hidden">
         <img
           src={asset(`/img/11-novosti/${item.cover}-640w.webp`)}
@@ -35,10 +36,10 @@ function NewsCard({ item }: { item: NewsItem }) {
         <h3 className="text-[16px] font-bold leading-[18px] tracking-[-0.175px] text-ink">{item.title}</h3>
         <p className="mt-[10px] text-[12px] leading-[normal] text-[rgba(39,39,39,0.85)]">{item.excerpt}</p>
         <p className="mt-[16px] text-[12px] leading-[normal] text-[rgba(39,39,39,0.85)]">
-          {formatDate(item.date)}
+          {formatNewsDate(item.date)}
         </p>
       </div>
-    </article>
+    </Link>
   );
 }
 
@@ -74,9 +75,9 @@ export default function Novosti() {
   }, []);
 
   const AllLink = (
-    <a href="#novosti" className="whitespace-nowrap text-[14px] font-bold leading-[21px] text-ink transition-opacity duration-200 ease-motion hover:opacity-70">
+    <Link href="/news/" className="whitespace-nowrap text-[14px] font-bold leading-[21px] text-ink transition-opacity duration-200 ease-motion hover:opacity-70">
       {allLabel} →
-    </a>
+    </Link>
   );
   const Controls = (
     <>
