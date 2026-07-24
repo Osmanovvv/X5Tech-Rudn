@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH ?? "",
   // Оптимизацию изображений делает scripts/optimize-images.mjs на этапе подготовки ассетов
   images: { unoptimized: true },
+  // Есть ли на этой сборке серверные роуты (/api/leads, админка). В статическом режиме их нет —
+  // форма заявки тогда не пытается стучаться в несуществующий эндпойнт (Task B4).
+  env: { NEXT_PUBLIC_SERVER_API: process.env.STATIC ? "" : "1" },
   // Кружок-индикатор dev-режима попадает в скриншоты пиксель-сверки
   devIndicators: false,
   // sharp (оптимизация загруженных обложек в админке) содержит нативные бинарники — трассировщик

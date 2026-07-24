@@ -9,6 +9,8 @@ import site from "@/content/site.json";
 
 const photo = asset("/img/12-forma/image2090011425-893213cd-1024w.webp");
 const leadEndpoint = (site as { leadEndpoint: string | null }).leadEndpoint;
+// В Node-сборке заявки принимает собственный роут /api/leads; в статической его нет
+const hasServerApi = Boolean(process.env.NEXT_PUBLIC_SERVER_API);
 // Почта приёмной комиссии берётся из site.json, чтобы адрес не жил в двух местах
 const contactEmail =
   site.footer.contacts.find((c) => c.href.startsWith("mailto:"))?.href.replace("mailto:", "") ??
@@ -89,6 +91,8 @@ export default function LeadForm() {
   const [status, setStatus] = useState<"idle" | "pending" | "sent" | "notice" | "error">("idle");
   const [error, setError] = useState("");
   const resultRef = useRef<HTMLDivElement>(null);
+  // Момент открытия формы: сервер отсекает отправку быстрее пары секунд как ботовскую
+  const openedAt = useRef(Date.now());
 
   // Форма при sent/notice заменяется экраном результата — фокусированная кнопка исчезает, и без
   // этого фокус упал бы на body, а результат остался бы «немым» для скринридера. Переносим фокус
@@ -103,20 +107,32 @@ export default function LeadForm() {
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
 
-    // Приёмник заявок не подключён — честно об этом говорим, а не показываем «Спасибо»
-    if (!leadEndpoint) {
-      console.log("[LeadForm] заявка НЕ отправлена: leadEndpoint не настроен. Данные формы:", data);
+    // Приёмник заявок: свой /api/leads в Node-режиме (Task B4). В статической сборке роутов нет,
+    // поэтому туда можно подставить внешний адрес через site.json.leadEndpoint; если и его нет —
+    // честно говорим, что отправка не подключена, вместо фальшивого «Спасибо».
+    // Слэш на конце обязателен: при trailingSlash:true адрес без него отвечает 308-редиректом
+    const endpoint = leadEndpoint ?? (hasServerApi ? asset("/api/leads/") : null);
+    if (!endpoint) {
+      console.log("[LeadForm] заявка НЕ отправлена: приёмник не настроен. Данные формы:", data);
       setStatus("notice");
       return;
     }
 
     setStatus("pending");
     try {
-      const res = await fetch(leadEndpoint, {
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        // _t — метка открытия формы, _hp — ловушка для ботов (см. /api/leads)
+        body: JSON.stringify({ ...data, _t: openedAt.current }),
       });
+      if (res.status === 422) {
+        const payload = (await res.json().catch(() => null)) as { errors?: Record<string, string> } | null;
+        const first = payload?.errors ? Object.values(payload.errors)[0] : null;
+        setStatus("error");
+        setError(first ?? "Проверьте заполнение полей.");
+        return;
+      }
       if (!res.ok) throw new Error(String(res.status));
       setStatus("sent");
       form.reset();
@@ -173,6 +189,14 @@ export default function LeadForm() {
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate>
+                {/* Ловушка для ботов: человек этого поля не видит и не может сфокусировать,
+                    автозаполнялки — заполняют. Сервер отбрасывает такие заявки (Task B4).
+                    Убрано из потока (не влияет на раскладку) и скрыто от скринридеров. */}
+                <div aria-hidden className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
+                  <label htmlFor="_hp">Не заполняйте это поле</label>
+                  <input id="_hp" name="_hp" type="text" tabIndex={-1} autoComplete="off" />
+                </div>
+
                 <p className="whitespace-pre-line text-[14px] font-medium leading-[normal] text-ink md:text-[18px]">
                   {"Менеджер приёмной комиссии\nсвяжется с тобой в течение дня"}
                 </p>
