@@ -61,7 +61,7 @@ function Illu({ src, i, scale = 1 }: { src: string; i: number; scale?: number })
 function TrackCard({ track, i, mobile }: { track: Track; i: number; mobile?: boolean }) {
   return (
     <div
-      className={`relative overflow-hidden bg-paper ${
+      className={`relative overflow-hidden bg-paper transition-[box-shadow,transform] duration-200 ease-motion hover:-translate-y-[3px] hover:shadow-[0_0_0_2px_#b6e835] ${
         mobile ? "h-[300px] w-full rounded-[20px]" : "h-[300px] w-[260px] rounded-[20px]"
       }`}
     >

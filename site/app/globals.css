@@ -179,6 +179,33 @@ html {
   }
 }
 
+/* ===== Hover / focus (Task 3.3, спека «Hover и клики» + «Микроанимации») ===== */
+
+/* Видимое кольцо фокуса с клавиатуры — в проекте его не было, а в форме был outline-none.
+   Цвет ink даёт ~15:1 на светлом; на тёмном футере — белое. Не гасится под reduced-motion. */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+footer :where(a, button, input, textarea):focus-visible {
+  outline-color: #ffffff;
+}
+
+@media (hover: hover) {
+  /* Подъём карточки на hover через transform (НЕ свойство translate) — не конфликтует с
+     reveal, который анимирует свойство translate. Тень чуть заметнее (спека 02). */
+  .hover-lift {
+    transition:
+      transform var(--dur-hover) var(--ease-motion),
+      box-shadow var(--dur-hover) var(--ease-motion);
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(39, 39, 39, 0.1);
+  }
+}
+
 body {
   background: #ffffff;
   color: var(--color-ink);

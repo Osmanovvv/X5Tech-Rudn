@@ -63,7 +63,7 @@ function Field({
         required={required}
         placeholder={placeholder}
         onInput={onInput}
-        className="h-[42px] w-full rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] text-[13px] text-ink outline-none placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835]"
+        className="h-[42px] w-full rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] text-[13px] text-ink outline-none transition-colors duration-200 ease-motion placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835]"
       />
     </div>
   );
@@ -157,7 +157,7 @@ export default function LeadForm() {
                 <button
                   type="button"
                   onClick={() => setStatus("idle")}
-                  className="mt-[20px] h-[45px] rounded-[5px] border border-[#eee] px-[24px] text-[13px] font-bold text-ink hover:bg-[#f5f5f5]"
+                  className="mt-[20px] h-[45px] rounded-[5px] border border-[#eee] px-[24px] text-[13px] font-bold text-ink transition-colors duration-200 ease-motion hover:bg-[#f5f5f5] active:scale-[0.98]"
                 >
                   Вернуться к форме
                 </button>
@@ -196,7 +196,7 @@ export default function LeadForm() {
                       id="comment"
                       name="comment"
                       placeholder="напишите, что-нибудь (не обязательно)"
-                      className="h-[100px] w-full resize-none rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] py-[12px] text-[13px] text-ink outline-none placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835]"
+                      className="h-[100px] w-full resize-none rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] py-[12px] text-[13px] text-ink outline-none transition-colors duration-200 ease-motion placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835]"
                     />
                   </div>
                 </div>
@@ -219,7 +219,7 @@ export default function LeadForm() {
                 <button
                   type="submit"
                   disabled={status === "pending"}
-                  className="mt-[24px] h-[60px] w-full rounded-[5px] bg-lime text-[14px] font-bold text-ink transition-[filter] hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 md:w-[242px]"
+                  className="mt-[24px] h-[60px] w-full rounded-[5px] bg-lime text-[14px] font-bold text-ink transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:active:scale-100 md:w-[242px]"
                 >
                   {status === "pending" ? "Отправляем…" : "Отправить заявку"}
                 </button>

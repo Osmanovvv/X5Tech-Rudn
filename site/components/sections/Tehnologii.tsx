@@ -91,7 +91,7 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
 function TechCard({ i, mobile }: { i: number; mobile?: boolean }) {
   const c = CARDS[i];
   return (
-    <div className="relative aspect-square w-full overflow-hidden rounded-[15px] bg-paper">
+    <div className="hover-lift relative aspect-square w-full overflow-hidden rounded-[15px] bg-paper">
       <Illu i={i} mobile={mobile} />
       <p className="absolute left-[7%] top-[58.9%] whitespace-pre-line text-[18px] font-bold leading-[18px] tracking-[-0.175px] text-ink">
         {c.title}

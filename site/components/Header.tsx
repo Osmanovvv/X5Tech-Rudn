@@ -106,7 +106,7 @@ export default function Header() {
               <a
                 key={item.href}
                 href={item.href}
-                className={`whitespace-nowrap text-ink hover:opacity-70 ${i === 3 ? "ml-[6px]" : ""}`}
+                className={`whitespace-nowrap text-ink transition-opacity duration-200 ease-motion hover:opacity-70 ${i === 3 ? "ml-[6px]" : ""}`}
               >
                 {item.label}
               </a>
@@ -115,7 +115,7 @@ export default function Header() {
 
           <a
             href="#forma"
-            className="ml-auto flex h-[45px] w-[150px] items-center rounded-full bg-lime pl-[26px] text-[13px] font-bold text-ink hover:brightness-95 max-lg:hidden"
+            className="ml-auto flex h-[45px] w-[150px] items-center rounded-full bg-lime pl-[26px] text-[13px] font-bold text-ink transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98] max-lg:hidden"
           >
             Подать заявку
           </a>
@@ -174,7 +174,7 @@ export default function Header() {
           <a
             href="#forma"
             onClick={() => setOpen(false)}
-            className="mt-auto flex h-[56px] items-center justify-center rounded-[5px] bg-lime-deep text-[14px] font-bold text-white"
+            className="mt-auto flex h-[56px] items-center justify-center rounded-[5px] bg-lime-deep text-[14px] font-bold text-white transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98]"
           >
             Подать заявку
           </a>

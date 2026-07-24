@@ -58,7 +58,7 @@ function ArrowBtn({ icon, onClick, label }: { icon: string; onClick: () => void;
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="flex size-[44px] items-center justify-center rounded-full border border-[#f3f3f3] bg-white transition-colors hover:bg-paper"
+      className="flex size-[44px] items-center justify-center rounded-full border border-[#f3f3f3] bg-white transition-[background-color,scale] duration-200 ease-motion hover:bg-paper active:scale-95"
     >
       <img src={icon} alt="" aria-hidden className="size-[20px]" />
     </button>
@@ -84,7 +84,7 @@ export default function Novosti() {
   }, []);
 
   const AllLink = (
-    <a href="#novosti" className="whitespace-nowrap text-[14px] font-bold leading-[21px] text-ink">
+    <a href="#novosti" className="whitespace-nowrap text-[14px] font-bold leading-[21px] text-ink transition-opacity duration-200 ease-motion hover:opacity-70">
       {allLabel} →
     </a>
   );

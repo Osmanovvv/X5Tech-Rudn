@@ -80,7 +80,7 @@ export default function TebeKNam() {
             key={left}
             data-reveal
             data-i={String(i + 1)}
-            className="absolute top-[156px] h-[300px] w-[260px] rounded-[18px] border border-hairline bg-paper"
+            className="hover-lift absolute top-[156px] h-[300px] w-[260px] rounded-[18px] border border-hairline bg-paper"
             style={{ left }}
           >
             {/* Плашка — нижний слой (child 0 в макете), фото рисуется поверх неё */}

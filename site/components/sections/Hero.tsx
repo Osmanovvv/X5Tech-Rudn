@@ -82,7 +82,7 @@ function Cta({ mobile }: { mobile?: boolean }) {
   return (
     <a
       href="#forma"
-      className={`relative block rounded-[5px] bg-lime-deep font-bold text-white transition-[filter] hover:brightness-95 ${
+      className={`group relative block rounded-[5px] bg-lime-deep font-bold text-white transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98] ${
         mobile ? "h-[60px] w-full" : "h-[60px] w-[240px]"
       }`}
     >
@@ -97,7 +97,7 @@ function Cta({ mobile }: { mobile?: boolean }) {
         src={asset("/img/01-hero/svg-8b38f743.svg")}
         alt=""
         aria-hidden
-        className={`absolute top-1/2 h-[18px] w-[18px] -translate-y-1/2 ${
+        className={`absolute top-1/2 h-[18px] w-[18px] -translate-y-1/2 transition-transform duration-200 ease-motion group-hover:translate-x-[4px] ${
           mobile ? "left-[219px]" : "left-[180px]"
         }`}
       />

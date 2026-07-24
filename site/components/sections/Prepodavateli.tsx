@@ -10,7 +10,7 @@ const T = teachers as { title: string; subtitle: string; subtitleM: string; teac
 
 function TeacherCard({ t }: { t: Teacher }) {
   return (
-    <div className="relative aspect-[260/332] w-full overflow-hidden rounded-[18px] bg-[#d8d8d8]">
+    <div className="group relative aspect-[260/332] w-full overflow-hidden rounded-[18px] bg-[#d8d8d8]">
       {/* Фото (свой кроп; у Тынченко контейнер на всю высоту карточки) */}
       <div
         className={`absolute inset-x-0 top-0 overflow-hidden rounded-[20px] ${t.fill ? "h-full" : "h-[86.45%]"}`}
@@ -18,7 +18,7 @@ function TeacherCard({ t }: { t: Teacher }) {
         <img
           src={asset(`/img/07-prepodavateli/${t.photo}-640w.webp`)}
           alt={t.name.replace(/\n/g, " ")}
-          className="absolute left-0 w-full max-w-none"
+          className="absolute left-0 w-full max-w-none transition-transform duration-200 ease-motion group-hover:scale-[1.015]"
           style={{ height: `${t.crop.h}%`, top: `${t.crop.top}%` }}
         />
       </div>
