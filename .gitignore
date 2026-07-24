@@ -11,3 +11,5 @@ figma-data/diffs/
 site/scripts/.selftest/
 tools/figma-oauth/pat.txt
 data/
+.env
+.env.local

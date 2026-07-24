@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import ScrollReveal from "@/components/ScrollReveal";
 import { fontSans, fontMono } from "./fonts";
 import "./globals.css";
 
-// Ставит .reveal-ready на <html> ДО первой отрисовки (иначе уже видимый контент моргнёт).
-// Выполняется синхронно при парсинге, до <body>-контента. Страховочный таймер снимет класс
-// через 2с, если остров ScrollReveal не успеет/не загрузится — контент не останется скрытым.
-// Под reduced motion класс не ставим вовсе.
-const REVEAL_BOOT = `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var r=document.documentElement;r.classList.add('reveal-ready');window.__revealTimer=setTimeout(function(){r.classList.remove('reveal-ready')},2000)}}catch(e){}`;
+// Корневой layout: только документ, шрифты и глобальные стили. Шапка/футер и motion-обвязка
+// живут в components/SiteChrome (подключается в app/(site)/layout.tsx и на странице 404),
+// чтобы админка /admin рендерилась без маркетингового окружения — см. Task B2.
 
 // Базовые метаданные; полная SEO-обвязка (metadataBase, OG, канониклы) — Task 5.1
 export const metadata: Metadata = {
@@ -27,17 +22,11 @@ export default function RootLayout({
     <html
       lang="ru"
       className={`${fontSans.variable} ${fontMono.variable} h-full antialiased`}
-      // Инлайн-скрипт REVEAL_BOOT добавляет класс .reveal-ready на <html> до гидрации —
-      // сервер об этом классе не знает, поэтому подавляем ожидаемое несовпадение атрибута.
+      // Инлайн-скрипт REVEAL_BOOT (в SiteChrome) добавляет класс .reveal-ready на <html> до
+      // гидрации — сервер об этом классе не знает, поэтому подавляем ожидаемое несовпадение.
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
-        <script dangerouslySetInnerHTML={{ __html: REVEAL_BOOT }} />
-        <Header />
-        {children}
-        <Footer />
-        <ScrollReveal />
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
