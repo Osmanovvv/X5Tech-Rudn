@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import NewsCard from "@/components/NewsCard";
 import { withBasePath } from "@/lib/asset";
-import { allNews, newsMeta } from "@/lib/news";
+import { getAllNews, newsMeta } from "@/lib/server/news-store";
 
 const TITLE = `${newsMeta.title} — Факультет ИИ РУДН × X5 Tech`;
 const DESCRIPTION =
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default function NewsIndex() {
-  const items = allNews();
+  const items = getAllNews();
 
   return (
     <main className="bg-white">

@@ -6,20 +6,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import NewsCard from "@/components/NewsCard";
 import { asset, withBasePath } from "@/lib/asset";
-import { allNews, getNews, otherNews, formatNewsDate } from "@/lib/news";
+import { getNews, otherNews, formatNewsDate } from "@/lib/news";
+import { getAllNews } from "@/lib/server/news-store";
 
 // Неизвестные слаги не рендерятся on-demand (в статике этого и нет) → 404.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return allNews().map((item) => ({ slug: item.slug }));
+  return getAllNews().map((item) => ({ slug: item.slug }));
 }
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const item = getNews(slug);
+  const item = getNews(getAllNews(), slug);
   if (!item) return {};
   const title = `${item.title} — Новости РУДН × X5 Tech`;
   return {
@@ -38,10 +39,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function NewsArticle({ params }: Props) {
   const { slug } = await params;
-  const item = getNews(slug);
+  const all = getAllNews();
+  const item = getNews(all, slug);
   if (!item) notFound();
 
-  const others = otherNews(slug, 3);
+  const others = otherNews(all, slug, 3);
   const paragraphs = item.body.split("\n\n").filter(Boolean);
 
   return (

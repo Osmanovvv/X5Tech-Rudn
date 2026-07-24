@@ -5,12 +5,7 @@
 import { useCallback, useRef, useState } from "react";
 import Link from "next/link";
 import { asset } from "@/lib/asset";
-import { latest, newsMeta, formatNewsDate, type NewsItem } from "@/lib/news";
-
-const { title, allLabel } = newsMeta;
-
-// Правило роста (Task 2.11): в карусели — последние 6 новостей по дате (см. lib/news.ts).
-const latestNews = latest(6);
+import { formatNewsDate, type NewsItem } from "@/lib/news";
 
 const DOTS = 5;
 const backIcon = asset("/img/11-novosti/svg-e2782076.svg");
@@ -56,7 +51,17 @@ function ArrowBtn({ icon, onClick, label }: { icon: string; onClick: () => void;
   );
 }
 
-export default function Novosti() {
+// Новости приходят пропсами от серверной страницы: данные читаются на сервере из DATA_DIR
+// (lib/server/news-store), а этот остров — клиентский (скролл-снап) и файлы читать не может.
+export default function Novosti({
+  items,
+  title,
+  allLabel,
+}: {
+  items: NewsItem[];
+  title: string;
+  allLabel: string;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
 
@@ -115,7 +120,7 @@ export default function Novosti() {
           data-reveal
           className="mt-[26px] flex snap-x snap-mandatory gap-[15px] scroll-pl-[15px] overflow-x-auto scroll-smooth pb-[6px] pl-[15px] pr-[15px] [scrollbar-width:none] md:mt-[29px] md:w-[calc(100%-35px)] md:scroll-pl-[40px] md:pl-[40px] md:pr-0 [&::-webkit-scrollbar]:hidden"
         >
-          {latestNews.map((item) => (
+          {items.map((item) => (
             <NewsCard key={item.slug} item={item} />
           ))}
         </div>
