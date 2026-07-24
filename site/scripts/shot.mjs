@@ -11,10 +11,17 @@ export async function shoot(url, selector, width, outPath) {
     const page = await browser.newPage({
       viewport: { width: Number(width), height: 900 },
       deviceScaleFactor: 1, // сверка в CSS-пикселях; retina проверяется отдельно (Task 5.3)
+      // Фаза 3: под reduced-motion появления/счётчики показывают КОНЕЧНОЕ состояние сразу —
+      // эталоны детерминированы, гонки с IntersectionObserver нет.
+      reducedMotion: "reduce",
     });
     await page.goto(url, { waitUntil: "networkidle" });
     // Дать догрузиться шрифтам — иначе сверка текста врёт
     await page.evaluate(() => document.fonts.ready);
+    // Страховка на случай, если reveal когда-либо окажется активен при съёмке: показать группы
+    await page.addStyleTag({
+      content: "[data-reveal]{opacity:1!important;translate:none!important}",
+    });
     // Липкая шапка перекрывает секции при скролле к ним — прячем (кроме съёмки самой шапки)
     if (!/^header/.test(selector)) {
       await page.addStyleTag({ content: "header { visibility: hidden !important }" });

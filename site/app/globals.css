@@ -18,6 +18,10 @@
   /* Макетная точка десктопа. Нужен именно именованный брейкпоинт: произвольный
      min-[1200px]: Tailwind сортирует ДО lg и он не переопределяет lg-значения. */
   --breakpoint-dt: 1200px;
+
+  /* Единственный easing на всём сайте (Фаза 3, docs/animation-spec.md → «Единый motion-язык»).
+     В @theme, чтобы был доступен и как утилита ease-motion, и как var(--ease-motion). */
+  --ease-motion: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Контентная колонка: в макете фрейм 1200 с полями 40 → контент 1120 */
@@ -88,6 +92,57 @@ html {
   .calque-fluid {
     width: 1200px;
     max-width: none;
+  }
+}
+
+/* ===== Motion-токены и ScrollReveal (Фаза 3, docs/animation-spec.md) =====
+   Длительности/шаг держим в обычном :root (а не @theme) — они используются как сырые
+   var() в компонентах и здесь, плоский :root гарантирует их эмиссию. */
+:root {
+  --dur-section: 500ms; /* появление секций 450–550 */
+  --dur-card: 400ms; /* карточки и фото 350–450 */
+  --dur-hover: 220ms; /* hover 180–260 */
+  --dur-count: 800ms; /* счётчики 700–900 */
+  --stagger: 70ms; /* шаг между элементами 50–90 */
+  --reveal-shift: 16px; /* смещение появления снизу; на мобиле уменьшается */
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --reveal-shift: 10px; /* спека: на мобиле 8–12 px */
+  }
+}
+
+/* Появление смысловых групп при скролле.
+   Базовое состояние скрыто ТОЛЬКО когда одновременно:
+   (1) есть JS — класс .reveal-ready на <html> ставит инлайн-скрипт ДО первой отрисовки;
+   (2) пользователь не просил reduced motion.
+   Без JS, при ошибке чанка ScrollReveal или при reduce — контент виден всегда.
+   ВАЖНО: data-reveal вешать только на обёртки БЕЗ transform-утилит Tailwind (translate, scale,
+   rotate) — правило нелейерное и перебило бы их. Свойство translate здесь не конфликтует со
+   свойством transform, но узел-хозяин с такими утилитами потеряет своё преобразование. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready [data-reveal] {
+    opacity: 0;
+    translate: 0 var(--reveal-shift);
+    transition:
+      opacity var(--dur-card) var(--ease-motion),
+      translate var(--dur-card) var(--ease-motion);
+    /* Потолок задержки 350 мс на секцию: индекс клампится до 4 (спека «Тайминги»),
+       а не режется сам stagger — волновой характер секций 03/04 сохраняется. */
+    transition-delay: calc(min(var(--reveal-i, 0), 4) * var(--stagger));
+  }
+
+  .reveal-ready [data-reveal].is-in {
+    opacity: 1;
+    translate: none;
+  }
+
+  /* Мобильные длинные списки не должны задерживать страницу — без stagger (спека «Скролл»). */
+  @media (max-width: 767.98px) {
+    .reveal-ready [data-reveal] {
+      transition-delay: 0ms;
+    }
   }
 }
 
