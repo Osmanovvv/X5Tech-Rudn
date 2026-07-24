@@ -125,9 +125,10 @@ export default function ProgrammaObucheniya() {
       {/* ===== Десктоп: калька 1130×1879 (зазор до предыдущей секции — 20px по макету) ===== */}
       <div className="calque-1200 relative mx-auto mt-[20px] hidden h-[1879px] max-w-[1130px] overflow-hidden bg-white md:block">
         {/* Заголовок + бейдж */}
-        <h2 className="absolute left-0 right-0 top-[4px] text-center text-[42px] font-bold leading-[normal] tracking-[-1.26px] text-ink">
+        <h2 data-reveal className="absolute left-0 right-0 top-[4px] text-center text-[42px] font-bold leading-[normal] tracking-[-1.26px] text-ink">
           {title}
         </h2>
+        {/* Бейдж НЕ тегируем: -translate-x-1/2 в Tailwind v4 = свойство translate, конфликт с reveal */}
         <p className="absolute left-1/2 top-[65px] flex h-[36px] w-[537px] -translate-x-1/2 items-center justify-center rounded-full border border-[#b6e835] px-[24px] text-center font-mono text-[12px] uppercase leading-[normal] text-ink">
           {badge}
         </p>
@@ -148,7 +149,7 @@ export default function ProgrammaObucheniya() {
         {courses.map((course, i) => {
           const L = DESK[i];
           return (
-            <div key={i}>
+            <div key={i} data-reveal>
               <h3
                 className="absolute left-[50px] text-[28px] font-bold leading-[42px] text-ink"
                 style={{ top: L.head }}
@@ -180,6 +181,7 @@ export default function ProgrammaObucheniya() {
               key={i}
               src={asset(`/img/04-programma-obucheniya/${course.photo}-880w.webp`)}
               alt=""
+              data-reveal
               className="absolute left-[690px] w-[440px] rounded-[15px] object-cover"
               style={{ top: DESK[i].photo!.top, height: DESK[i].photo!.h }}
             />
@@ -187,7 +189,7 @@ export default function ProgrammaObucheniya() {
         )}
 
         {/* Лавандовая плашка после 3 курса */}
-        <div className="absolute left-[50px] right-0 top-[1308px] h-[91px] rounded-[12px] bg-[#ebeaff]">
+        <div data-reveal className="absolute left-[50px] right-0 top-[1308px] h-[91px] rounded-[12px] bg-[#ebeaff]">
           <p className="absolute left-[32px] top-[21px] text-[16px] font-bold leading-[24px] text-ink">
             {highlight.title}
           </p>
@@ -197,23 +199,23 @@ export default function ProgrammaObucheniya() {
         </div>
 
         {/* Стат-карточка «50%+» (место 4 курса справа) */}
-        <div className="absolute left-[690px] top-[1554px] h-[310px] w-[440px]">
+        <div data-reveal className="absolute left-[690px] top-[1554px] h-[310px] w-[440px]">
           <StatCard />
         </div>
       </div>
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
       <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
-        <h2 className="pt-[30px] text-center text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
+        <h2 data-reveal className="pt-[30px] text-center text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
           {title}
         </h2>
-        <p className="mx-auto mt-[16px] w-fit whitespace-pre-line rounded-full border border-[#b6e835] px-[24px] py-[10px] text-center font-mono text-[11px] uppercase leading-[16px] text-ink">
+        <p data-reveal className="mx-auto mt-[16px] w-fit whitespace-pre-line rounded-full border border-[#b6e835] px-[24px] py-[10px] text-center font-mono text-[11px] uppercase leading-[16px] text-ink">
           {badgeM}
         </p>
 
         <div className="mt-[24px] flex flex-col gap-[30px]">
           {courses.map((course, i) => (
-            <div key={i}>
+            <div key={i} data-reveal>
               <h3 className="text-[22px] font-bold leading-[26px] text-ink">
                 {course.num}: {course.name}
               </h3>

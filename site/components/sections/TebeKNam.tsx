@@ -64,19 +64,22 @@ export default function TebeKNam() {
     <section aria-label="Тебе к нам, если ты">
       {/* ===== Десктоп: калька 1200×602 ===== */}
       <div className="calque-1200 relative mx-auto hidden h-[602px] max-w-[1200px] overflow-hidden bg-white md:block">
-        <h2 className="absolute left-[40px] top-[76px] text-[42px] font-bold leading-[normal] tracking-[-1.26px] text-ink">
+        <h2 data-reveal className="absolute left-[40px] top-[76px] text-[42px] font-bold leading-[normal] tracking-[-1.26px] text-ink">
           Тебе к нам, если ты
         </h2>
         <img
           src={asset("/img/02-tebe-k-nam/vector1-dec88355.svg")}
           alt=""
           aria-hidden
+          data-reveal
           className="absolute left-[278px] top-[125px] h-[2px] w-[160px] max-w-none"
         />
 
         {[40, 320, 610, 900].map((left, i) => (
           <div
             key={left}
+            data-reveal
+            data-i={String(i + 1)}
             className="absolute top-[156px] h-[300px] w-[260px] rounded-[18px] border border-hairline bg-paper"
             style={{ left }}
           >
@@ -112,7 +115,7 @@ export default function TebeKNam() {
 
       {/* ===== Мобильная: флоу по узлам 884–2264 ===== */}
       <div className="canvas-320 relative overflow-hidden bg-white md:hidden">
-        <h2 className="ml-[15px] pt-[30px] text-[22px] font-bold leading-[26px] text-ink">
+        <h2 data-reveal className="ml-[15px] pt-[30px] text-[22px] font-bold leading-[26px] text-ink">
           Тебе к нам, если ты
         </h2>
         <img
@@ -121,7 +124,7 @@ export default function TebeKNam() {
           aria-hidden
           className="ml-[134px] mt-[1px] h-[2px] w-[80px]"
         />
-        <div className="mx-[15px] mt-[20px] flex flex-col gap-[15px]">
+        <div data-reveal className="mx-[15px] mt-[20px] flex flex-col gap-[15px]">
           {CARDS.map((card, i) => (
             <div
               key={card.img}

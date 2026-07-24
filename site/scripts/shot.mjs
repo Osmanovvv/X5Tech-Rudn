@@ -20,7 +20,8 @@ export async function shoot(url, selector, width, outPath) {
     await page.evaluate(() => document.fonts.ready);
     // Страховка на случай, если reveal когда-либо окажется активен при съёмке: показать группы
     await page.addStyleTag({
-      content: "[data-reveal]{opacity:1!important;translate:none!important}",
+      content:
+        "[data-reveal],[data-reveal-move],[data-reveal-scale]{opacity:1!important;translate:none!important;scale:none!important}",
     });
     // Липкая шапка перекрывает секции при скролле к ним — прячем (кроме съёмки самой шапки)
     if (!/^header/.test(selector)) {

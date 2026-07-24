@@ -31,7 +31,9 @@ export default function ScrollReveal() {
         return;
       }
 
-      const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+      const targets = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-reveal], [data-reveal-move], [data-reveal-scale]"),
+      );
       // Остров жив и взял управление — отменяем аварийный таймер инлайн-скрипта
       clearFallback();
 

@@ -108,19 +108,20 @@ export default function Tehnologii() {
     <section aria-label="Прикоснись к технологиям" className="mt-[70px] bg-white">
       {/* ===== Десктоп: калька 1200×545 ===== */}
       <div className="calque-1200 relative mx-auto hidden h-[545px] w-[1200px] md:block">
-        <h2 className="absolute left-[40px] top-[56px] text-[40px] font-bold leading-[43.2px] tracking-[-0.88px] text-ink">
+        <h2 data-reveal className="absolute left-[40px] top-[56px] text-[40px] font-bold leading-[43.2px] tracking-[-0.88px] text-ink">
           Прикоснись к технологиям
         </h2>
         <img
           src={img("x5tech-logo.webp")}
           alt="X5 Tech"
+          data-reveal
           className="absolute left-[610px] top-[60px] h-[33px] w-auto"
         />
-        <p className="absolute left-[40px] top-[113px] whitespace-pre-line text-[16px] leading-[20px] text-[rgba(39,39,39,0.85)]">
+        <p data-reveal className="absolute left-[40px] top-[113px] whitespace-pre-line text-[16px] leading-[20px] text-[rgba(39,39,39,0.85)]">
           {"Вот несколько направлений над которыми работает\nбольшая команда инженеров компании"}
         </p>
         {CARDS.map((c, i) => (
-          <div key={i} className="absolute top-[203px] w-[270px]" style={{ left: c.left }}>
+          <div key={i} data-reveal data-i={String(i + 1)} className="absolute top-[203px] w-[270px]" style={{ left: c.left }}>
             <TechCard i={i} />
           </div>
         ))}
@@ -128,7 +129,7 @@ export default function Tehnologii() {
 
       {/* ===== Мобильная: вертикальный стек ===== */}
       <div className="canvas-320 bg-white px-[15px] pb-[30px] pt-[30px] md:hidden">
-        <div className="flex items-center justify-between">
+        <div data-reveal className="flex items-center justify-between">
           <h2 className="text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
             Прикоснись
             <br />к технологиям
@@ -139,10 +140,10 @@ export default function Tehnologii() {
             className="h-[26px] w-auto shrink-0"
           />
         </div>
-        <p className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
+        <p data-reveal className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {"Вот несколько направлений над которыми\nработает большая команда инженеров\nкомпании"}
         </p>
-        <div className="mt-[20px] flex flex-col gap-[20px]">
+        <div data-reveal className="mt-[20px] flex flex-col gap-[20px]">
           {CARDS.map((_, i) => (
             <TechCard key={i} i={i} mobile />
           ))}

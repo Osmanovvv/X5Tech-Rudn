@@ -214,6 +214,9 @@ export default function ProgrammaDaet() {
     <section aria-label="Программа даёт" id="programma">
       {/* ===== Десктоп: калька 1200×602 ===== */}
       <div className="calque-1200 relative mx-auto hidden h-[602px] max-w-[1200px] overflow-hidden bg-white md:block">
+        {/* Волна 1 (спека 03: две волны): левый лавандовый блок появляется целиком.
+            Обёртка не позиционирована — абсолютные дети по-прежнему позиционируются калькой. */}
+        <div data-reveal>
         <h2 className="absolute left-[40px] top-[46px] text-[42px] font-bold leading-[normal] tracking-[-1.26px] text-ink">
           Программа даёт
         </h2>
@@ -249,10 +252,14 @@ export default function ProgrammaDaet() {
         <p className="absolute left-[329px] top-[422px] w-[177px] text-[13px] leading-[normal] text-ink">
           выбери трек на 3 курсе <br />и углубись в практику
         </p>
+        </div>
 
+        {/* Волна 2: правые карточки-преимущества (bg-paper непрозрачный → backdrop-blur без эффекта) */}
         {CARDS.map((c) => (
           <div
             key={c.key}
+            data-reveal
+            data-i="1"
             className="absolute h-[129px] rounded-[15.88px] border-[1.13px] border-hairline bg-paper backdrop-blur-[7.9px]"
             style={{ left: c.dleft, top: c.dtop, width: c.dwidth }}
           >
@@ -271,17 +278,19 @@ export default function ProgrammaDaet() {
             <CardIllustration k={c.key} />
           </div>
         ))}
-        <InfraPhoto />
+        <div data-reveal data-i="1">
+          <InfraPhoto />
+        </div>
       </div>
 
       {/* ===== Мобильная: флоу по узлам 2264–3607 ===== */}
       <div className="canvas-320 relative overflow-hidden bg-white md:hidden">
-        <h2 className="ml-[15px] pt-[30px] text-[22px] font-bold leading-[26px] text-ink">
+        <h2 data-reveal className="ml-[15px] pt-[30px] text-[22px] font-bold leading-[26px] text-ink">
           Программа даёт
         </h2>
 
         {/* Лавандовая карта 290×520 (в потоке, абсолюты внутри) */}
-        <div className="relative mx-[15px] mt-[20px] h-[520px] rounded-[15px] bg-[#f0efff]">
+        <div data-reveal className="relative mx-[15px] mt-[20px] h-[520px] rounded-[15px] bg-[#f0efff]">
           <p className="absolute left-[20px] top-[25px] whitespace-pre-line text-[14px] font-bold leading-[17px] text-black">
             {"2 специалиста\nв одном дипломе"}
           </p>
@@ -314,7 +323,7 @@ export default function ProgrammaDaet() {
         </div>
 
         {/* 5 карточек */}
-        <div className="mx-[15px] mt-[15px] flex flex-col gap-[15px] pb-[30px]">
+        <div data-reveal className="mx-[15px] mt-[15px] flex flex-col gap-[15px] pb-[30px]">
           {[
             { c: CARDS[0], mtext: "Обучение вместе с X5 Tech – это не экскурсии в офис раз\nв год, а работа с реальными задачами, которые подготовят тебя к карьере.", h: 129, tW: 166 },
             { c: CARDS[1], mtext: "С первого курса работаешь\nнад реальными задачами,\nа не абстрактными упражнениями", h: 129, tW: 177 },

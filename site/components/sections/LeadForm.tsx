@@ -120,11 +120,11 @@ export default function LeadForm() {
   return (
     <section id="forma" aria-label="Оставь заявку" className="bg-white">
       <div className="canvas-320 calque-fluid mx-auto max-w-[1200px] px-[15px] py-[30px] md:px-[40px] md:pb-[48px] md:pt-[40px]">
-        <h2 className="text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink md:text-[40px] md:leading-[normal] md:tracking-[-0.88px]">
+        <h2 data-reveal className="text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink md:text-[40px] md:leading-[normal] md:tracking-[-0.88px]">
           Оставь заявку – расскажем, как поступить
         </h2>
 
-        <div className="mt-[20px] flex flex-col gap-[20px] md:mt-[40px] md:flex-row md:gap-[30px]">
+        <div data-reveal className="mt-[20px] flex flex-col gap-[20px] md:mt-[40px] md:flex-row md:gap-[30px]">
           {/* Фото */}
           <div className="overflow-hidden rounded-[15px] md:h-[662px] md:w-[581px] md:shrink-0">
             <img

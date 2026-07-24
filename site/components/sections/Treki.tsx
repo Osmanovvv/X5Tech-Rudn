@@ -94,15 +94,18 @@ export default function Treki() {
     <section id="treki" aria-label="Треки третьего курса">
       {/* ===== Десктоп: калька 1130×475 (зазор до предыдущей секции — 80px по макету) ===== */}
       <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[475px] max-w-[1130px] overflow-hidden bg-white md:block">
-        <h2 className="absolute left-0 top-0 whitespace-pre-line text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
+        <h2 data-reveal className="absolute left-0 top-0 whitespace-pre-line text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
           {title}
         </h2>
-        <p className="absolute left-0 top-[107px] whitespace-pre-line text-[16px] leading-[20px] text-[rgba(39,39,39,0.85)]">
+        <p data-reveal className="absolute left-0 top-[107px] whitespace-pre-line text-[16px] leading-[20px] text-[rgba(39,39,39,0.85)]">
           {subtitle}
         </p>
 
-        {/* Фото-карточка: в макете отражена по горизонтали + особый вертикальный кроп (ctx 271:2013) */}
+        {/* Фото-карточка: в макете отражена по горизонтали + особый вертикальный кроп (ctx 271:2013).
+            translate (reveal) не конфликтует с inline transform:scaleX(-1) — это разные свойства. */}
         <div
+          data-reveal
+          data-i="1"
           className="absolute left-0 top-[175px] h-[300px] w-[259px] overflow-hidden rounded-[20px]"
           style={{ transform: "scaleX(-1)" }}
         >
@@ -114,9 +117,9 @@ export default function Treki() {
           />
         </div>
 
-        {/* 3 карточки-трека */}
+        {/* 3 карточки-трека — каскад слева направо после фото */}
         {TRACKS.map((track, i) => (
-          <div key={i} className="absolute top-[175px]" style={{ left: 290 + i * 290 }}>
+          <div key={i} data-reveal data-i={String(i + 2)} className="absolute top-[175px]" style={{ left: 290 + i * 290 }}>
             <TrackCard track={track} i={i} />
           </div>
         ))}
@@ -124,14 +127,15 @@ export default function Treki() {
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
       <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
-        <h2 className="whitespace-pre-line pt-[30px] text-[22px] font-bold leading-[26px] tracking-[-0.3px] text-ink">
+        <h2 data-reveal className="whitespace-pre-line pt-[30px] text-[22px] font-bold leading-[26px] tracking-[-0.3px] text-ink">
           {title}
         </h2>
-        <p className="mt-[12px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
+        <p data-reveal className="mt-[12px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {subtitleM}
         </p>
 
         <div
+          data-reveal
           className="relative mt-[20px] w-full overflow-hidden rounded-[10px]"
           style={{ aspectRatio: "290/335", transform: "scaleX(-1)" }}
         >
@@ -143,7 +147,7 @@ export default function Treki() {
           />
         </div>
 
-        <div className="mt-[20px] flex flex-col gap-[20px]">
+        <div data-reveal className="mt-[20px] flex flex-col gap-[20px]">
           {TRACKS.map((track, i) => (
             <TrackCard key={i} track={track} i={i} mobile />
           ))}

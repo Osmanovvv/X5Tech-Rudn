@@ -128,9 +128,21 @@ html {
     transition:
       opacity var(--dur-card) var(--ease-motion),
       translate var(--dur-card) var(--ease-motion);
-    /* Потолок задержки 350 мс на секцию: индекс клампится до 4 (спека «Тайминги»),
-       а не режется сам stagger — волновой характер секций 03/04 сохраняется. */
-    transition-delay: calc(min(var(--reveal-i, 0), 4) * var(--stagger));
+  }
+
+  /* Stagger задаётся атрибутом data-i="1..4" на элементе. Разметка клампит индекс до 4,
+     поэтому потолок задержки последнего элемента секции — 4×70 = 280 мс (спека: ≤350). */
+  .reveal-ready [data-reveal][data-i="1"] {
+    transition-delay: calc(1 * var(--stagger));
+  }
+  .reveal-ready [data-reveal][data-i="2"] {
+    transition-delay: calc(2 * var(--stagger));
+  }
+  .reveal-ready [data-reveal][data-i="3"] {
+    transition-delay: calc(3 * var(--stagger));
+  }
+  .reveal-ready [data-reveal][data-i="4"] {
+    transition-delay: calc(4 * var(--stagger));
   }
 
   .reveal-ready [data-reveal].is-in {
@@ -138,9 +150,30 @@ html {
     translate: none;
   }
 
-  /* Мобильные длинные списки не должны задерживать страницу — без stagger (спека «Скролл»). */
+  /* Вариант ТОЛЬКО сдвиг (без opacity) — для LCP-элементов (заголовок hero): элемент
+     всегда видим, поэтому не задерживает LCP. Свойство translate, а не transform-утилита. */
+  .reveal-ready [data-reveal-move] {
+    translate: 0 var(--reveal-shift);
+    transition: translate var(--dur-section) var(--ease-motion);
+  }
+  .reveal-ready [data-reveal-move].is-in {
+    translate: none;
+  }
+
+  /* Вариант ТОЛЬКО масштаб 0.98→1 (без opacity) — для LCP-фото hero (спека 01: «на 80–120 мс
+     позже, scale 0.98→1»). Фото сразу отрисовано (scale 0.98), LCP не страдает. */
+  .reveal-ready [data-reveal-scale] {
+    scale: 0.98;
+    transition: scale var(--dur-card) var(--ease-motion);
+    transition-delay: 100ms;
+  }
+  .reveal-ready [data-reveal-scale].is-in {
+    scale: none;
+  }
+
+  /* На мобиле длинные списки не задерживают страницу — убираем stagger (спека «Скролл»). */
   @media (max-width: 767.98px) {
-    .reveal-ready [data-reveal] {
+    .reveal-ready [data-reveal][data-i] {
       transition-delay: 0ms;
     }
   }

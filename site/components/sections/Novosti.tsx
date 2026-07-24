@@ -99,7 +99,7 @@ export default function Novosti() {
     <section id="novosti" aria-label={title} className="mt-[60px] bg-white">
       <div className="canvas-320 calque-fluid mx-auto max-w-[1200px]">
         {/* ===== Десктоп: шапка ===== */}
-        <div className="hidden items-center justify-between pl-[40px] pr-[35px] pt-[55px] md:flex">
+        <div data-reveal className="hidden items-center justify-between pl-[40px] pr-[35px] pt-[55px] md:flex">
           <h2 className="text-[40px] font-bold leading-[43.2px] tracking-[-0.88px] text-ink">{title}</h2>
           <div className="flex items-center gap-[15px]">
             {Controls}
@@ -108,7 +108,7 @@ export default function Novosti() {
         </div>
 
         {/* ===== Мобильная: шапка ===== */}
-        <div className="px-[15px] pt-[30px] md:hidden">
+        <div data-reveal className="px-[15px] pt-[30px] md:hidden">
           <h2 className="text-center text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
           <div className="mt-[18px] flex items-center justify-between">
             <ArrowBtn icon={backIcon} onClick={() => scrollByCard(-1)} label="Предыдущие новости" />
@@ -121,6 +121,7 @@ export default function Novosti() {
         <div
           ref={trackRef}
           onScroll={onScroll}
+          data-reveal
           className="mt-[26px] flex snap-x snap-mandatory gap-[15px] scroll-pl-[15px] overflow-x-auto scroll-smooth pb-[6px] pl-[15px] pr-[15px] [scrollbar-width:none] md:mt-[29px] md:w-[calc(100%-35px)] md:scroll-pl-[40px] md:pl-[40px] md:pr-0 [&::-webkit-scrollbar]:hidden"
         >
           {latest.map((item) => (

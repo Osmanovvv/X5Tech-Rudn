@@ -108,6 +108,7 @@ function Cta({ mobile }: { mobile?: boolean }) {
 function GlassCard({ mobile }: { mobile?: boolean }) {
   return (
     <div
+      data-reveal
       className={`rounded-[14.8px] border-[1.06px] border-hairline bg-paper/95 backdrop-blur-[7.4px] ${
         mobile ? "relative h-[81px] w-[254px]" : "absolute left-[876px] top-[99px] h-[81px] w-[254px]"
       }`}
@@ -205,20 +206,22 @@ export default function Hero() {
             sizes="728px"
             alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
             fetchPriority="high"
+            data-reveal-scale
             className="absolute left-[429px] top-[148px] h-[485px] w-[728px] object-cover"
           />
         </picture>
-        <div className="absolute left-[40px] top-[63px]">
+        <div data-reveal className="absolute left-[40px] top-[63px]">
           <Badge />
         </div>
-        <h1 className="absolute left-[40px] top-[112px] w-[440px] text-[42px] font-bold leading-[42.84px] tracking-[-1.26px] text-ink">
+        {/* h1 — LCP-текст: только сдвиг, без opacity, чтобы не задерживать LCP */}
+        <h1 data-reveal-move className="absolute left-[40px] top-[112px] w-[440px] text-[42px] font-bold leading-[42.84px] tracking-[-1.26px] text-ink">
           Изучай ИИ,
           <br />
           входи в профессию
           <br />
           вместе с X5 Tech
         </h1>
-        <p className="absolute left-[40px] top-[251px] w-[340px] text-[13px] leading-[normal] text-ink">
+        <p data-reveal className="absolute left-[40px] top-[251px] w-[340px] text-[13px] leading-[normal] text-ink">
           Факультет искусственного интеллекта РУДН
           <br />
           Образовательная программа:
@@ -226,28 +229,30 @@ export default function Hero() {
           «Искусственный интеллект: разработка
           <br />и обучение интеллектуальных систем»
         </p>
-        <div className="absolute left-[40px] top-[331px]">
+        <div data-reveal className="absolute left-[40px] top-[331px]">
           <Cta />
         </div>
         <GlassCard />
-        <Stats />
+        <div data-reveal>
+          <Stats />
+        </div>
       </div>
 
       {/* ===== Мобильная: верхняя текстовая зона фиксирована (284px, как в макете),
           арт в потоке с сохранением пропорций — на 321–430 растёт вниз, ничего не кропится ===== */}
       <div className="canvas-320 relative overflow-hidden bg-white md:hidden">
         <div className="relative h-[284px]">
-          <div className="absolute left-[15px] top-[31px]">
+          <div data-reveal className="absolute left-[15px] top-[31px]">
             <Badge mobile />
           </div>
-          <h1 className="absolute left-[15px] top-[71px] text-[22px] font-bold leading-[23px] tracking-[-1.3px] text-ink">
+          <h1 data-reveal-move className="absolute left-[15px] top-[71px] text-[22px] font-bold leading-[23px] tracking-[-1.3px] text-ink">
             Изучай ИИ,
             <br />
             входи в профессию
             <br />
             вместе с <span className="text-lime-deep">X5 Tech</span>
           </h1>
-          <p className="absolute left-[15px] top-[155px] text-[12px] leading-[14px] text-[#6b6b6b]">
+          <p data-reveal className="absolute left-[15px] top-[155px] text-[12px] leading-[14px] text-[#6b6b6b]">
             Факультет искусственного интеллекта РУДН
             <br />
             Образовательная программа:
@@ -263,16 +268,17 @@ export default function Hero() {
             src={asset(mobileArt)}
             alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
             fetchPriority="high"
+            data-reveal-scale
             className="relative z-[1] block h-auto w-full"
           />
         </picture>
         <div className="absolute left-[15px] top-[226px] z-0">
           <GlassCard mobile />
         </div>
-        <div className="mx-[15px]">
+        <div data-reveal className="mx-[15px]">
           <Cta mobile />
         </div>
-        <div className="ml-[15px] mt-[25px] pb-[30px]">
+        <div data-reveal className="ml-[15px] mt-[25px] pb-[30px]">
           <Stats mobile />
         </div>
       </div>

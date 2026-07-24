@@ -22,6 +22,7 @@ const STATS_M = [
 function QuoteCard({ mobile }: { mobile?: boolean }) {
   return (
     <div
+      data-reveal
       className={`rounded-[16px] border border-l-[3px] border-[#b6e835] bg-white/85 ${
         mobile ? "relative p-[24px]" : "absolute left-[40px] top-[325px] h-[170px] w-[560px]"
       }`}
@@ -69,29 +70,30 @@ export default function Most() {
     <section aria-label="X5 Tech — мост в реальную ИИ-практику" className="mt-[70px] bg-[#ebeaff]">
       {/* ===== Десктоп: калька 1200×599 ===== */}
       <div className="calque-1200 relative mx-auto hidden h-[599px] w-[1200px] md:block">
-        <p className="absolute left-[40px] top-[97px] font-mono text-[12px] uppercase text-ink">
+        <p data-reveal className="absolute left-[40px] top-[97px] font-mono text-[12px] uppercase text-ink">
           СТРАТЕГИЧЕСКИЙ ПАРТНЕР
         </p>
-        <h2 className="absolute left-[40px] top-[125px] text-[40px] font-bold leading-[43.2px] tracking-[-0.88px] text-ink">
+        <h2 data-reveal className="absolute left-[40px] top-[125px] text-[40px] font-bold leading-[43.2px] tracking-[-0.88px] text-ink">
           {"X5 Tech — мост в реальную"}
           <br />
           ИИ-практику
         </h2>
-        <p className="absolute left-[40px] top-[236px] whitespace-pre-line text-[16px] leading-[20px] text-[rgba(39,39,39,0.85)]">
+        <p data-reveal className="absolute left-[40px] top-[236px] whitespace-pre-line text-[16px] leading-[20px] text-[rgba(39,39,39,0.85)]">
           {"X5 Tech — технологический центр X5, крупнейшего ритейлера\nРоссии. ИИ тут — инструмент, который обеспечивает работу\n24 000+ магазинов и сотен тысяч сотрудников."}
         </p>
         <QuoteCard />
 
         {/* Правая колонка — статы */}
-        <p className="absolute left-[752px] top-[100px] w-[373px] text-center text-[87px] font-bold leading-none text-ink">
+        <p data-reveal className="absolute left-[752px] top-[100px] w-[373px] text-center text-[87px] font-bold leading-none text-ink">
           24 000+
         </p>
-        <p className="absolute left-[755px] top-[182px] w-[367px] text-center text-[26px] text-ink">
+        <p data-reveal className="absolute left-[755px] top-[182px] w-[367px] text-center text-[26px] text-ink">
           магазинов в экосистеме Х5
         </p>
         {STATS.map((s) => (
           <p
             key={s.num}
+            data-reveal
             className="absolute left-[755px] w-[401px] whitespace-pre-line text-[22px] leading-[28px] text-ink"
             style={{ top: s.top }}
           >
@@ -103,17 +105,17 @@ export default function Most() {
 
       {/* ===== Мобильная: вертикальный стек ===== */}
       <div className="canvas-320 px-[15px] pb-[30px] pt-[30px] md:hidden">
-        <p className="font-mono text-[11px] uppercase text-ink">СТРАТЕГИЧЕСКИЙ ПАРТНЕР</p>
-        <h2 className="mt-[12px] text-[20px] font-bold leading-[25px] tracking-[-0.5px] text-ink">
+        <p data-reveal className="font-mono text-[11px] uppercase text-ink">СТРАТЕГИЧЕСКИЙ ПАРТНЕР</p>
+        <h2 data-reveal className="mt-[12px] text-[20px] font-bold leading-[25px] tracking-[-0.5px] text-ink">
           {"X5 Tech — мост в реальную"}
           <br />
           ИИ-практику
         </h2>
-        <p className="mt-[12px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
+        <p data-reveal className="mt-[12px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {"X5 Tech — технологический центр X5,\nкрупнейшего ритейлера России. ИИ тут —\nинструмент, который обеспечивает работу\n24 000+ магазинов и сотен тысяч сотрудников."}
         </p>
 
-        <div className="mt-[24px] flex flex-col gap-[20px]">
+        <div data-reveal className="mt-[24px] flex flex-col gap-[20px]">
           {STATS_M.map((s) => (
             <div key={s.num}>
               <p className="text-[26px] font-bold leading-none text-ink">{s.num}</p>

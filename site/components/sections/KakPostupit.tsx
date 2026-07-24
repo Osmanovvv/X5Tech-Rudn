@@ -143,18 +143,18 @@ export default function KakPostupit() {
     <section id="postuplenie" aria-label="Как поступить">
       {/* ===== Десктоп: калька 1120×1507 (зазор до предыдущей секции — 80px) ===== */}
       <div className="calque-1200 relative mx-auto mt-[80px] hidden h-[1507px] max-w-[1120px] bg-white md:block">
-        <h2 className="absolute left-0 top-0 text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
+        <h2 data-reveal className="absolute left-0 top-0 text-[42px] font-bold leading-[45px] tracking-[-1px] text-ink">
           {title}
         </h2>
-        <p className="absolute left-0 top-[70px] whitespace-pre-line text-[16px] leading-[20px] text-[rgba(39,39,39,0.85)]">
+        <p data-reveal className="absolute left-0 top-[70px] whitespace-pre-line text-[16px] leading-[20px] text-[rgba(39,39,39,0.85)]">
           {subtitle}
         </p>
 
-        {/* Большая карточка */}
+        {/* Большая карточка (фон — статична, контент проявляется поверх) */}
         <div className="absolute left-0 top-[125px] h-[970px] w-[1120px] rounded-[30px] bg-paper" />
 
         {/* Статы */}
-        <div className="absolute left-[29px] top-[160px] h-[106px] w-[258px] rounded-[14px] bg-[#f0efff]">
+        <div data-reveal data-i="1" className="absolute left-[29px] top-[160px] h-[106px] w-[258px] rounded-[14px] bg-[#f0efff]">
           <p className="absolute left-[20px] top-[20px] text-[12px] font-medium uppercase leading-[15px] text-ink">
             {price.label}
           </p>
@@ -164,6 +164,8 @@ export default function KakPostupit() {
         {stats.map((s, i) => (
           <div
             key={i}
+            data-reveal
+            data-i={String(i + 2)}
             className="absolute top-[160px] h-[106px] w-[258px] rounded-[14px] bg-white"
             style={{ left: 297 + i * 268 }}
           >
@@ -181,27 +183,33 @@ export default function KakPostupit() {
         {/* Вертикальный разделитель колонок */}
         <div className="absolute left-1/2 top-[306px] h-[746px] w-px -translate-x-1/2 bg-[#e6e6e6]" aria-hidden />
 
-        {/* Колонки таймлайнов */}
-        <DeskColumn col={budget} left={29} />
-        <DeskColumn col={contract} left={594} />
+        {/* Колонки таймлайнов — каждая появляется единым блоком */}
+        <div data-reveal>
+          <DeskColumn col={budget} left={29} />
+        </div>
+        <div data-reveal>
+          <DeskColumn col={contract} left={594} />
+        </div>
 
         {/* Вступительные экзамены */}
-        <h3 className="absolute left-0 top-[1135px] text-[20px] font-bold leading-[30px] text-ink">
+        <h3 data-reveal className="absolute left-0 top-[1135px] text-[20px] font-bold leading-[30px] text-ink">
           {exams.title}
         </h3>
-        <p className="absolute left-0 top-[1171px] text-[14px] text-ink">{exams.caption}</p>
-        <ExamTableDesktop />
+        <p data-reveal className="absolute left-0 top-[1171px] text-[14px] text-ink">{exams.caption}</p>
+        <div data-reveal>
+          <ExamTableDesktop />
+        </div>
       </div>
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
       <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
-        <h2 className="pt-[30px] text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
-        <p className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
+        <h2 data-reveal className="pt-[30px] text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
+        <p data-reveal className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {subtitleM}
         </p>
 
         {/* Статы стеком */}
-        <div className="mt-[20px] flex flex-col gap-[10px]">
+        <div data-reveal className="mt-[20px] flex flex-col gap-[10px]">
           <div className="relative h-[100px] rounded-[14px] bg-[#f0efff]">
             <p className="absolute left-[20px] top-[20px] text-[10px] font-medium uppercase leading-[15px] text-ink">
               {price.label}
@@ -226,17 +234,17 @@ export default function KakPostupit() {
         </div>
 
         {/* Таймлайны */}
-        <div className="mt-[26px] flex flex-col gap-[26px]">
+        <div data-reveal className="mt-[26px] flex flex-col gap-[26px]">
           <MobileColumn col={budget} />
           <MobileColumn col={contract} />
         </div>
 
         {/* Вступительные экзамены */}
-        <h3 className="mt-[30px] text-[18px] font-bold leading-[24px] text-ink">{exams.title}</h3>
-        <p className="mt-[6px] whitespace-pre-line text-[12px] leading-[16px] text-ink">
+        <h3 data-reveal className="mt-[30px] text-[18px] font-bold leading-[24px] text-ink">{exams.title}</h3>
+        <p data-reveal className="mt-[6px] whitespace-pre-line text-[12px] leading-[16px] text-ink">
           {exams.captionM || exams.caption}
         </p>
-        <div className="mt-[16px] flex flex-col gap-[16px]">
+        <div data-reveal className="mt-[16px] flex flex-col gap-[16px]">
           {exams.rows.map((r, i) => (
             <div key={i} className="overflow-hidden rounded-[14px] border border-[#ececec]">
               <div className="flex h-[42px] items-center justify-center bg-lime text-[14px] font-medium text-ink">
