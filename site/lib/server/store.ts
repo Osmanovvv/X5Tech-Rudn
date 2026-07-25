@@ -5,9 +5,19 @@
 import { mkdirSync, readFileSync, writeFileSync, renameSync, existsSync, appendFileSync } from "node:fs";
 import path from "node:path";
 
-// Каталог данных задаёт клиент в .env (см. .env.example). Дефолт — ./data рядом с проектом:
-// НЕ внутри .next/out, чтобы пересборка не стирала контент и заявки.
+// Каталог данных задаёт клиент в .env (см. .env.example).
 export const DATA_DIR = path.resolve(process.env.DATA_DIR ?? path.join(process.cwd(), "data"));
+
+// Без DATA_DIR данные лягут рядом с запущенным приложением (в standalone-сборке — прямо внутри
+// .next), и следующая пересборка или замена папки при деплое их уничтожит. Молча допустить это
+// нельзя: речь о заявках абитуриентов. Предупреждаем в журнал при старте.
+if (!process.env.DATA_DIR) {
+  console.warn(
+    `[store] ВНИМАНИЕ: переменная DATA_DIR не задана — данные пишутся в ${DATA_DIR}.\n` +
+      "         Это внутри папки приложения: при следующей сборке или деплое они будут потеряны.\n" +
+      "         Задайте DATA_DIR в .env (см. .env.example и README, раздел «Развёртывание»).",
+  );
+}
 
 export const dataPath = (name: string) => path.join(DATA_DIR, name);
 
