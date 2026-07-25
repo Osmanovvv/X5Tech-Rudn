@@ -1,36 +1,278 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Сайт «Факультет искусственного интеллекта РУДН × X5 Tech»
 
-## Getting Started
+Лендинг программы бакалавриата, раздел новостей, правовые страницы, веб-админка и приём заявок
+с формы. Технологии: Next.js 16 (App Router), React, TypeScript, Tailwind CSS v4.
 
-First, run the development server:
+---
+
+## Что нужно для запуска
+
+- **Node.js 20 или новее** (проверить: `node -v`)
+- Ничего больше: базы данных и сторонние сервисы не требуются — данные хранятся в файлах.
+
+---
+
+## Два режима работы
+
+Проект собирается в одном из двух режимов. Выбирается командой сборки.
+
+| | `npm run build` (по умолчанию) | `npm run build:static` |
+|---|---|---|
+| Что получается | Node-приложение в `.next/standalone` | Папка `out/` со статикой |
+| Что нужно на сервере | Node.js | любой веб-сервер (nginx, Apache) |
+| Админка `/admin` | **есть** | нет |
+| Приём заявок с формы | **есть** | нет (форма честно сообщит, что отправка не подключена) |
+| Новости меняются | через админку, **без пересборки** | правкой файла + пересборка |
+
+Основной вариант поставки — **первый** (Node). Второй оставлен как запасной, если сервер с Node
+окажется недоступен.
+
+---
+
+## Быстрый старт (разработка)
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Сайт откроется на `http://localhost:3000`. Админка — `http://localhost:3000/admin`
+(нужен `.env`, см. ниже).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Развёртывание на сервере (основной вариант)
 
-## Learn More
+### 1. Подготовить каталог данных
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+sudo mkdir -p /var/lib/rudn-ai/data
+sudo chown -R www-data:www-data /var/lib/rudn-ai
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Здесь будут храниться новости, заявки и загруженные обложки. **Каталог должен находиться вне
+папки с приложением** — иначе следующий деплой сотрёт данные. Именно его нужно бэкапить.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Создать `.env`
 
-## Deploy on Vercel
+Скопируйте `.env.example` в `.env` и заполните. Обязательный минимум:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+cp .env.example .env
+npm run admin:secret            # выведет строку SESSION_SECRET=...
+npm run admin:hash -- "ваш-длинный-пароль"   # выведет строку ADMIN_PASSWORD_HASH=...
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Обе строки вставьте в `.env`, задайте `ADMIN_USERNAME` и `DATA_DIR`.
+Открытый пароль нигде не сохраняется — только его хэш.
+
+### 3. Собрать и запустить
+
+```bash
+npm ci
+npm run build
+node .next/standalone/server.js
+```
+
+Сервер поднимется на `PORT` из `.env` (по умолчанию 3000) и адресе `HOSTNAME` (по умолчанию
+127.0.0.1 — наружу сайт отдаёт nginx).
+
+> **Windows:** перед пересборкой остановите запущенный сервер — иначе система не даст перезаписать
+> файлы работающего процесса.
+
+### 4. Автозапуск (systemd)
+
+`/etc/systemd/system/rudn-ai.service`:
+
+```ini
+[Unit]
+Description=Сайт факультета ИИ РУДН
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/rudn-ai
+EnvironmentFile=/var/www/rudn-ai/.env
+ExecStart=/usr/bin/node .next/standalone/server.js
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now rudn-ai
+sudo systemctl status rudn-ai
+```
+
+### 5. nginx
+
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name ai.rudn.ru;
+
+    ssl_certificate     /etc/letsencrypt/live/ai.rudn.ru/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ai.rudn.ru/privkey.pem;
+
+    # Загрузка обложек новостей — до 8 МБ
+    client_max_body_size 10m;
+
+    location / {
+        proxy_pass         http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+
+server {
+    listen 80;
+    server_name ai.rudn.ru;
+    return 301 https://$host$request_uri;
+}
+```
+
+Заголовки `X-Real-IP` / `X-Forwarded-For` обязательны: по ним работает защита от подбора пароля
+и ограничение частоты заявок.
+
+### 6. Обновление сайта
+
+```bash
+# остановить, обновить файлы приложения, затем:
+npm ci
+npm run build
+sudo systemctl restart rudn-ai
+```
+
+Каталог `DATA_DIR` при этом не трогается — новости и заявки сохраняются.
+
+---
+
+## Развёртывание статикой (запасной вариант)
+
+```bash
+npm ci
+npm run build:static
+```
+
+Полученную папку `out/` разместить на веб-сервере. Настроить страницу ошибки:
+
+```nginx
+error_page 404 /404.html;
+```
+
+В этом режиме нет админки и приёма заявок. Чтобы форма всё же отправляла заявки, укажите адрес
+внешнего обработчика в `content/site.json` → `leadEndpoint`.
+Новости в этом режиме правятся в `content/news.json` с последующей пересборкой.
+
+---
+
+## Админка
+
+Адрес: `/admin`. Вход — логин и пароль из `.env`.
+
+- **Новости** — добавление, редактирование, удаление; загрузка обложки (JPEG, PNG, WebP, AVIF,
+  шире 600 px, до 8 МБ — сжатие и подгонка размеров происходят автоматически). Изменения видны
+  на сайте сразу, пересборка не нужна.
+  Адрес новости (`/news/…`) задаётся при создании по заголовку и потом не меняется — чтобы уже
+  разосланные ссылки продолжали работать.
+- **Заявки** — список заявок с формы и выгрузка в CSV (открывается в Excel).
+
+Сессия администратора живёт 8 часов. Смена `SESSION_SECRET` в `.env` мгновенно завершает все
+сессии — так можно «разлогинить всех», если пароль скомпрометирован.
+
+---
+
+## Уведомления о заявках в Telegram
+
+Необязательно. Без настройки заявки просто сохраняются и видны в админке.
+
+1. Создайте бота у **@BotFather**, получите токен.
+2. Напишите боту сообщение (или добавьте его в группу и сделайте администратором).
+3. Узнайте `chat_id`: откройте `https://api.telegram.org/bot<ТОКЕН>/getUpdates` и найдите
+   `result[].chat.id` (у групп id отрицательный).
+4. Впишите `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID` в `.env`, перезапустите приложение.
+
+Если `api.telegram.org` недоступен с сервера, укажите адрес своего прокси Bot API в
+`TELEGRAM_API_BASE`.
+
+Недоступность Telegram никогда не приводит к потере заявки: она сначала сохраняется, и только
+потом отправляется уведомление.
+
+---
+
+## Резервное копирование
+
+Копировать нужно **только каталог `DATA_DIR`** — в нём всё, что нельзя восстановить пересборкой:
+
+```
+$DATA_DIR/news.json      — новости
+$DATA_DIR/leads.jsonl    — заявки с сайта (персональные данные)
+$DATA_DIR/uploads/       — загруженные обложки
+```
+
+Пример ежедневной копии:
+
+```bash
+tar czf /backup/rudn-ai-$(date +%F).tar.gz -C /var/lib/rudn-ai data
+```
+
+> **Персональные данные.** `leads.jsonl` содержит имена, телефоны и адреса почты абитуриентов.
+> Ограничьте доступ к каталогу и к резервным копиям, храните их не дольше, чем требуется.
+
+---
+
+## Размещение в подпапке домена
+
+Если сайт живёт не в корне (например, `https://rudn.ru/ai`), укажите путь и пересоберите:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/ai npm run build
+```
+
+---
+
+## Правка контента без админки
+
+Тексты страниц лежат в `content/` (JSON, редактируются в любом текстовом редакторе):
+
+| Файл | Что содержит |
+|---|---|
+| `site.json` | контакты, адрес, ссылки футера, домен |
+| `program.json` | этапы обучения |
+| `admission.json` | поступление: цены, сроки, экзамены |
+| `teachers.json` | преподаватели |
+| `legal.json` | список правовых страниц |
+| `news.json` | демо-новости (в Node-режиме новости берутся из `DATA_DIR`) |
+
+После правки — пересборка (`npm run build`) и перезапуск.
+
+> Файлы сохраняйте **в кодировке UTF-8 без BOM**. Блокнот Windows добавляет BOM — используйте
+> Notepad++, VS Code или аналог. Если файл не удалось прочитать, приложение напишет об этом
+> в журнал и продолжит работу на прежних данных.
+
+---
+
+## Что настраивается перед публикацией
+
+| Где | Что |
+|---|---|
+| `content/site.json` → `siteUrl` | итоговый домен (нужен для ссылок и карты сайта) |
+| `content/site.json` → `metrikaId` | идентификатор Яндекс.Метрики |
+| `content/site.json` → `yandexVerification` | код подтверждения прав в Яндекс.Вебмастере |
+| `content/legal.json` + страницы `/docs/*` | тексты правовых документов (сейчас заглушки) |
+
+---
+
+## Известные ограничения
+
+- Правовые страницы `/docs/*` — заглушки: тексты предоставляет университет.
+- Шрифт: используется Inter. При получении файлов X5 Sans его подключают в `app/fonts.ts`.
+- Приложение рассчитано на один экземпляр процесса. Данные — файлы, поэтому запуск нескольких
+  копий на одном каталоге не предусмотрен.
