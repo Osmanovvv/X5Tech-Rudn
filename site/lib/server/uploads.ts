@@ -3,7 +3,7 @@
 // Файлы кладём в DATA_DIR/uploads, а НЕ в public/: папка public входит в состав сборки, и при
 // следующем деплое (замене папки) загруженные картинки исчезли бы. В DATA_DIR они переживают
 // пересборку и бэкапятся вместе с новостями и заявками.
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 import { slugify } from "@/lib/slug";
@@ -15,6 +15,9 @@ export const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 const WIDTHS = [640, 1400] as const;
 const MAX_BYTES = 8 * 1024 * 1024; // 8 МБ на исходник
 const ALLOWED = ["image/jpeg", "image/png", "image/webp", "image/avif"];
+// Форматы, определённые по СОДЕРЖИМОМУ файла (sharp). MIME из запроса задаёт клиент, ему верить
+// нельзя: он лишь отсеивает очевидный мусор до чтения картинки.
+const ALLOWED_FORMATS = ["jpeg", "png", "webp", "avif"];
 
 export type UploadResult = { ok: true; cover: string } | { ok: false; error: string };
 
@@ -36,7 +39,17 @@ export async function saveCover(file: File, titleHint: string): Promise<UploadRe
     return { ok: false, error: "Не удалось прочитать изображение — файл повреждён или это не картинка." };
   }
   if (!meta.width || !meta.height) return { ok: false, error: "Не удалось определить размеры изображения." };
+  // Сверяем РЕАЛЬНЫЙ формат, а не заявленный: иначе достаточно было подменить Content-Type,
+  // чтобы протащить, например, SVG со скриптом или анимацию неожиданного формата.
+  if (!meta.format || !ALLOWED_FORMATS.includes(meta.format)) {
+    return { ok: false, error: "Поддерживаются JPEG, PNG, WebP и AVIF." };
+  }
   if (meta.width < 600) return { ok: false, error: "Изображение уже 600 px — для обложки нужно шире." };
+  // Огромные полотна разжимаются в память целиком (16000×16000 ≈ 1 ГБ) — ограничиваем площадь
+  const MAX_PIXELS = 50_000_000;
+  if (meta.width * meta.height > MAX_PIXELS) {
+    return { ok: false, error: "Слишком большое изображение — уменьшите разрешение." };
+  }
 
   mkdirSync(UPLOADS_DIR, { recursive: true });
 
@@ -56,6 +69,25 @@ export async function saveCover(file: File, titleHint: string): Promise<UploadRe
   }
 
   return { ok: true, cover: `upload:${base}` };
+}
+
+// Удаление обложки (при замене или удалении новости). Картинки из макета («asset-…») не трогаем:
+// они лежат в public/ и принадлежат сборке, а не каталогу загрузок.
+export function removeCover(cover: string): void {
+  if (!cover.startsWith("upload:")) return;
+  const base = cover.slice("upload:".length);
+  if (!/^[a-z0-9][a-z0-9-]*$/.test(base)) return; // защита от подстановки пути
+  for (const width of WIDTHS) {
+    const file = path.join(UPLOADS_DIR, `${base}-${width}w.webp`);
+    const rel = path.relative(UPLOADS_DIR, file);
+    if (rel.startsWith("..") || path.isAbsolute(rel)) continue;
+    try {
+      rmSync(file, { force: true });
+    } catch (e) {
+      // Не смогли удалить — это не повод ронять правку новости, просто сообщаем
+      console.error("[uploads] не удалось удалить файл обложки:", e instanceof Error ? e.message : e);
+    }
+  }
 }
 
 // Чтение файла обложки для отдачи роутом /api/uploads.

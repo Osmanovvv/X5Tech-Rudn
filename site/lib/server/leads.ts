@@ -41,8 +41,11 @@ export function validateLead(raw: Record<string, unknown>): { ok: true; lead: Le
   // Намеренно простая проверка почты: строгие регулярки отсекают валидные адреса
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) errors.email = "Проверьте адрес почты.";
   else if (email.length > MAX.email) errors.email = "Адрес почты слишком длинный.";
+  // Проверяем И длину строки, И количество цифр: без первой в файл персональных данных
+  // попадала бы строка произвольного размера (цифр в ней могло быть ровно 11).
   const digits = phone.replace(/\D/g, "");
-  if (digits.length < 11 || digits.length > 15) errors.phone = "Проверьте номер телефона.";
+  if (phone.length > MAX.phone) errors.phone = "Номер телефона слишком длинный.";
+  else if (digits.length < 11 || digits.length > 15) errors.phone = "Проверьте номер телефона.";
   if (comment.length > MAX.comment) errors.comment = "Комментарий длиннее 2000 символов.";
   if (!truthy(raw.consent_pd)) errors.consent_pd = "Без согласия на обработку данных заявку принять нельзя.";
 
@@ -73,7 +76,13 @@ export function getLeads(): Lead[] {
 // открыл файл с кириллицей без «кракозябр» и не склеил всё в одну колонку.
 export function leadsToCsv(leads: Lead[]): string {
   const head = ["Дата", "Имя", "Фамилия", "Почта", "Телефон", "Комментарий", "Согласие на рассылку"];
-  const esc = (v: string) => `"${String(v).replace(/"/g, '""')}"`;
+
+  // Значения приходят от посторонних людей через публичную форму. Excel и LibreOffice
+  // исполняют ячейку как формулу, если она начинается с = + - @ или управляющего символа —
+  // так через комментарий к заявке можно было бы атаковать компьютер приёмной комиссии.
+  // Обезвреживаем ведущим апострофом: он не отображается, но делает ячейку текстовой.
+  const neutralize = (v: string) => (/^[=+\-@\t\r]/.test(v) ? `'${v}` : v);
+  const esc = (v: string) => `"${neutralize(String(v)).replace(/"/g, '""')}"`;
   const rows = leads.map((l) =>
     [
       new Date(l.createdAt).toLocaleString("ru-RU"),

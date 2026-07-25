@@ -1,8 +1,8 @@
 "use server";
 
 // Server Actions входа/выхода (Task B2). Выполняются только на сервере.
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { clientIp } from "@/lib/server/client-ip";
 import {
   adminConfigured,
   checkCredentials,
@@ -16,12 +16,9 @@ import {
 
 export type LoginState = { error?: string } | undefined;
 
-// Ключ ограничения попыток — IP из заголовков прокси (nginx ставит x-forwarded-for),
-// с запасным вариантом на случай прямого подключения.
-async function clientKey(): Promise<string> {
-  const h = await headers();
-  return (h.get("x-forwarded-for")?.split(",")[0] ?? h.get("x-real-ip") ?? "local").trim();
-}
+// Ключ ограничения попыток — адрес клиента, определённый так, чтобы его нельзя было подделать
+// заголовком (см. lib/server/client-ip.ts).
+const clientKey = clientIp;
 
 export async function login(_prev: LoginState, formData: FormData): Promise<LoginState> {
   if (!(await sameOrigin())) return { error: "Запрос отклонён (посторонний источник)." };

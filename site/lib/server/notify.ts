@@ -57,6 +57,10 @@ export async function notifyNewLead(lead: Lead): Promise<void> {
       console.error("[notify] Telegram не принял уведомление:", res.status, detail.slice(0, 300));
     }
   } catch (e) {
-    console.error("[notify] не удалось отправить уведомление в Telegram:", e instanceof Error ? e.message : e);
+    // Текст ошибки fetch содержит полный URL, а в нём — токен бота. В журнал он попасть не должен,
+    // поэтому вырезаем токен из сообщения перед записью.
+    const raw = e instanceof Error ? e.message : String(e);
+    const safe = TOKEN ? raw.split(TOKEN).join("<токен скрыт>") : raw;
+    console.error("[notify] не удалось отправить уведомление в Telegram:", safe);
   }
 }

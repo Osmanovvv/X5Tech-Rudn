@@ -3,11 +3,14 @@
 //
 // Ответ намеренно скупой: наружу не уходит ничего о хранилище и о том, настроены ли уведомления.
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
+import { clientIp } from "@/lib/server/client-ip";
 import { saveLead, validateLead, type LeadInput } from "@/lib/server/leads";
 import { notifyNewLead } from "@/lib/server/notify";
 
 export const dynamic = "force-dynamic";
+
+// Осмысленная заявка — единицы килобайт; всё крупнее отсекаем не разбирая.
+const MAX_BODY_BYTES = 32 * 1024;
 
 // Ограничение частоты: не больше 5 заявок с одного адреса за 10 минут.
 const RATE_LIMIT = 5;
@@ -25,8 +28,14 @@ function rateLimited(key: string): boolean {
 }
 
 export async function POST(req: Request) {
-  const h = await headers();
-  const ip = (h.get("x-forwarded-for")?.split(",")[0] ?? h.get("x-real-ip") ?? "local").trim();
+  // Тело ограничиваем ДО разбора: иначе один запрос произвольного объёма съедает память.
+  // Обычная заявка укладывается в пару килобайт.
+  const declared = Number(req.headers.get("content-length"));
+  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) {
+    return NextResponse.json({ ok: false, error: "Слишком большой запрос." }, { status: 413 });
+  }
+
+  const ip = await clientIp();
 
   if (rateLimited(ip)) {
     return NextResponse.json({ ok: false, error: "Слишком много заявок подряд. Попробуйте позже." }, { status: 429 });
@@ -34,7 +43,13 @@ export async function POST(req: Request) {
 
   let raw: Record<string, unknown>;
   try {
-    raw = (await req.json()) as Record<string, unknown>;
+    const parsed: unknown = await req.json();
+    // JSON-литералы null / "строка" / 42 разбираются успешно, но объектом не являются —
+    // без этой проверки обращение к полям роняло обработчик и отдавало 500 вместо 400.
+    if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return NextResponse.json({ ok: false, error: "Некорректный запрос." }, { status: 400 });
+    }
+    raw = parsed as Record<string, unknown>;
   } catch {
     return NextResponse.json({ ok: false, error: "Некорректный запрос." }, { status: 400 });
   }
@@ -46,8 +61,9 @@ export async function POST(req: Request) {
   }
 
   // Человек не заполнит форму быстрее пары секунд — а бот отправляет мгновенно.
+  // Отсутствие метки тоже считаем ботом: иначе фильтр обходился бы простым «не слать поле _t».
   const startedAt = Number(raw._t);
-  if (Number.isFinite(startedAt) && Date.now() - startedAt < 2000) {
+  if (!Number.isFinite(startedAt) || Date.now() - startedAt < 2000) {
     return NextResponse.json({ ok: true });
   }
 
@@ -65,9 +81,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Не удалось сохранить заявку." }, { status: 500 });
   }
 
-  // Уведомление — уже после сохранения: заявка не должна теряться из-за недоступности
-  // мессенджера (внутри всё обёрнуто в try/catch и ограничено таймаутом).
-  await notifyNewLead(lead);
+  // Уведомление шлём БЕЗ ожидания: заявка уже сохранена, а недоступный мессенджер иначе
+  // держал бы абитуриента в состоянии «Отправляем…» до восьми секунд и провоцировал повторные
+  // отправки. Ошибки гасятся внутри notifyNewLead; процесс здесь долгоживущий (standalone),
+  // поэтому обещание успевает выполниться после ответа.
+  void notifyNewLead(lead);
 
   return NextResponse.json({ ok: true });
 }

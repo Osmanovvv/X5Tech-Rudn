@@ -8,14 +8,23 @@ import path from "node:path";
 // Каталог данных задаёт клиент в .env (см. .env.example).
 export const DATA_DIR = path.resolve(process.env.DATA_DIR ?? path.join(process.cwd(), "data"));
 
-// Без DATA_DIR данные лягут рядом с запущенным приложением (в standalone-сборке — прямо внутри
-// .next), и следующая пересборка или замена папки при деплое их уничтожит. Молча допустить это
-// нельзя: речь о заявках абитуриентов. Предупреждаем в журнал при старте.
-if (!process.env.DATA_DIR) {
+// Каталог данных внутри сборки — прямой путь к потере заявок абитуриентов: `next build`
+// очищает .next целиком, а деплой заменяет папку приложения. Поэтому:
+//   • путь внутри .next — это ОШИБКА конфигурации, о ней кричим отдельно;
+//   • просто незаданный DATA_DIR — предупреждение (для локального запуска это нормально).
+const insideBuildDir = DATA_DIR.split(path.sep).includes(".next");
+
+if (insideBuildDir) {
+  console.error(
+    `[store] ОШИБКА КОНФИГУРАЦИИ: каталог данных находится внутри сборки — ${DATA_DIR}\n` +
+      "        Следующая сборка (`npm run build`) удалит его вместе с новостями и ЗАЯВКАМИ.\n" +
+      "        Задайте DATA_DIR в .env — путь ВНЕ папки приложения, например /var/lib/rudn-ai/data\n" +
+      "        (см. .env.example и README, раздел «Развёртывание на сервере»).",
+  );
+} else if (!process.env.DATA_DIR) {
   console.warn(
     `[store] ВНИМАНИЕ: переменная DATA_DIR не задана — данные пишутся в ${DATA_DIR}.\n` +
-      "         Это внутри папки приложения: при следующей сборке или деплое они будут потеряны.\n" +
-      "         Задайте DATA_DIR в .env (см. .env.example и README, раздел «Развёртывание»).",
+      "        Для сервера задайте DATA_DIR в .env (см. README, раздел «Развёртывание»).",
   );
 }
 
@@ -46,18 +55,33 @@ function enqueue<T>(key: string, task: () => Promise<T> | T): Promise<T> {
 // к сиду. Проверено: см. комментарий к fallback ниже.
 const stripBom = (s: string) => (s.charCodeAt(0) === 0xfeff ? s.slice(1) : s);
 
+// Файл существует, но прочитать его не удалось. Отличать это состояние от «файла ещё нет»
+// критично: иначе повреждённый news.json подменялся бы сидом, а первая же правка из админки
+// записала бы этот сид поверх настоящих данных — то есть молча уничтожила бы контент.
+export class DataUnreadableError extends Error {}
+
 export function readJson<T>(name: string, fallback: T): T {
   const file = dataPath(name);
   if (!existsSync(file)) return fallback;
   try {
     return JSON.parse(stripBom(readFileSync(file, "utf8"))) as T;
   } catch (e) {
-    // Битый файл не должен ронять сайт: отдаём fallback и ГРОМКО пишем в лог сервера —
-    // иначе подмена данных на сид прошла бы незаметно для админа.
     console.error(
-      `[store] ${file} не разобран как JSON — использую значение по умолчанию. Файл не тронут:`,
+      `[store] ${file} не удалось прочитать. Файл НЕ ИЗМЕНЁН, правка данных заблокирована ` +
+        "до исправления или удаления файла:",
       e instanceof Error ? e.message : e,
     );
+    throw new DataUnreadableError(name);
+  }
+}
+
+// Мягкий вариант для мест, где сайт обязан отрисоваться даже при повреждённом файле
+// (публичные страницы). Возвращает fallback, но НЕ разрешает последующую запись —
+// за это отвечает readJson выше.
+export function readJsonSafe<T>(name: string, fallback: T): T {
+  try {
+    return readJson(name, fallback);
+  } catch {
     return fallback;
   }
 }

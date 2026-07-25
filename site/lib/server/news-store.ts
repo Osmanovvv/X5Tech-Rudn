@@ -8,7 +8,7 @@
 // перечитала актуальные данные, а не закэшированный при импорте снимок.
 import seed from "@/content/news.json";
 import { sortNews, type NewsItem } from "@/lib/news";
-import { readJson, writeJson } from "./store";
+import { readJson, readJsonSafe, writeJson } from "./store";
 
 const NEWS_FILE = "news.json";
 
@@ -18,11 +18,25 @@ const seedData = seed as { title: string; allLabel: string; items: NewsItem[] };
 // админкой не правится, поэтому живёт в репозитории, а не в DATA_DIR.
 export const newsMeta = { title: seedData.title, allLabel: seedData.allLabel };
 
-// Все новости в каноническом порядке (свежие первыми).
+// В статической сборке роута /api/uploads не существует (он вырезается вместе с app/api),
+// поэтому загруженные через админку обложки там не отдаются. Брать оттуда новости — значит
+// выпустить раздел с битыми картинками, так что статика использует только сид из репозитория.
+const useStoredNews = !process.env.STATIC;
+
+// Все новости в каноническом порядке (свежие первыми). Для показа страниц: если файл повреждён,
+// сайт всё равно отрисуется на сиде (в журнал уже записана ошибка).
 export function getAllNews(): NewsItem[] {
-  const stored = readJson<{ items: NewsItem[] } | null>(NEWS_FILE, null);
+  if (!useStoredNews) return sortNews(seedData.items);
+  const stored = readJsonSafe<{ items: NewsItem[] } | null>(NEWS_FILE, null);
   const items = stored?.items ?? seedData.items;
   return sortNews(items);
+}
+
+// То же, но СТРОГО: повреждённый файл бросает исключение. Использовать перед правкой из админки,
+// чтобы не записать сид поверх настоящих (пусть и нечитаемых сейчас) данных.
+export function getAllNewsForEdit(): NewsItem[] {
+  const stored = readJson<{ items: NewsItem[] } | null>(NEWS_FILE, null);
+  return sortNews(stored?.items ?? seedData.items);
 }
 
 // Полная перезапись списка (админка). Порядок нормализуем при чтении.

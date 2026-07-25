@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireAdmin } from "@/lib/server/auth";
+import { asset } from "@/lib/asset";
 import { getLeads } from "@/lib/server/leads";
 import { telegramConfigured } from "@/lib/server/notify";
 
@@ -36,7 +37,8 @@ export default async function AdminLeads() {
         </div>
         {leads.length > 0 && (
           <a
-            href="/api/admin/leads.csv"
+            // asset() добавляет basePath: без него ссылка ведёт в 404 при размещении в подпапке
+            href={asset("/api/admin/leads.csv")}
             className="flex h-[42px] items-center rounded-[5px] border border-hairline px-[20px] text-[13px] font-bold text-ink transition-colors duration-200 ease-motion hover:bg-[#f5f5f5]"
           >
             Скачать CSV

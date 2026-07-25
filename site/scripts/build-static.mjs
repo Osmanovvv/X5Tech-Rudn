@@ -25,6 +25,30 @@ for (const name of SERVER_ONLY) {
 }
 
 const moved = [];
+
+function restore() {
+  for (const name of moved) {
+    if (existsSync(parked(name))) renameSync(parked(name), path.join(APP, name));
+  }
+  if (moved.length) console.log("[build:static] серверные разделы возвращены на место");
+  moved.length = 0;
+}
+
+// finally НЕ выполняется при Ctrl+C и при завершении по сигналу: без этих обработчиков
+// прерванная сборка оставила бы app/admin и app/api переименованными, и следующая ОБЫЧНАЯ
+// сборка молча выпустила бы прод без админки и без /api.
+for (const signal of ["SIGINT", "SIGTERM", "SIGHUP", "SIGBREAK"]) {
+  process.on(signal, () => {
+    restore();
+    process.exit(1);
+  });
+}
+process.on("uncaughtException", (e) => {
+  restore();
+  console.error(e);
+  process.exit(1);
+});
+
 try {
   for (const name of SERVER_ONLY) {
     const from = path.join(APP, name);
@@ -38,8 +62,5 @@ try {
   process.env.STATIC = "1";
   execSync("next build --webpack", { stdio: "inherit" });
 } finally {
-  for (const name of moved) {
-    if (existsSync(parked(name))) renameSync(parked(name), path.join(APP, name));
-  }
-  if (moved.length) console.log(`[build:static] серверные разделы возвращены на место`);
+  restore();
 }

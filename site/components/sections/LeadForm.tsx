@@ -113,7 +113,8 @@ export default function LeadForm() {
     // Слэш на конце обязателен: при trailingSlash:true адрес без него отвечает 308-редиректом
     const endpoint = leadEndpoint ?? (hasServerApi ? asset("/api/leads/") : null);
     if (!endpoint) {
-      console.log("[LeadForm] заявка НЕ отправлена: приёмник не настроен. Данные формы:", data);
+      // Персональные данные в консоль браузера не пишем: вызов попадал бы в production-бандл,
+      // а ФИО/телефон/почта оседали бы в логах браузера и расширений.
       setStatus("notice");
       return;
     }

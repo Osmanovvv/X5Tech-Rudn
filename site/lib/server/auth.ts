@@ -20,17 +20,31 @@ const SECRET = process.env.SESSION_SECRET ?? "";
 export const adminConfigured = (): boolean => Boolean(USERNAME && PASSWORD_HASH && SECRET);
 
 // ── Пароль: scrypt (встроенный, устойчив к перебору на GPU) ─────────────────────
-// Формат строки в .env: scrypt$<salt_hex>$<hash_hex>. Генерируется `npm run admin:hash`.
+// Формат строки в .env: scrypt:<salt_hex>:<hash_hex>. Генерируется `npm run admin:hash`.
+//
+// Разделитель именно «:», а НЕ «$»: значения в .env проходят подстановку переменных, и строка
+// вида scrypt$соль$хэш схлопывалась бы до «scrypt» — вход в админку становился невозможен
+// (проверено). Двоеточие подстановке не подвержено.
 const SCRYPT_KEYLEN = 64;
 
 export function hashPassword(password: string, salt = randomBytes(16).toString("hex")): string {
   const hash = scryptSync(password.normalize("NFKC"), salt, SCRYPT_KEYLEN).toString("hex");
-  return `scrypt$${salt}$${hash}`;
+  return `scrypt:${salt}:${hash}`;
 }
 
 export function verifyPassword(password: string, stored: string): boolean {
-  const parts = stored.split("$");
-  if (parts.length !== 3 || parts[0] !== "scrypt") return false;
+  const parts = stored.split(":");
+  if (parts.length !== 3 || parts[0] !== "scrypt") {
+    // Частая причина — хэш старого формата (через «$»), который .env обрезал до «scrypt».
+    // Подсказываем администратору, вместо того чтобы молча не пускать.
+    if (stored === "scrypt" || stored.startsWith("scrypt$")) {
+      console.error(
+        "[auth] ADMIN_PASSWORD_HASH имеет неподдерживаемый вид. Если хэш записан через «$», " +
+          ".env обрезает его при подстановке переменных — сгенерируйте заново: npm run admin:hash",
+      );
+    }
+    return false;
+  }
   const [, salt, expectedHex] = parts;
   let expected: Buffer;
   try {
@@ -140,6 +154,17 @@ export async function sameOrigin(): Promise<boolean> {
 const attempts = new Map<string, { count: number; until: number }>();
 const MAX_ATTEMPTS = 5;
 const LOCK_MS = 10 * 60 * 1000;
+const MAX_TRACKED = 10_000;
+
+// Просроченные записи удаляются только при повторном обращении по тому же ключу, поэтому поток
+// запросов с разными ключами наращивал бы карту бесконечно. Подчищаем при превышении порога.
+function sweepAttempts(now: number): void {
+  if (attempts.size < MAX_TRACKED) return;
+  for (const [key, rec] of attempts) if (rec.until < now) attempts.delete(key);
+  // Если после уборки всё ещё переполнено (шторм активных попыток) — сбрасываем целиком:
+  // потерять счётчики безопаснее, чем исчерпать память процесса.
+  if (attempts.size >= MAX_TRACKED) attempts.clear();
+}
 
 export function loginBlocked(key: string): boolean {
   const rec = attempts.get(key);
@@ -152,8 +177,9 @@ export function loginBlocked(key: string): boolean {
 }
 
 export function noteFailedLogin(key: string): void {
-  const rec = attempts.get(key);
   const now = Date.now();
+  sweepAttempts(now);
+  const rec = attempts.get(key);
   if (!rec || rec.until < now) attempts.set(key, { count: 1, until: now + LOCK_MS });
   else attempts.set(key, { count: rec.count + 1, until: now + LOCK_MS });
 }
@@ -166,7 +192,15 @@ export function resetLoginAttempts(key: string): void {
 // какое именно поле неверно) — чтобы нельзя было перебирать существующие логины.
 export function checkCredentials(username: string, password: string): boolean {
   if (!adminConfigured()) return false;
-  const userOk = username.length === USERNAME.length && timingSafeEqual(Buffer.from(username), Buffer.from(USERNAME));
-  const passOk = verifyPassword(password, PASSWORD_HASH);
-  return userOk && passOk;
+
+  // Сравниваем БАЙТЫ, а не длины строк: у кириллицы длина строки и длина буфера расходятся,
+  // и timingSafeEqual падал бы с RangeError на логине из кириллицы (и заодно выдавал бы,
+  // что длина совпала). Разная длина буферов — сразу мимо.
+  const given = Buffer.from(username, "utf8");
+  const expected = Buffer.from(USERNAME, "utf8");
+  const userOk = given.length === expected.length && timingSafeEqual(given, expected);
+
+  // Пароль проверяем ТОЛЬКО при верном логине: scryptSync намеренно тяжёлый и синхронный,
+  // и его безусловный вызов на каждую попытку блокировал бы весь сервер (процесс один).
+  return userOk && verifyPassword(password, PASSWORD_HASH);
 }

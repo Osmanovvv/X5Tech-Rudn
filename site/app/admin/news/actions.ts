@@ -5,8 +5,9 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdmin, sameOrigin } from "@/lib/server/auth";
-import { getAllNews, saveAllNews } from "@/lib/server/news-store";
-import { saveCover } from "@/lib/server/uploads";
+import { getAllNewsForEdit, saveAllNews } from "@/lib/server/news-store";
+import { DataUnreadableError } from "@/lib/server/store";
+import { removeCover, saveCover } from "@/lib/server/uploads";
 import { slugify } from "@/lib/slug";
 import type { NewsItem } from "@/lib/news";
 
@@ -14,10 +15,29 @@ export type NewsFormState = { error?: string; fieldErrors?: Record<string, strin
 
 // Страницы, которые показывают новости. Вызывается после каждой правки — контент на сайте
 // обновляется без пересборки (в статическом режиме этого нет, см. README).
-function revalidateNews(slug?: string) {
+// Обновляем ВЕСЬ сегмент /news/[slug], а не только изменённый адрес: блок «Другие новости»
+// есть на каждой странице новости, и без этого он показывал бы старые карточки и ссылки
+// на уже удалённые новости.
+function revalidateNews() {
   revalidatePath("/");
   revalidatePath("/news");
-  if (slug) revalidatePath(`/news/${slug}`);
+  revalidatePath("/news/[slug]", "page");
+}
+
+// Чтение списка перед правкой. Повреждённый файл — не повод записать поверх него сид.
+function readForEdit(): { items: NewsItem[] } | { error: string } {
+  try {
+    return { items: getAllNewsForEdit() };
+  } catch (e) {
+    if (e instanceof DataUnreadableError) {
+      return {
+        error:
+          "Файл новостей повреждён и не читается. Правка заблокирована, чтобы не потерять данные — " +
+          "проверьте news.json в каталоге данных (подробности в журнале сервера).",
+      };
+    }
+    throw e;
+  }
 }
 
 // Уникальный слаг: «мой-заголовок», при совпадении — «-2», «-3», …
@@ -69,10 +89,22 @@ export async function createNews(_prev: NewsFormState, formData: FormData): Prom
   const uploaded = await saveCover(file as File, fields.title);
   if (!uploaded.ok) return { fieldErrors: { cover: uploaded.error } };
 
-  const items = getAllNews();
-  const item: NewsItem = { ...fields, slug: uniqueSlug(fields.title, items), cover: uploaded.cover };
-  await saveAllNews([item, ...items]);
-  revalidateNews(item.slug);
+  // Список читаем ПОСЛЕ обработки картинки: пересжатие занимает сотни миллисекунд, и снимок,
+  // сделанный до него, мог устареть — параллельная правка была бы затёрта целиком.
+  const current = readForEdit();
+  if ("error" in current) {
+    // Новость не создаётся — только что сохранённая обложка осталась бы мусором в каталоге
+    removeCover(uploaded.cover);
+    return { error: current.error };
+  }
+
+  const item: NewsItem = {
+    ...fields,
+    slug: uniqueSlug(fields.title, current.items),
+    cover: uploaded.cover,
+  };
+  await saveAllNews([item, ...current.items]);
+  revalidateNews();
   redirect("/admin/news");
 }
 
@@ -81,27 +113,36 @@ export async function updateNews(_prev: NewsFormState, formData: FormData): Prom
   if (!(await sameOrigin())) return { error: "Запрос отклонён (посторонний источник)." };
 
   const currentSlug = String(formData.get("slug") ?? "");
-  const items = getAllNews();
-  const existing = items.find((i) => i.slug === currentSlug);
-  if (!existing) return { error: "Новость не найдена — возможно, её уже удалили." };
-
   const fields = readFields(formData);
   const fieldErrors = validate(fields);
   if (Object.keys(fieldErrors).length) return { fieldErrors };
 
-  let cover = existing.cover;
+  // Сначала долгая операция (пересжатие обложки), и только потом — чтение списка и запись.
+  // Если читать список до неё, параллельная правка за это время была бы затёрта.
+  let newCover: string | null = null;
   const file = formData.get("cover");
   if (file instanceof File && file.size > 0) {
     const uploaded = await saveCover(file, fields.title);
     if (!uploaded.ok) return { fieldErrors: { cover: uploaded.error } };
-    cover = uploaded.cover;
+    newCover = uploaded.cover;
   }
+
+  const current = readForEdit();
+  if ("error" in current) return { error: current.error };
+
+  const existing = current.items.find((i) => i.slug === currentSlug);
+  if (!existing) return { error: "Новость не найдена — возможно, её уже удалили." };
 
   // Слаг менять не будем, если заголовок правится: старые ссылки на новость должны продолжать
   // работать. Пересоздать адрес можно, удалив новость и заведя заново.
-  const updated: NewsItem = { ...fields, slug: existing.slug, cover };
-  await saveAllNews(items.map((i) => (i.slug === existing.slug ? updated : i)));
-  revalidateNews(updated.slug);
+  const updated: NewsItem = { ...fields, slug: existing.slug, cover: newCover ?? existing.cover };
+  await saveAllNews(current.items.map((i) => (i.slug === existing.slug ? updated : i)));
+
+  // Прежняя обложка больше не нужна — иначе каталог загрузок растёт без предела,
+  // а замененные картинки остаются доступными по прямой ссылке.
+  if (newCover && existing.cover !== newCover) removeCover(existing.cover);
+
+  revalidateNews();
   redirect("/admin/news");
 }
 
@@ -110,10 +151,14 @@ export async function deleteNews(formData: FormData): Promise<void> {
   if (!(await sameOrigin())) return;
 
   const slug = String(formData.get("slug") ?? "");
-  const items = getAllNews();
-  if (!items.some((i) => i.slug === slug)) return;
+  const current = readForEdit();
+  if ("error" in current) return; // файл повреждён — удалять вслепую нельзя
 
-  await saveAllNews(items.filter((i) => i.slug !== slug));
-  revalidateNews(slug);
+  const doomed = current.items.find((i) => i.slug === slug);
+  if (!doomed) return;
+
+  await saveAllNews(current.items.filter((i) => i.slug !== slug));
+  removeCover(doomed.cover); // не оставляем осиротевшие файлы в каталоге загрузок
+  revalidateNews();
   redirect("/admin/news");
 }
