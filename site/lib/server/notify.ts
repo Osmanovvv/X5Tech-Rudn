@@ -48,13 +48,21 @@ export async function notifyNewLead(lead: Lead): Promise<void> {
         parse_mode: "HTML",
         disable_web_page_preview: true,
       }),
-      signal: AbortSignal.timeout(8000), // не держим ответ пользователю из-за медленного API
+      // Ответ абитуриенту уже не ждёт этот запрос, поэтому таймаут щедрый: с российских
+      // серверов первое обращение к Telegram нередко занимает несколько секунд.
+      signal: AbortSignal.timeout(20000),
     });
     if (!res.ok) {
-      // Тело ответа Telegram описывает причину (неверный chat_id, бот не в чате и т.п.).
-      // Токен в лог не пишем.
-      const detail = await res.text().catch(() => "");
+      const detail = await res.text().catch(() => ""); // токен в лог не пишем
       console.error("[notify] Telegram не принял уведомление:", res.status, detail.slice(0, 300));
+      // Самая частая причина при первой настройке — боту ещё не писали. Telegram запрещает
+      // ботам обращаться первыми, и без этой подсказки причина совершенно неочевидна.
+      if (detail.includes("chat not found") || detail.includes("bot was blocked")) {
+        console.error(
+          "[notify] Похоже, диалог с ботом не начат: откройте бота в Telegram и нажмите «Start» " +
+            "(для группы — добавьте бота в неё). После этого уведомления заработают.",
+        );
+      }
     }
   } catch (e) {
     // Текст ошибки fetch содержит полный URL, а в нём — токен бота. В журнал он попасть не должен,
