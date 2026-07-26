@@ -2,10 +2,12 @@
 
 // Шапка-капсула по макету: десктоп — ctx-01 (узлы 271:1786–1797, капсула 1120×69),
 // мобильная — meta-mobile (271:2320–2804, капсула 290×45, бургер 21×16).
-// Открытое состояние бургера в макете не нарисовано — см. docs/deviations.md D3.
+// Открытое меню — по макету 388:2 нового файла (панель 290×650): прежняя версия была нашей
+// выдумкой (отклонение D3), теперь дизайн есть и отклонение снято.
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { asset } from "@/lib/asset";
+import site from "@/content/site.json";
 
 // Корневые пути (не голые якоря): на подстраницах /news, /docs якорь #programma указывал бы в
 // пустоту. next/link + «/#…» уводит на главную к секции и корректно применяет basePath.
@@ -149,38 +151,89 @@ export default function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Меню"
-          className="fixed inset-0 z-[60] flex flex-col bg-white p-[20px] lg:hidden"
+          className="fixed inset-0 z-[60] overflow-y-auto bg-white lg:hidden"
         >
-          <div className="flex h-[45px] items-center">
-            <Logos compact />
-            <button
-              type="button"
-              aria-label="Закрыть меню"
-              onClick={() => setOpen(false)}
-              className="-mr-[8px] ml-auto flex h-[44px] w-[44px] items-center justify-center text-[28px] leading-none text-ink"
-            >
-              ×
-            </button>
-          </div>
-          <nav className="mt-[32px] flex flex-col">
-            {NAV.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
+          {/* Канва 320. Панель макета — 290 в ширину (поля 15, как у капсулы шапки), внутри неё
+              контент шириной 240 с отступом 25 → суммарно 40 от края экрана (388:2). */}
+          <div className="canvas-320 px-[40px] pb-[33px] pt-[15px]">
+            {/* Шапка панели: логотипы слева, крестик в круглой кнопке справа */}
+            <div className="flex h-[45px] items-center">
+              <Logos compact />
+              <button
+                type="button"
+                aria-label="Закрыть меню"
                 onClick={() => setOpen(false)}
-                className="border-b border-hairline py-[18px] text-[24px] font-medium text-ink"
+                className="ml-auto flex size-[45px] items-center justify-center rounded-full bg-paper text-ink transition-colors duration-200 ease-motion hover:bg-mist"
               >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <Link
-            href="/#forma"
-            onClick={() => setOpen(false)}
-            className="mt-auto flex h-[56px] items-center justify-center rounded-[5px] bg-lime-deep text-[14px] font-bold text-white transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98]"
-          >
-            Подать заявку
-          </Link>
+                {/* Косой крест из двух линий — как в макете (не текстовый символ ×) */}
+                <span className="relative block size-[16px]" aria-hidden>
+                  <span className="absolute left-0 top-[7px] block h-[2px] w-full rounded bg-ink [transform:rotate(45deg)]" />
+                  <span className="absolute left-0 top-[7px] block h-[2px] w-full rounded bg-ink [transform:rotate(-45deg)]" />
+                </span>
+              </button>
+            </div>
+
+            {/* Пункты меню — выровнены по правому краю, без разделителей. Шаг 37px по макету */}
+            <nav className="mt-[26px] flex flex-col items-end gap-[20px]">
+              {NAV.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="text-[14px] leading-[normal] text-ink transition-opacity duration-200 ease-motion hover:opacity-70"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <Link
+              href="/#forma"
+              onClick={() => setOpen(false)}
+              className="mt-[24px] flex h-[45px] items-center justify-center rounded-full bg-lime text-[14px] font-bold text-ink transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98]"
+            >
+              Подать заявку
+            </Link>
+
+            {/* Контакты приёмной комиссии — те же данные, что в футере (site.json) */}
+            <p className="mt-[24px] text-right text-[12px] font-bold uppercase leading-[normal] text-[rgba(39,39,39,0.75)]">
+              Приёмная комиссия
+            </p>
+            <div className="mt-[13px] flex flex-col gap-[20px]">
+              {site.footer.contacts.map((c) => (
+                <span key={c.value} className="block text-right">
+                  <a
+                    href={c.href}
+                    className="block font-medium leading-[normal] text-ink transition-colors duration-200 ease-motion hover:text-lime-deep"
+                    style={{ fontSize: c.size }}
+                  >
+                    {c.value}
+                  </a>
+                  <span className="mt-[6px] block text-[12px] leading-[normal] text-[rgba(39,39,39,0.75)]">
+                    {c.note}
+                  </span>
+                </span>
+              ))}
+            </div>
+
+            <p className="mt-[25px] text-right text-[12px] font-bold uppercase leading-[normal] text-[rgba(39,39,39,0.75)]">
+              X5 Tech в социальных сетях
+            </p>
+            <div className="mt-[13px] flex flex-col items-end gap-[13px]">
+              {site.footer.social.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12px] leading-[normal] text-ink transition-colors duration-200 ease-motion hover:text-lime-deep"
+                >
+                  {s.label} <span aria-hidden className="text-[15px] leading-none">↗</span>
+                  <span className="sr-only"> (откроется в новой вкладке)</span>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </header>

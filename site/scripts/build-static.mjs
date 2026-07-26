@@ -9,7 +9,7 @@
 // Итог статического режима: публичный сайт целиком (главная, /news, /docs, 404), без /admin,
 // без приёма заявок и без обновления новостей без пересборки. Это задокументировано в README.
 import { execSync } from "node:child_process";
-import { existsSync, renameSync } from "node:fs";
+import { existsSync, renameSync, rmSync } from "node:fs";
 import path from "node:path";
 
 const APP = path.resolve(import.meta.dirname, "..", "app");
@@ -58,6 +58,12 @@ try {
     }
   }
   if (moved.length) console.log(`[build:static] серверные разделы исключены: ${moved.join(", ")}`);
+
+  // Типы маршрутов от предыдущей сборки помнят /admin и /api, которых в статике уже нет, —
+  // проверка типов падает на несуществующих маршрутах. Удаляем, Next сгенерирует заново.
+  for (const dir of ["dev/types", "types"]) {
+    rmSync(path.join(ROOT, ".next", dir), { recursive: true, force: true });
+  }
 
   process.env.STATIC = "1";
   execSync("next build --webpack", { stdio: "inherit" });

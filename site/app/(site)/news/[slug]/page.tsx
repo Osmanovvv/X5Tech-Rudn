@@ -4,7 +4,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import NewsCard from "@/components/NewsCard";
+import OtherNews from "@/components/OtherNews";
 import { asset, withBasePath } from "@/lib/asset";
 import { getNews, otherNews, formatNewsDate, coverPath } from "@/lib/news";
 import { getAllNews } from "@/lib/server/news-store";
@@ -47,7 +47,7 @@ export default async function NewsArticle({ params }: Props) {
   const item = getNews(all, slug);
   if (!item) notFound();
 
-  const others = otherNews(all, slug, 3);
+  const others = otherNews(all, slug, 6); // карусель: в макете видно 4, остальные листаются
   // Абзацы разделяются пустой строкой. Регулярка терпима к CRLF и лишним пробелам —
   // текст может прийти как из репозитория, так и из формы админки.
   const paragraphs = item.body
@@ -57,76 +57,64 @@ export default async function NewsArticle({ params }: Props) {
 
   return (
     <main className="bg-white">
-      <article className="container-site pt-[28px] md:pt-[48px]">
-        <div className="mx-auto max-w-[760px]">
-          <nav aria-label="Хлебные крошки" className="text-[13px] text-[rgba(39,39,39,0.72)]">
-            <Link href="/" className="transition-colors duration-200 ease-motion hover:text-ink">
+      {/* Раскладка по макету 391:57 (десктоп 1200) и 391:1690 (мобильная 320):
+          крошки → фото во всю ширину с тегом поверх → заголовок → текст → дата → «Другие новости».
+          Канва как у секций лендинга: 320 масштабируется зумом, 1200 — калька 1:1. */}
+      <div className="canvas-320 calque-fluid mx-auto max-w-[1200px] px-[15px] pb-[40px] pt-[19px] md:px-[40px] md:pb-[60px] md:pt-[19px]">
+        <article>
+          {/* Крошки — строго в одну строку, как в макете: длинный заголовок новости обрезается
+              многоточием, иначе на узкой канве строка ломается и всё ниже съезжает. */}
+          <nav
+            aria-label="Хлебные крошки"
+            className="flex items-center whitespace-nowrap text-[12px] leading-[normal] text-[rgba(39,39,39,0.72)] md:text-[13px]"
+          >
+            <Link href="/" className="shrink-0 transition-colors duration-200 ease-motion hover:text-ink">
               Главная
             </Link>
-            <span className="mx-[8px]" aria-hidden>
-              /
+            <span className="mx-[6px] shrink-0" aria-hidden>
+              -
             </span>
-            <Link href="/news/" className="transition-colors duration-200 ease-motion hover:text-ink">
-              Новости
-            </Link>
+            <span className="truncate text-ink">{item.title}</span>
           </nav>
 
-          <div className="mt-[20px] flex items-center gap-[12px]">
-            <span className="inline-flex h-[25px] items-center rounded-full border border-lime px-[16px] font-mono text-[12px] uppercase text-ink">
-              {item.category}
-            </span>
-            <time dateTime={item.date} className="text-[13px] text-[rgba(39,39,39,0.72)]">
-              {formatNewsDate(item.date)}
-            </time>
-          </div>
-
-          <h1 className="mt-[16px] text-[28px] font-bold leading-[1.15] tracking-[-0.5px] text-ink md:text-[38px] md:tracking-[-0.7px]">
-            {item.title}
-          </h1>
-
-          <div className="mt-[24px] overflow-hidden rounded-[15px]">
+          {/* Фото во всю ширину контейнера; тег категории — поверх картинки слева сверху */}
+          <div className="relative mt-[20px] overflow-hidden rounded-[15px] md:mt-[19px]">
             <img
               src={asset(coverPath(item.cover, 1400))}
               alt=""
-              className="aspect-[270/165] w-full object-cover"
+              className="aspect-[290/200] w-full object-cover md:aspect-[1120/600]"
             />
+            <span className="absolute left-[15px] top-[15px] inline-flex h-[25px] items-center rounded-full bg-white px-[17px] font-mono text-[12px] uppercase text-ink md:left-[20px] md:top-[20px]">
+              {item.category}
+            </span>
           </div>
 
-          <div className="mt-[28px] pb-[8px]">
+          <h1 className="mt-[20px] text-[22px] font-bold leading-[27px] tracking-[-0.5px] text-ink md:mt-[33px] md:text-[42px] md:leading-[45px] md:tracking-[-1px]">
+            {item.title}
+          </h1>
+
+          {/* Ширина текстовой колонки — по макету (855 на десктопе), на мобиле во всю канву */}
+          <div className="mt-[23px] max-w-[860px] md:mt-[24px]">
             {paragraphs.map((p, i) => (
               <p
                 key={i}
-                className="mt-[16px] whitespace-pre-line text-[16px] leading-[26px] text-ink first:mt-0 md:text-[17px] md:leading-[28px]"
+                className="mt-[21px] whitespace-pre-line text-[12px] leading-[17px] text-ink first:mt-0 md:text-[14px]"
               >
                 {p}
               </p>
             ))}
           </div>
-        </div>
-      </article>
 
-      {others.length > 0 && (
-        <section aria-label="Другие новости" className="container-site pb-[80px] pt-[40px] md:pt-[56px]">
-          <div className="mx-auto max-w-[1120px]">
-            <div className="flex items-baseline justify-between">
-              <h2 className="text-[22px] font-bold leading-[1.2] tracking-[-0.4px] text-ink md:text-[28px]">
-                Другие новости
-              </h2>
-              <Link
-                href="/news/"
-                className="whitespace-nowrap text-[14px] font-bold text-ink transition-opacity duration-200 ease-motion hover:opacity-70"
-              >
-                Все новости →
-              </Link>
-            </div>
-            <div className="mt-[24px] grid grid-cols-1 gap-[20px] sm:grid-cols-2 lg:grid-cols-3">
-              {others.map((n) => (
-                <NewsCard key={n.slug} item={n} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+          <time
+            dateTime={item.date}
+            className="mt-[30px] block text-[12px] leading-[normal] text-ink md:text-[13px]"
+          >
+            {formatNewsDate(item.date)}
+          </time>
+        </article>
+
+        <OtherNews items={others} />
+      </div>
     </main>
   );
 }
