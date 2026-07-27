@@ -6,91 +6,91 @@
       "top": 60,
       "height": 823,
       "ours": 826,
-      "cost": 0.0067
+      "cost": 0.00688
     },
     {
       "name": "02-tebe-k-nam",
       "top": 883,
       "height": 1381,
       "ours": 1380,
-      "cost": 0.00118
+      "cost": 0.00127
     },
     {
       "name": "03-programma-daet",
       "top": 2264,
       "height": 1345,
       "ours": 1343,
-      "cost": 0.01199
+      "cost": 0.01134
     },
     {
       "name": "04-programma-obucheniya",
       "top": 3609,
       "height": 2768,
       "ours": 2762,
-      "cost": 0.04691
+      "cost": 0.04826
     },
     {
       "name": "05-treki",
       "top": 6377,
       "height": 1498,
       "ours": 1498,
-      "cost": 0.02058
+      "cost": 0.02089
     },
     {
       "name": "06-kak-postupit",
       "top": 7875,
       "height": 2887,
       "ours": 2881,
-      "cost": 0.06153
+      "cost": 0.06126
     },
     {
       "name": "07-prepodavateli",
       "top": 10762,
       "height": 3676,
       "ours": 2976,
-      "cost": 0.0774
+      "cost": 0.07683
     },
     {
       "name": "08-x5-most",
       "top": 14438,
       "height": 777,
-      "ours": 777,
-      "cost": 0.00883
+      "ours": 769,
+      "cost": 0.01374
     },
     {
       "name": "09-tehnologii",
       "top": 15215,
       "height": 1332,
       "ours": 1338,
-      "cost": 0.0108
+      "cost": 0.01213
     },
     {
       "name": "10-grant",
       "top": 16547,
       "height": 309,
       "ours": 309,
-      "cost": 0.00458
+      "cost": 0.00529
     },
     {
       "name": "11-novosti",
       "top": 16856,
       "height": 505,
-      "ours": 521,
-      "cost": 0.26715
+      "ours": 518,
+      "cost": 0.26632
     },
     {
       "name": "12-forma",
       "top": 17361,
       "height": 1189,
-      "ours": 1183,
-      "cost": 0.06529
+      "ours": 1200,
+      "cost": 0.08783
     },
     {
       "name": "13-footer",
       "top": 18550,
       "height": 1351,
       "ours": 1351,
-      "cost": 0.00104
+      "cost": 0.00105
     }
   ]
 }
