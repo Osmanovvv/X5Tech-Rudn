@@ -39,7 +39,12 @@ export default function Grant() {
           alt="Аналитический центр при Правительстве Российской Федерации"
           className="w-full rounded-[10px]"
         />
-        <p className="mt-[20px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
+        {/* Интерлиньяж 14 (а не 18) — по замеру мобильного макета: шаг строк 14px, та же
+            пропорция 1.2, что и у десктопной версии (16/19.2).
+            Отрицательный отступ компенсирует прозрачные поля эмблемы: ассет экспортирован
+            с запасом, и при ширине 290 под видимой частью остаётся ~41px пустоты, из-за чего
+            зазор до текста получался 66px вместо макетных 35. */}
+        <p className="mt-[-11px] whitespace-pre-line text-[12px] leading-[14px] text-[rgba(39,39,39,0.85)]">
           {LEAD_M}
           <span className="font-bold text-ink">{BOLD_M}</span>
         </p>

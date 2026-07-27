@@ -47,7 +47,11 @@ function Chip({ d, mobile }: { d: Discipline; mobile?: boolean }) {
         ghost ? "bg-transparent" : "bg-white"
       } ${
         mobile
-          ? "inline-flex w-fit items-center whitespace-pre px-[16px] py-[9px] text-[13px] leading-[18px]"
+          ? // Вертикальный отступ 5.5 вместо 9: по замеру макета однострочная таблетка 31px,
+            // двухстрочная 49px — сходится ровно при 5.5. Прежние 9 давали 38 и 56, и на
+            // четырёх курсах набегало +174px к высоте секции. Фиксированную высоту ставить
+            // нельзя: у части дисциплин подпись в две строки (жёсткие \n в program.json)
+            "inline-flex w-fit items-center whitespace-pre px-[16px] py-[5.5px] text-[13px] leading-[18px]"
           : "inline-flex h-[39px] items-center whitespace-nowrap px-[19px] text-[14px] leading-none"
       }`}
     >

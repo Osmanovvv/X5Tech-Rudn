@@ -54,7 +54,9 @@ function Field({
     <div className={half ? "" : "w-full"}>
       <label
         htmlFor={name}
-        className="mb-[5px] block text-[12px] text-[rgba(39,39,39,0.85)] md:text-[10px] md:uppercase"
+        // Мобильная подпись поля — 10px без капса (замер макета: высота литер 7px против 9
+        // при 12px). Десктоп не трогаем: там 10px + капс, и секция уже сходится с макетом
+        className="mb-[4px] block text-[10px] text-[rgba(39,39,39,0.85)] md:mb-[5px] md:uppercase"
       >
         {label}
       </label>
@@ -66,7 +68,9 @@ function Field({
         required={required}
         placeholder={placeholder}
         onInput={onInput}
-        className="h-[42px] w-full rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] text-[13px] text-ink outline-none transition-colors duration-200 ease-motion placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835]"
+        // Высота поля на мобильной — 32px по замеру макета (шаг между полями 65 против наших 84);
+        // на десктопе остаётся 42, как было проверено пиксель-сверкой
+        className="h-[32px] w-full rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] text-[13px] text-ink outline-none transition-colors duration-200 ease-motion placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835] md:h-[42px]"
       />
     </div>
   );
@@ -150,7 +154,8 @@ export default function LeadForm() {
           Оставь заявку – расскажем, как поступить
         </h2>
 
-        <div data-reveal className="mt-[20px] flex flex-col gap-[20px] md:mt-[40px] md:flex-row md:gap-[30px]">
+        {/* Зазор фото → карточка на мобильной 5px (замер макета), на десктопе колонки — 30px */}
+        <div data-reveal className="mt-[20px] flex flex-col gap-[5px] md:mt-[40px] md:flex-row md:gap-[30px]">
           {/* Фото */}
           <div className="overflow-hidden rounded-[15px] md:h-[662px] md:w-[581px] md:shrink-0">
             <img
@@ -203,7 +208,9 @@ export default function LeadForm() {
                   {"Менеджер приёмной комиссии\nсвяжется с тобой в течение дня"}
                 </p>
 
-                <div className="mt-[20px] flex flex-col gap-[19px]">
+                {/* Шаг между полями 14 (а не 19): с высотой поля 32 это даёт замеренный
+                    по макету шаг 65px от подписи до подписи */}
+                <div className="mt-[20px] flex flex-col gap-[14px] md:gap-[19px]">
                   <div className="flex flex-col gap-[19px] md:flex-row md:gap-[10px]">
                     <Field name="name" label="Ваше имя" placeholder="Иван" required half />
                     <Field name="surname" label="Фамилия" placeholder="Иванов" half />
