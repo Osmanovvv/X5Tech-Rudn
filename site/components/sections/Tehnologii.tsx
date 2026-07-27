@@ -159,7 +159,7 @@ export default function Tehnologii() {
         <p data-reveal className="mt-[10px] whitespace-pre-line text-[12px] leading-[14px] text-[rgba(39,39,39,0.85)]">
           {"Вот несколько направлений над которыми\nработает большая команда инженеров\nкомпании"}
         </p>
-        <div data-reveal className="mt-[20px] flex flex-col gap-[27px]">
+        <div data-reveal className="mt-[13px] flex flex-col gap-[27px]">
           {CARDS.map((_, i) => (
             <TechCard key={i} i={i} mobile />
           ))}

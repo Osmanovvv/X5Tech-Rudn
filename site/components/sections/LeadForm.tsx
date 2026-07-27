@@ -155,7 +155,7 @@ export default function LeadForm() {
         </h2>
 
         {/* Зазор фото → карточка на мобильной 5px (замер макета), на десктопе колонки — 30px */}
-        <div data-reveal className="mt-[20px] flex flex-col gap-[5px] md:mt-[40px] md:flex-row md:gap-[30px]">
+        <div data-reveal className="mt-[14px] flex flex-col gap-[5px] md:mt-[40px] md:flex-row md:gap-[30px]">
           {/* Фото */}
           <div className="overflow-hidden rounded-[15px] md:h-[662px] md:w-[581px] md:shrink-0">
             <img
@@ -280,7 +280,7 @@ export default function LeadForm() {
                   type="submit"
                   disabled={status === "pending"}
                   aria-describedby={error ? "lead-error" : undefined}
-                  className="mt-[24px] h-[60px] w-full rounded-[5px] bg-lime text-[14px] font-bold text-ink transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:active:scale-100 md:w-[242px]"
+                  className="mt-[24px] h-[54px] w-full rounded-[5px] bg-lime text-[14px] font-bold text-ink transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 disabled:active:scale-100 md:h-[60px] md:w-[242px]"
                 >
                   {status === "pending" ? "Отправляем…" : "Отправить заявку"}
                 </button>

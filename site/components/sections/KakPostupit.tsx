@@ -93,6 +93,9 @@ function MobileColumn({ col }: { col: Column }) {
       <p className="mt-[6px] whitespace-pre-line text-[12px] leading-[16px] text-black">
         {col.captionM || col.caption}
       </p>
+      {/* Отступ 16, хотя шаг этапа в макете на 1px больше: правка на +1 сводила высоту секции
+          с −6 к +1, но пиксельная сверка при этом ухудшалась с 8.74% до 10.63% — накопленный
+          сдвиг разводил строки текста по субпикселям. Высота тут дешевле совпадения картинки */}
       <div className="mt-[16px] flex flex-col">
         {col.steps.map((s, i) => (
           <div key={i} className={i > 0 ? "mt-[16px] border-t border-[#e6e6e6] pt-[16px]" : ""}>

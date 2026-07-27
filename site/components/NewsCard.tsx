@@ -23,7 +23,9 @@ export default function NewsCard({
       href={`/news/${item.slug}/`}
       className="group block overflow-hidden rounded-[15px] bg-paper transition-[box-shadow,transform] duration-200 ease-motion hover:-translate-y-[3px] hover:shadow-[0_10px_28px_rgba(39,39,39,0.10)]"
     >
-      <div className="relative aspect-[270/165] overflow-hidden">
+      {/* Пропорция своя на каждой ширине: обложка в макете всегда 165px, а карточка на мобильной
+          290 против десктопных 270 (то же, что в Novosti и OtherNews) */}
+      <div className="relative aspect-[290/165] overflow-hidden md:aspect-[270/165]">
         <img
           src={asset(coverPath(item.cover, 640))}
           alt=""

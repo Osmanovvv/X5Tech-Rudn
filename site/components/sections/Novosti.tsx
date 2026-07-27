@@ -17,7 +17,10 @@ function NewsCard({ item }: { item: NewsItem }) {
       href={`/news/${item.slug}/`}
       className="block w-[290px] shrink-0 snap-start overflow-hidden rounded-[15px] bg-paper md:w-[270px]"
     >
-      <div className="relative aspect-[270/165] overflow-hidden">
+      {/* Высота обложки в макете одна и та же — 165px, а карточка на мобильной шире (290 против
+          270), поэтому пропорция своя на каждой ширине. С единой 270/165 картинка на мобильной
+          вырастала до 177px и тянула секцию вниз */}
+      <div className="relative aspect-[290/165] overflow-hidden md:aspect-[270/165]">
         <img
           loading="lazy"
           // Только через coverPath: у обложек, загруженных админкой, значение вида
@@ -31,7 +34,7 @@ function NewsCard({ item }: { item: NewsItem }) {
           {item.category}
         </span>
       </div>
-      <div className="px-[14px] pb-[24px] pt-[16px]">
+      <div className="px-[14px] pb-[14px] pt-[16px] md:pb-[24px]">
         <h3 className="text-[16px] font-bold leading-[18px] tracking-[-0.175px] text-ink">{item.title}</h3>
         <p className="mt-[10px] text-[12px] leading-[normal] text-[rgba(39,39,39,0.85)]">{item.excerpt}</p>
         <p className="mt-[16px] text-[12px] leading-[normal] text-[rgba(39,39,39,0.85)]">
@@ -130,7 +133,7 @@ export default function Novosti({
         </div>
 
         {/* ===== Точки ===== */}
-        <div className="mt-[24px] flex items-center justify-center gap-[12px] pb-[10px] md:mt-[33px] md:pb-[68px]">
+        <div className="mt-[24px] flex items-center justify-center gap-[12px] pb-[20px] md:mt-[33px] md:pb-[68px]">
           {Array.from({ length: DOTS }).map((_, i) => (
             <span
               key={i}

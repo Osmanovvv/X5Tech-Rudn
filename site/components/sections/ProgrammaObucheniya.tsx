@@ -47,11 +47,11 @@ function Chip({ d, mobile }: { d: Discipline; mobile?: boolean }) {
         ghost ? "bg-transparent" : "bg-white"
       } ${
         mobile
-          ? // Вертикальный отступ 5.5 вместо 9: по замеру макета однострочная таблетка 31px,
-            // двухстрочная 49px — сходится ровно при 5.5. Прежние 9 давали 38 и 56, и на
-            // четырёх курсах набегало +174px к высоте секции. Фиксированную высоту ставить
-            // нельзя: у части дисциплин подпись в две строки (жёсткие \n в program.json)
-            "inline-flex w-fit items-center whitespace-pre px-[16px] py-[5.5px] text-[13px] leading-[18px]"
+          ? // Вертикальный отступ 5: по прямому замеру полос в макете однострочная таблетка
+            // 30px, двухстрочная 48 — сходится при 5 (18 строки + 10 отступов + 2 рамки).
+            // Прежние 9 давали 38 и 56, и на четырёх курсах набегало +174px к высоте секции.
+            // Фиксированную высоту ставить нельзя: у части дисциплин подпись в две строки
+            "inline-flex w-fit items-center whitespace-pre px-[16px] py-[5px] text-[13px] leading-[18px]"
           : "inline-flex h-[39px] items-center whitespace-nowrap px-[19px] text-[14px] leading-none"
       }`}
     >
@@ -215,22 +215,22 @@ export default function ProgrammaObucheniya() {
         <h2 data-reveal className="pt-[30px] text-center text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
           {title}
         </h2>
-        <p data-reveal className="mx-auto mt-[16px] w-fit whitespace-pre-line rounded-full border border-[#b6e835] px-[24px] py-[10px] text-center font-mono text-[11px] uppercase leading-[16px] text-ink">
+        <p data-reveal className="mx-auto mt-[14px] w-fit whitespace-pre-line rounded-full border border-[#b6e835] px-[24px] py-[10px] text-center font-mono text-[11px] uppercase leading-[16px] text-ink">
           {badgeM}
         </p>
 
-        <div className="mt-[24px] flex flex-col gap-[30px]">
+        <div className="mt-[24px] flex flex-col gap-[35px]">
           {courses.map((course, i) => (
             <div key={i} data-reveal>
               <h3 className="text-[22px] font-bold leading-[26px] text-ink">
                 {course.num}: {course.name}
               </h3>
-              <p className="mt-[5px] whitespace-pre-line text-[13px] leading-[18px] text-[rgba(39,39,39,0.85)]">
+              <p className="mt-[8px] whitespace-pre-line text-[13px] leading-[18px] text-[rgba(39,39,39,0.85)]">
                 {course.subM || course.subtitle}
               </p>
 
               {course.stat ? (
-                <div className="mt-[18px]">
+                <div className="mt-[13px]">
                   <StatCard mobile />
                 </div>
               ) : (
@@ -238,12 +238,13 @@ export default function ProgrammaObucheniya() {
                   loading="lazy"
                   src={asset(`/img/04-programma-obucheniya/${course.photo}-640w.webp`)}
                   alt=""
-                  className="mt-[18px] block w-full rounded-[14px] object-cover"
+                  className="mt-[13px] block w-full rounded-[14px] object-cover"
                   style={{ aspectRatio: [`290/178`, `290/221`, `290/215`][i] }}
                 />
               )}
 
-              <div className="mt-[18px] flex flex-col items-start gap-[10px]">
+              {/* Шаг строк дисциплин в макете 42 = таблетка 30 + зазор 12 */}
+              <div className="mt-[15px] flex flex-col items-start gap-[12px]">
                 {course.disciplines.map((d, j) => (
                   <Chip key={j} d={d} mobile />
                 ))}
