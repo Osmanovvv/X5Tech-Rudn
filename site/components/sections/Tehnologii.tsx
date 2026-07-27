@@ -98,7 +98,14 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
 function TechCard({ i, mobile }: { i: number; mobile?: boolean }) {
   const c = CARDS[i];
   return (
-    <div className="hover-lift relative aspect-square w-full overflow-hidden rounded-[15px] bg-paper">
+    // На мобильной карточка не квадратная: по замеру макета 290×268. Раскладка внутри задана
+    // процентами и потому переносится один в один — доли иллюстрации, заголовка и подписи
+    // в макете совпадают с нашими до 1%. Десктоп остаётся квадратным.
+    <div
+      className={`hover-lift relative w-full overflow-hidden rounded-[15px] bg-paper ${
+        mobile ? "aspect-[290/268]" : "aspect-square"
+      }`}
+    >
       <Illu i={i} mobile={mobile} />
       <p className="absolute left-[7%] top-[58.9%] whitespace-pre-line text-[18px] font-bold leading-[18px] tracking-[-0.175px] text-ink">
         {c.title}
@@ -149,10 +156,10 @@ export default function Tehnologii() {
             className="h-[26px] w-auto shrink-0"
           />
         </div>
-        <p data-reveal className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
+        <p data-reveal className="mt-[10px] whitespace-pre-line text-[12px] leading-[14px] text-[rgba(39,39,39,0.85)]">
           {"Вот несколько направлений над которыми\nработает большая команда инженеров\nкомпании"}
         </p>
-        <div data-reveal className="mt-[20px] flex flex-col gap-[20px]">
+        <div data-reveal className="mt-[20px] flex flex-col gap-[27px]">
           {CARDS.map((_, i) => (
             <TechCard key={i} i={i} mobile />
           ))}

@@ -152,7 +152,7 @@ export default function Footer() {
       </div>
 
       {/* ===== Мобильная стопка: точные интервалы из mobile-abs.json (футер 17232–18535) ===== */}
-      <div className="canvas-320 px-[15px] pb-[129px] pt-[33px] md:hidden">
+      <div className="canvas-320 px-[15px] pb-[170px] pt-[33px] md:hidden">
         <FooterLogos />
         <p className="mt-[20px] w-[247px] whitespace-pre-line text-[12px] leading-[14px]">{f.description}</p>
 

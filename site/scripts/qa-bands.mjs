@@ -19,20 +19,34 @@ const SHOTS = path.join(ROOT, "figma-data/shots/qa");
 const REFS = path.join(ROOT, "figma-data/refs/new/mobile");
 const SECTIONS = ["01-hero", "02-tebe-k-nam", "03-programma-daet", "04-programma-obucheniya",
   "05-treki", "06-kak-postupit", "07-prepodavateli", "08-x5-most", "09-tehnologii", "10-grant",
-  "11-novosti", "12-forma"];
+  "11-novosti", "12-forma", "13-footer"];
+const selectorFor = (i) => (i === 12 ? "footer" : `main > section:nth-of-type(${i + 1})`);
 
-// Полосы контента: подряд идущие строки, где есть неб��лые пиксели.
+// Полосы контента: подряд идущие строки, где пиксели отличаются от ФОНА секции.
+// Фон определяется как самый частый цвет — иначе тёмный футер целиком считался бы одной
+// сплошной полосой, и внутри него ничего не сверялось бы.
 async function bands(file, resizeTo) {
   let img = sharp(file).flatten({ background: "#ffffff" });
   if (resizeTo) img = img.resize({ width: resizeTo });
   const { data, info } = await img.raw().toBuffer({ resolveWithObject: true });
   const ch = info.channels;
+
+  const hist = new Map();
+  for (let i = 0; i < data.length; i += ch * 7) {
+    const key = (data[i] >> 3) * 4096 + (data[i + 1] >> 3) * 64 + (data[i + 2] >> 3);
+    hist.set(key, (hist.get(key) ?? 0) + 1);
+  }
+  let bgKey = 0, bgN = -1;
+  for (const [k, n] of hist) if (n > bgN) { bgN = n; bgKey = k; }
+  const bg = [((bgKey / 4096) | 0) << 3, (((bgKey / 64) | 0) % 64) << 3, (bgKey % 64) << 3];
+
   const dark = [];
   for (let y = 0; y < info.height; y++) {
     let n = 0;
     for (let x = 0; x < info.width; x++) {
       const i = (y * info.width + x) * ch;
-      if (data[i] < 200 || data[i + 1] < 200 || data[i + 2] < 200) n++;
+      const d = Math.abs(data[i] - bg[0]) + Math.abs(data[i + 1] - bg[1]) + Math.abs(data[i + 2] - bg[2]);
+      if (d > 90) n++;
     }
     dark.push(n);
   }
@@ -57,7 +71,7 @@ for (const s of targets) {
   const shotPath = path.join(SHOTS, `bands-${s}.png`);
   const refPath = path.join(REFS, `section-${s}.png`);
   if (!existsSync(refPath)) continue;
-  await shoot(URL, `main > section:nth-of-type(${i + 1})`, 320, shotPath);
+  await shoot(URL, selectorFor(i), 320, shotPath);
 
   const ours = await bands(shotPath);
   const ref = await bands(refPath, 320);

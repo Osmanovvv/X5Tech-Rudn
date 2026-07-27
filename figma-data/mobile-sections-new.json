@@ -33,36 +33,36 @@
       "name": "05-treki",
       "top": 6377,
       "height": 1498,
-      "ours": 1473,
-      "cost": 0.02093
+      "ours": 1498,
+      "cost": 0.02058
     },
     {
       "name": "06-kak-postupit",
       "top": 7875,
       "height": 2887,
-      "ours": 2629,
-      "cost": 0.09304
+      "ours": 2881,
+      "cost": 0.06153
     },
     {
       "name": "07-prepodavateli",
       "top": 10762,
       "height": 3676,
-      "ours": 3299,
-      "cost": 0.31928
+      "ours": 2976,
+      "cost": 0.0774
     },
     {
       "name": "08-x5-most",
       "top": 14438,
-      "height": 702,
-      "ours": 760,
-      "cost": 0.00903
+      "height": 777,
+      "ours": 777,
+      "cost": 0.00883
     },
     {
       "name": "09-tehnologii",
-      "top": 15140,
-      "height": 1407,
-      "ours": 1417,
-      "cost": 0.04861
+      "top": 15215,
+      "height": 1332,
+      "ours": 1338,
+      "cost": 0.0108
     },
     {
       "name": "10-grant",
@@ -75,22 +75,22 @@
       "name": "11-novosti",
       "top": 16856,
       "height": 505,
-      "ours": 522,
-      "cost": 0.26664
+      "ours": 521,
+      "cost": 0.26715
     },
     {
       "name": "12-forma",
       "top": 17361,
       "height": 1189,
-      "ours": 1182,
-      "cost": 0.06447
+      "ours": 1183,
+      "cost": 0.06529
     },
     {
       "name": "13-footer",
       "top": 18550,
       "height": 1351,
-      "ours": 1310,
-      "cost": 0.00109
+      "ours": 1351,
+      "cost": 0.00104
     }
   ]
 }

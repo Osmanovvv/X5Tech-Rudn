@@ -32,7 +32,9 @@ function Pill({ children, mobile }: { children: React.ReactNode; mobile?: boolea
   return (
     <span
       className={`inline-flex items-center rounded-full border border-[#b6e835] font-mono uppercase text-ink ${
-        mobile ? "h-[32px] px-[16px] text-[11px]" : "h-[36px] px-[18px] text-[12px]"
+        // Мобильная таблетка 36px — по замеру макета (было 32): на десяти шагах приёма
+        // недобор в 4px давал 40px к высоте секции
+        mobile ? "h-[36px] px-[16px] text-[11px]" : "h-[36px] px-[18px] text-[12px]"
       }`}
     >
       {children}
@@ -205,39 +207,47 @@ export default function KakPostupit() {
       {/* ===== Мобильная: вертикальный флоу ===== */}
       <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
         <h2 data-reveal className="pt-[30px] text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
-        <p data-reveal className="mt-[10px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
+        {/* Интерлиньяж 14 — шаг строк в макете (было 18, и на четырёх строках подзаголовка
+            это уводило вниз весь остаток секции на 14px) */}
+        <p data-reveal className="mt-[10px] whitespace-pre-line text-[12px] leading-[14px] text-[rgba(39,39,39,0.85)]">
           {subtitleM}
         </p>
 
-        {/* Статы стеком */}
-        <div data-reveal className="mt-[20px] flex flex-col gap-[10px]">
-          <div className="relative h-[100px] rounded-[14px] bg-[#f0efff]">
-            <p className="absolute left-[20px] top-[20px] text-[10px] font-medium uppercase leading-[15px] text-ink">
-              {price.label}
-            </p>
-            <p className="absolute left-[20px] top-[42px] text-[18px] font-bold text-ink">
-              225 000 ₽* / семестр
-            </p>
-            <p className="absolute left-[20px] top-[70px] text-[10px] text-ink">{price.note}</p>
-          </div>
-          {stats.map((s, i) => (
-            <div key={i} className="relative h-[100px] rounded-[14px] bg-paper">
-              <p className="absolute left-[20px] top-[24px] text-[10px] font-medium uppercase leading-[15px] text-[#181818]">
-                {s.label}
+        {/* Статы и таймлайны лежат на серой подложке во всю ширину, а карточки внутри белые —
+            по замеру макета (у левого края #fafafa, внутри карточек #ffffff). Раньше было
+            наоборот: белая секция и серые карточки. */}
+        <div className="-mx-[15px] mt-[20px] bg-[#fafafa] px-[15px] pb-[57px] pt-[8px]">
+          {/* Статы стеком: карточка 110px, зазор 11 — замер макета (было 100 и 10) */}
+          <div data-reveal className="flex flex-col gap-[11px]">
+            <div className="relative h-[110px] rounded-[14px] bg-[#f0efff]">
+              <p className="absolute left-[20px] top-[20px] text-[10px] font-medium uppercase leading-[15px] text-ink">
+                {price.label}
               </p>
-              {s.sub && <p className="absolute left-[20px] top-[40px] text-[10px] text-ink">{s.sub}</p>}
-              <p className="absolute bottom-[10px] right-[20px] text-[44px] font-bold leading-none text-ink">
-                <Num>{s.value}</Num>
-                {s.unit && <span className="ml-[4px] text-[22px]">{s.unit}</span>}
+              <p className="absolute left-[20px] top-[42px] text-[18px] font-bold text-ink">
+                225 000 ₽* / семестр
               </p>
+              <p className="absolute left-[20px] top-[70px] text-[10px] text-ink">{price.note}</p>
             </div>
-          ))}
-        </div>
+            {stats.map((s, i) => (
+              <div key={i} className="relative h-[110px] rounded-[14px] bg-white">
+                <p className="absolute left-[20px] top-[24px] text-[10px] font-medium uppercase leading-[15px] text-[#181818]">
+                  {s.label}
+                </p>
+                {s.sub && <p className="absolute left-[20px] top-[40px] text-[10px] text-ink">{s.sub}</p>}
+                {/* 57px — по высоте цифр в макете (44px давали 34px против макетных 44) */}
+                <p className="absolute bottom-[10px] right-[20px] text-[57px] font-bold leading-none text-ink">
+                  <Num>{s.value}</Num>
+                  {s.unit && <span className="ml-[4px] text-[28px]">{s.unit}</span>}
+                </p>
+              </div>
+            ))}
+          </div>
 
-        {/* Таймлайны */}
-        <div data-reveal className="mt-[26px] flex flex-col gap-[26px]">
-          <MobileColumn col={budget} />
-          <MobileColumn col={contract} />
+          {/* Таймлайны */}
+          <div data-reveal className="mt-[26px] flex flex-col gap-[26px]">
+            <MobileColumn col={budget} />
+            <MobileColumn col={contract} />
+          </div>
         </div>
 
         {/* Вступительные экзамены */}
@@ -245,18 +255,20 @@ export default function KakPostupit() {
         <p data-reveal className="mt-[6px] whitespace-pre-line text-[12px] leading-[16px] text-ink">
           {exams.captionM || exams.caption}
         </p>
-        <div data-reveal className="mt-[16px] flex flex-col gap-[16px]">
+        <div data-reveal className="mt-[16px] flex flex-col gap-[20px]">
           {exams.rows.map((r, i) => (
             <div key={i} className="overflow-hidden rounded-[14px] border border-[#ececec]">
-              <div className="flex h-[42px] items-center justify-center bg-lime text-[14px] font-medium text-ink">
+              {/* Лаймовая шапка строки — 60px по замеру макета (было 42): на четырёх
+                  предметах недобор давал 72px к высоте секции */}
+              <div className="flex h-[60px] items-center justify-center bg-lime text-[14px] font-medium text-ink">
                 {r.subject}
               </div>
-              <div className="flex h-[44px] items-center justify-center border-b border-[#ececec] text-[14px] text-ink">
+              <div className="flex h-[49px] items-center justify-center border-b border-[#ececec] text-[14px] text-ink">
                 {r.required}
               </div>
               <div className="grid grid-cols-2 text-[14px] text-ink">
-                <div className="flex h-[44px] items-center justify-center">Бюджет: {r.budget}</div>
-                <div className="flex h-[44px] items-center justify-center border-l border-[#ececec]">
+                <div className="flex h-[49px] items-center justify-center">Бюджет: {r.budget}</div>
+                <div className="flex h-[49px] items-center justify-center border-l border-[#ececec]">
                   Контракт: {r.contract}
                 </div>
               </div>

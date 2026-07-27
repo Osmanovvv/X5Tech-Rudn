@@ -129,7 +129,7 @@ export default function Treki() {
       </div>
 
       {/* ===== Мобильная: вертикальный флоу ===== */}
-      <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
+      <div className="canvas-320 bg-white px-[15px] pb-[35px] md:hidden">
         <h2 data-reveal className="whitespace-pre-line pt-[30px] text-[22px] font-bold leading-[26px] tracking-[-0.3px] text-ink">
           {title}
         </h2>

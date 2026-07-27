@@ -10,7 +10,9 @@ const T = teachers as { title: string; subtitle: string; subtitleM: string; teac
 
 function TeacherCard({ t }: { t: Teacher }) {
   return (
-    <div className="group relative aspect-[260/332] w-full overflow-hidden rounded-[18px] bg-[#d8d8d8]">
+    // Пропорция карточки на мобильной — 290×330 по замеру макета (десктопная 260×332 давала
+    // 370px при ширине 290, то есть на 40px выше макетной). Десктоп остаётся прежним.
+    <div className="group relative aspect-[290/330] w-full overflow-hidden rounded-[18px] bg-[#d8d8d8] md:aspect-[260/332]">
       {/* Фото (свой кроп; у Тынченко контейнер на всю высоту карточки) */}
       <div
         className={`absolute inset-x-0 top-0 overflow-hidden rounded-[20px] ${t.fill ? "h-full" : "h-[86.45%]"}`}

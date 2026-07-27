@@ -108,7 +108,7 @@ export default function Most() {
       </div>
 
       {/* ===== Мобильная: вертикальный стек ===== */}
-      <div className="canvas-320 px-[15px] pb-[30px] pt-[30px] md:hidden">
+      <div className="canvas-320 px-[15px] pb-[47px] pt-[30px] md:hidden">
         <p data-reveal className="font-mono text-[11px] uppercase text-ink">СТРАТЕГИЧЕСКИЙ ПАРТНЕР</p>
         <h2 data-reveal className="mt-[12px] text-[20px] font-bold leading-[25px] tracking-[-0.5px] text-ink">
           {"X5 Tech — мост в реальную"}
