@@ -42,7 +42,7 @@ function HeroArt({ mobile }: { mobile?: boolean }) {
       />
       <div className="absolute left-[418px] top-[180px] h-[387px] w-[387px]">
         <img
-          src={asset("/img/01-hero/meha-materials-color-glass-55403441-700w.webp")}
+          src={asset("/img/01-hero/meha-materials-color-glass-55403441-800w.webp")}
           alt=""
           loading="lazy"
           decoding="async"
@@ -51,16 +51,16 @@ function HeroArt({ mobile }: { mobile?: boolean }) {
         <div
           className="absolute left-[19px] top-[19px] h-[349px] w-[349px] bg-lime-soft mix-blend-hue"
           style={{
-            maskImage: `url(${asset("/img/01-hero/meha-materials-color-glass-55403441-700w.webp")})`,
+            maskImage: `url(${asset("/img/01-hero/meha-materials-color-glass-55403441-800w.webp")})`,
             maskSize: "100% 100%",
-            WebkitMaskImage: `url(${asset("/img/01-hero/meha-materials-color-glass-55403441-700w.webp")})`,
+            WebkitMaskImage: `url(${asset("/img/01-hero/meha-materials-color-glass-55403441-800w.webp")})`,
             WebkitMaskSize: "100% 100%",
             rotate: "-6.59deg",
           }}
         />
       </div>
       <img
-        src={asset("/img/01-hero/meha-materials-metal-5b128cb2-660w.webp")}
+        src={asset("/img/01-hero/meha-materials-metal-5b128cb2-900w.webp")}
         alt=""
         loading="lazy"
         decoding="async"
@@ -223,6 +223,10 @@ export default function Hero() {
             sizes="728px"
             alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
             fetchPriority="high"
+            // lazy здесь не откладывает загрузку: на десктопе фото в первом экране, и его
+            // байты уже летят по preload выше. Зато на мобильной, где эта ветка скрыта
+            // display:none, браузер не скачает его вовсе — минус 61KB на телефоне.
+            loading="lazy"
             data-reveal-scale
             className="absolute left-[429px] top-[148px] h-[485px] w-[728px] object-cover"
           />
@@ -294,6 +298,9 @@ export default function Hero() {
             src={asset(mobileArt)}
             alt="Студенты факультета искусственного интеллекта с ноутбуками X5 Tech"
             fetchPriority="high"
+            // Зеркально десктопной ветке: на широких экранах эта картинка скрыта и грузиться
+            // не должна, а на узких её греет preload с media выше
+            loading="lazy"
             data-reveal-scale
             className="relative z-[1] block h-auto w-full"
           />

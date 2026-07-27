@@ -13,3 +13,4 @@ tools/figma-oauth/pat.txt
 data/
 .env
 .env.local
+figma-data/lighthouse/

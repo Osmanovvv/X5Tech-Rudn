@@ -7,7 +7,7 @@ const A = "/img/03-programma-daet";
 
 /* Иллюстрации карточек: кропы из ctx (проценты — от контейнера) */
 function BlobColorGlass({ size, deg }: { size: number; deg: number }) {
-  const src = asset(`${A}/meha-materials-color-glass-853d880e-130w.webp`);
+  const src = asset(`${A}/meha-materials-color-glass-853d880e-220w.webp`);
   return (
     <span className="relative block" style={{ width: size, height: size, rotate: `${deg}deg` }}>
       <img loading="lazy" src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
@@ -24,7 +24,7 @@ function PurpleControl({ size }: { size: number }) {
     <span className="relative block overflow-hidden" style={{ width: size, height: size }}>
       <img
         loading="lazy"
-        src={asset(`${A}/dop-elements-control-purple-a11b7e3e-${size > 100 ? "640w" : "122w"}.webp`)}
+        src={asset(`${A}/dop-elements-control-purple-a11b7e3e-${size > 100 ? "640w" : "160w"}.webp`)}
         alt=""
         className="absolute left-[-7.41%] top-[-2.96%] h-[114.81%] w-[114.81%] max-w-none"
       />
@@ -127,7 +127,7 @@ function CardIllustration({ k, mobile }: { k: string; mobile?: boolean }) {
             <span className="relative block h-[83px] w-[117px] overflow-hidden rounded-bl-[15px]">
               <img
                 loading="lazy"
-                src={asset(`${A}/image2090011445-21f54626-234w.webp`)}
+                src={asset(`${A}/image2090011445-21f54626-320w.webp`)}
                 alt=""
                 className="absolute left-[-34.98%] top-0 h-full w-[133.34%] max-w-none"
               />
@@ -142,7 +142,7 @@ function CardIllustration({ k, mobile }: { k: string; mobile?: boolean }) {
             <span className="relative block h-[81px] w-[86px] overflow-hidden rounded-[15.88px]">
               <img
                 loading="lazy"
-                src={asset(`${A}/image2090011460-ca02c3ca-172w.webp`)}
+                src={asset(`${A}/image2090011460-ca02c3ca-220w.webp`)}
                 alt=""
                 className="absolute left-[-17.06%] top-[-15.32%] h-[127.6%] w-[117.87%] max-w-none"
               />

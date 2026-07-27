@@ -127,6 +127,22 @@ server {
     # Загрузка обложек новостей — до 8 МБ
     client_max_body_size 10m;
 
+    # Сжатие обязательно. Без него страница весит ~780 КБ вместо ~130 КБ, и это
+    # примерно 2 секунды и 30 баллов Lighthouse на мобильном соединении.
+    gzip              on;
+    gzip_comp_level   6;
+    gzip_min_length   1024;
+    gzip_proxied      any;
+    gzip_vary         on;
+    gzip_types        text/plain text/css application/javascript application/json
+                      application/xml image/svg+xml;
+
+    # Файлы Next с хешем в имени неизменяемы — кэшируем навсегда
+    location /_next/static/ {
+        proxy_pass  http://127.0.0.1:3000;
+        add_header  Cache-Control "public, max-age=31536000, immutable";
+    }
+
     location / {
         proxy_pass         http://127.0.0.1:3000;
         proxy_http_version 1.1;
@@ -361,3 +377,20 @@ rm -rf .next/cache .next/dev
 - Шрифт: подключён фирменный X5 Sans (Regular / Medium / Bold).
 - Приложение рассчитано на один экземпляр процесса. Данные — файлы, поэтому запуск нескольких
   копий на одном каталоге не предусмотрен.
+
+---
+
+## Проверки качества
+
+Все запускаются из папки `site`. Первые три требуют поднятого `npm run dev`, последние три —
+собранной статики (`npm run build:static`).
+
+| Команда | Что проверяет |
+|---|---|
+| `node scripts/qa-figma.mjs` | сквозная сверка всех секций с макетами на 1200 и 320 |
+| `node scripts/qa-bands.mjs` | построчная диагностика мобильной: что именно съехало |
+| `node scripts/qa-a11y.mjs` | доступность и горизонтальный скролл, 5 страниц × 2 ширины |
+| `node scripts/qa-widths.mjs` | масштабирование на 12 ширинах от 320 до 1920 |
+| `node scripts/qa-static.mjs` | собранная папка `out/` на обычном сервере: все адреса, 404, служебные файлы |
+| `node scripts/qa-lighthouse.mjs` | Lighthouse по `out/` со сжатием — как на боевом nginx |
+| `node scripts/qa-retina.mjs` | хватает ли разрешения картинок для экранов двойной плотности |
