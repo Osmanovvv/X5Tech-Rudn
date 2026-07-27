@@ -12,7 +12,8 @@ import { execSync } from "node:child_process";
 import { existsSync, renameSync, rmSync } from "node:fs";
 import path from "node:path";
 
-const APP = path.resolve(import.meta.dirname, "..", "app");
+const ROOT = path.resolve(import.meta.dirname, "..");
+const APP = path.join(ROOT, "app");
 const SERVER_ONLY = ["admin", "api"];
 const parked = (name) => path.join(APP, `_${name}.static-build-parked`);
 
