@@ -16,7 +16,7 @@ import { shoot } from "./shot.mjs";
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const URL = process.env.QA_URL || "http://localhost:3000/";
 const SHOTS = path.join(ROOT, "figma-data/shots/qa");
-const REFS = path.join(ROOT, "figma-data/refs/mobile");
+const REFS = path.join(ROOT, "figma-data/refs/new/mobile");
 const SECTIONS = ["01-hero", "02-tebe-k-nam", "03-programma-daet", "04-programma-obucheniya",
   "05-treki", "06-kak-postupit", "07-prepodavateli", "08-x5-most", "09-tehnologii", "10-grant",
   "11-novosti", "12-forma"];

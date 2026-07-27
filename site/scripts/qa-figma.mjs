@@ -49,9 +49,9 @@ const JOBS = [
   { name: "d-13-footer", sel: "footer", ref: "desktop-13-footer.png" },
   // ===== мобильная 320
   ...MOBILE_SECTIONS.map((s, i) => ({
-    name: `m-${s}`, sel: `${M}section:nth-of-type(${i + 1})`, ref: `mobile/section-${s}.png`, w: 320,
+    name: `m-${s}`, sel: `${M}section:nth-of-type(${i + 1})`, ref: `new/mobile/section-${s}.png`, w: 320,
   })),
-  { name: "m-13-footer", sel: "footer", ref: "mobile/section-13-footer.png", w: 320 },
+  { name: "m-13-footer", sel: "footer", ref: "new/mobile/section-13-footer.png", w: 320 },
   // ===== бургер-меню (панель существует в DOM только открытой)
   { name: "m-burger", sel: "#mobile-menu", ref: "new/burger-388-2.png", w: 320, open: true },
 ];

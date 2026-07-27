@@ -1,0 +1,96 @@
+{
+  "frame": 19901,
+  "bounds": [
+    {
+      "name": "01-hero",
+      "top": 60,
+      "height": 823,
+      "ours": 826,
+      "cost": 0.0067
+    },
+    {
+      "name": "02-tebe-k-nam",
+      "top": 883,
+      "height": 1381,
+      "ours": 1380,
+      "cost": 0.00118
+    },
+    {
+      "name": "03-programma-daet",
+      "top": 2264,
+      "height": 1345,
+      "ours": 1343,
+      "cost": 0.01199
+    },
+    {
+      "name": "04-programma-obucheniya",
+      "top": 3609,
+      "height": 2768,
+      "ours": 2762,
+      "cost": 0.04691
+    },
+    {
+      "name": "05-treki",
+      "top": 6377,
+      "height": 1498,
+      "ours": 1473,
+      "cost": 0.02093
+    },
+    {
+      "name": "06-kak-postupit",
+      "top": 7875,
+      "height": 2887,
+      "ours": 2629,
+      "cost": 0.09304
+    },
+    {
+      "name": "07-prepodavateli",
+      "top": 10762,
+      "height": 3676,
+      "ours": 3299,
+      "cost": 0.31928
+    },
+    {
+      "name": "08-x5-most",
+      "top": 14438,
+      "height": 702,
+      "ours": 760,
+      "cost": 0.00903
+    },
+    {
+      "name": "09-tehnologii",
+      "top": 15140,
+      "height": 1407,
+      "ours": 1417,
+      "cost": 0.04861
+    },
+    {
+      "name": "10-grant",
+      "top": 16547,
+      "height": 309,
+      "ours": 309,
+      "cost": 0.00458
+    },
+    {
+      "name": "11-novosti",
+      "top": 16856,
+      "height": 505,
+      "ours": 522,
+      "cost": 0.26664
+    },
+    {
+      "name": "12-forma",
+      "top": 17361,
+      "height": 1189,
+      "ours": 1182,
+      "cost": 0.06447
+    },
+    {
+      "name": "13-footer",
+      "top": 18550,
+      "height": 1351,
+      "ours": 1310,
+      "cost": 0.00109
+    }
+  ]
+}
