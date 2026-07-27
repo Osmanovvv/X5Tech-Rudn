@@ -5,7 +5,7 @@
 import { useCallback, useRef, useState } from "react";
 import Link from "next/link";
 import { asset } from "@/lib/asset";
-import { formatNewsDate, type NewsItem } from "@/lib/news";
+import { coverPath, formatNewsDate, type NewsItem } from "@/lib/news";
 
 const DOTS = 5;
 const backIcon = asset("/img/11-novosti/svg-e2782076.svg");
@@ -20,7 +20,10 @@ function NewsCard({ item }: { item: NewsItem }) {
       <div className="relative aspect-[270/165] overflow-hidden">
         <img
           loading="lazy"
-          src={asset(`/img/11-novosti/${item.cover}-640w.webp`)}
+          // Только через coverPath: у обложек, загруженных админкой, значение вида
+          // «upload:имя», и подставлять его в путь к ассетам макета нельзя — получался
+          // битый src /img/11-novosti/upload:имя-640w.webp
+          src={asset(coverPath(item.cover, 640))}
           alt=""
           className="absolute inset-0 size-full object-cover"
         />
