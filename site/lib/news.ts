@@ -40,3 +40,46 @@ export const coverPath = (cover: string, width: 640 | 1400): string =>
   cover.startsWith("upload:")
     ? `/api/uploads/${cover.slice("upload:".length)}-${width}w.webp`
     : `/img/11-novosti/${cover}-${width}w.webp`;
+
+// ===== Разбор тела новости на блоки =====
+//
+// В макетах новостей 2–4 (391:872 / 391:988 / 391:1107) внутри текста стоят картинки: одна на
+// всю ширину колонки, две подряд на своих строках и две в ряд. Чтобы это можно было набрать
+// в обычном textarea админки, картинка записывается markdown-синтаксисом на ОТДЕЛЬНОЙ строке:
+//
+//   ![подпись к фото](upload:den-otkrytyh-dverej-mfk3x1)   — одна картинка во всю колонку
+//   ![слева](upload:a) ![справа](upload:b)                 — две в ряд (в одной строке)
+//
+// Ссылка — то же значение, что и у cover: «upload:<имя>» для загруженного через админку файла
+// или «<slug>» для картинки из макета в public/img/11-novosti.
+export type NewsBlock =
+  | { kind: "p"; text: string }
+  | { kind: "figure"; images: { src: string; alt: string }[] };
+
+const IMG_RE = /!\[([^\]]*)\]\(\s*([A-Za-z0-9:_-]+)\s*\)/g;
+
+/** Ссылки на загруженные файлы внутри текста — нужны, чтобы удалять их вместе с новостью. */
+export const bodyUploads = (body: string): string[] =>
+  [...body.matchAll(IMG_RE)].map((m) => m[2]).filter((src) => src.startsWith("upload:"));
+
+export function parseBody(body: string): NewsBlock[] {
+  const blocks: NewsBlock[] = [];
+  // Абзацы разделяются пустой строкой. Регулярка терпима к CRLF и лишним пробелам — текст
+  // может прийти и из репозитория, и из формы админки.
+  for (const chunk of body.split(/\r?\n\s*\r?\n/)) {
+    const para = chunk.trim();
+    if (!para) continue;
+    // Абзац целиком состоит из картинок → это блок-иллюстрация, а не текст
+    const only = para.replace(IMG_RE, "").trim();
+    if (!only) {
+      const images = [...para.matchAll(IMG_RE)].map((m) => ({ alt: m[1].trim(), src: m[2] }));
+      // Больше двух в ряд макет не предполагает — лишние переносим в следующий блок
+      for (let i = 0; i < images.length; i += 2) {
+        blocks.push({ kind: "figure", images: images.slice(i, i + 2) });
+      }
+      continue;
+    }
+    blocks.push({ kind: "p", text: para });
+  }
+  return blocks;
+}

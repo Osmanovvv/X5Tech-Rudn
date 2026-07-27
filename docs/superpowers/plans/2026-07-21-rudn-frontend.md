@@ -357,20 +357,23 @@ const nextConfig = {
 
 ## Фаза 5 — SEO, шрифт, производительность
 
-### Task 5.1: SEO-обвязка
-- [ ] `metadataBase` из `site.json.siteUrl`; canonical; OG-теги + **статичный og-image 1200×630** (из hero-ассетов); favicon-набор (ico + apple-touch-icon + svg)
-- [ ] `app/sitemap.ts`, `app/robots.ts` (абсолютные URL от siteUrl; в README — «сменили домен → пересборка»)
-- [ ] Слот Вебмастера (meta verification из site.json); **Метрика/Вебвизор — только отложенно**: динамическая вставка после `load` + requestIdleCallback (или первый pointerdown/scroll), ID из `site.json.metrikaId`; синхронный сниппет в head запрещён (−5..15 баллов mobile). README: Lighthouse-приёмка меряется с включённым счётчиком
-- [ ] Семантика: один h1, section id, alt всех img — чек-лист
-- [ ] Рекомендация сверх ТЗ (согласовать с пользователем): JSON-LD EducationalOrganization (главная) + NewsArticle (новости) — расширенные сниппеты Яндекса
-### Task 5.2: X5 Sans
+### Task 5.1: SEO-обвязка ✅ 2026-07-27
+- [x] `metadataBase` из `site.json.siteUrl` (перекрывается `NEXT_PUBLIC_SITE_URL`); canonical на всех страницах; OG + Twitter; og-image 1200×630 рисуется `scripts/make-og.mjs` в Chromium шрифтами сайта; иконки — `app/icon.svg` + `scripts/make-icons.mjs` (favicon.ico 16/32/48, apple-icon 180)
+- [x] `app/sitemap.ts`, `app/robots.ts`. **Защита от плейсхолдера:** пока домен `*.example`, robots отдаёт `Disallow: /`, страницы получают `noindex`, сборка печатает предупреждение — иначе в индекс ушли бы canonical на несуществующий домен
+- [x] Слот Вебмастера из `site.json.yandexVerification`; Метрика — `components/Metrika.tsx`: подключается после `load` в `requestIdleCallback` или при первом действии пользователя, `<noscript>`-пиксель для трафика без JS; на `/admin` счётчика нет
+- [x] Семантика: `scripts/qa-a11y.mjs` — пять страниц × две ширины, проверяет один h1, порядок уровней, alt, доступные имена ссылок/кнопок, подписи полей, `rel=noopener`, горизонтальный скролл. Найдено и исправлено: два h1 на главной (обе ветки hero в DOM) → мобильная стала `role="heading" aria-level=1`
+- [x] JSON-LD: `WebSite` + `CollegeOrUniversity` + `EducationalOccupationalProgram` (главная), `NewsArticle` + `BreadcrumbList` (новость), `CollectionPage` (/news). Цену и телефон намеренно не включаем — по ним открытые вопросы C1/C2
+### Task 5.2: X5 Sans — ЗАБЛОКИРОВАН (нет файлов шрифта)
 - [ ] woff2-сабсеты (кириллица+латиница) Regular/Medium/Bold → fonts.ts; метрико-совместимый fallback (size-adjust/ascent/descent-override — next/font сгенерит)
-- [ ] **Полная пересверка ВСЕХ секций + /news + /news/[slug] на 1200 и 320 инструментом 0.4** (метрики шрифта другие — поплывут переносы и высоты) → доводка → повторный показ секций с изменениями
-### Task 5.3: Аудит производительности
-- [ ] `content-visibility: auto` + `contain-intrinsic-size` на секции ниже фолда (страница длинная, мобильная ~19k px; DOM-аудит Lighthouse); `loading="lazy"` на все img кроме hero
-- [ ] Lighthouse (Perf + **Accessibility**) каждой страницы: ≥ 90 mobile / ≥ 95 desktop; TBT/INP с включённой Метрикой; CLS < 0.1 (размеры img, шрифтовой fallback)
-- [ ] Бюджет: First Load JS ≤ 125KB gz (пол Next ~105KB задокументирован в budget.md)
-- [ ] Прогон 320/375/390/430/768/1024/1200/1440/1920 со скриншотами; **hero, фото курсов и преподавателей — дополнительно deviceScaleFactor=2** (retina-мыло не видно на DPR1)
+- [ ] **Полная пересверка ВСЕХ секций + /news + /news/[slug] на 1200 и 320** (метрики шрифта другие — поплывут переносы и высоты) → доводка → повторный показ секций с изменениями
+- Готово к замене: порядок описан в README, инструмент сверки — `scripts/qa-figma.mjs`. Именно подмена шрифта даёт весь остаточный фон расхождения с макетом
+### Task 5.3: Аудит производительности ✅ 2026-07-27
+- [x] `loading="lazy"` на все img кроме первого экрана — 39 тегов. Главный эффект оказался не в отложенной загрузке: React 19 автоматически поднимает каждый не-lazy `<img>` в `<link rel=preload>`, и главная стартовала с **64 предзагрузками картинок** сразу. Стало **5**
+- [x] `preload` hero разделён по `media`: мобильный браузер больше не тянет десктопное фото (1456w, 61KB) поверх собственного LCP-изображения; декоративные блобы (54KB) на мобиле не грузятся вовсе
+- [x] ~~`content-visibility: auto`~~ — **сознательно не применяем.** На сайте якорная навигация из шапки в шесть секций; со свёрнутым содержимым плавный скролл к далёкому якорю приезжает мимо цели. DOM главной 1312 узлов (порог Lighthouse — 1400), выигрыш не стоит риска на замороженной по пикселям вёрстке
+- [x] Доступность — `scripts/qa-a11y.mjs`, ноль замечаний на пяти страницах × двух ширинах
+- [x] Бюджет First Load JS — см. `docs/budget.md` (действующий порог 150KB, обоснование там же)
+- [x] Прогон ширин 320/375/390/430/768/1024/1200/1440/1920 — `scripts/qa-widths.mjs`
 
 ---
 

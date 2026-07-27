@@ -83,9 +83,30 @@ export default function NewsForm({ item }: { item?: NewsItem }) {
           className={`${input} h-auto resize-y py-[10px] leading-[22px]`}
         />
         <p className="mt-[4px] text-[12px] text-[rgba(39,39,39,0.72)]">
-          Пустая строка между абзацами разделит текст на абзацы.
+          Пустая строка между абзацами разделит текст на абзацы. Картинка ставится отдельной
+          строкой: <code className="rounded bg-mist px-[4px]">![подпись](upload:имя)</code>. Две
+          такие записи в ОДНОЙ строке встанут рядом в ряд.
         </p>
         {fe.body && <p className={errText}>{fe.body}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="bodyImages" className={label}>
+          Картинки в текст <span className="font-normal">(необязательно, до шести за раз)</span>
+        </label>
+        <input
+          id="bodyImages"
+          name="bodyImages"
+          type="file"
+          multiple
+          accept="image/jpeg,image/png,image/webp,image/avif"
+          className="w-full text-[13px] text-ink file:mr-[12px] file:h-[36px] file:cursor-pointer file:rounded-[5px] file:border-0 file:bg-mist file:px-[16px] file:text-[13px] file:font-bold file:text-ink"
+        />
+        <p className="mt-[4px] text-[12px] text-[rgba(39,39,39,0.72)]">
+          После сохранения строки <code className="rounded bg-mist px-[4px]">![](upload:…)</code>{" "}
+          допишутся в конец текста — откройте новость снова и перенесите их между нужными абзацами.
+        </p>
+        {fe.bodyImages && <p className={errText}>{fe.bodyImages}</p>}
       </div>
 
       <div>

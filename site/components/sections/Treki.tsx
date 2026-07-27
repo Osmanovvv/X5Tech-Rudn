@@ -48,6 +48,7 @@ function Illu({ src, i, scale = 1 }: { src: string; i: number; scale?: number })
     >
       <div style={{ transform: `rotate(${p.rot}deg) scaleY(-1)` }}>
         <img
+          loading="lazy"
           src={src}
           alt=""
           className="max-w-none object-cover"
@@ -67,6 +68,7 @@ function TrackCard({ track, i, mobile }: { track: Track; i: number; mobile?: boo
     >
       <Illu src={img(track.illustration, "640w.webp")} i={i} scale={mobile ? 1.05 : 1} />
       <img
+        loading="lazy"
         src={img(track.icon + ".svg")}
         alt=""
         aria-hidden
@@ -110,6 +112,7 @@ export default function Treki() {
           style={{ transform: "scaleX(-1)" }}
         >
           <img
+            loading="lazy"
             src={img(photo, "640w.webp")}
             alt="Студенты факультета искусственного интеллекта"
             className="absolute left-0 w-full max-w-none"
@@ -140,6 +143,7 @@ export default function Treki() {
           style={{ aspectRatio: "290/335", transform: "scaleX(-1)" }}
         >
           <img
+            loading="lazy"
             src={img(photo, "640w.webp")}
             alt="Студенты факультета искусственного интеллекта"
             className="absolute left-0 w-full max-w-none"

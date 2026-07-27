@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import site from "@/content/site.json";
-import { withBasePath } from "@/lib/asset";
+import { abs } from "@/lib/seo";
 import { allLegalPages, getLegalPage } from "@/lib/legal";
 
 export const dynamicParams = false;
@@ -25,9 +25,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = getLegalPage(slug);
   if (!page) return {};
   return {
-    title: `${page.title} — Факультет ИИ РУДН × X5 Tech`,
+    title: page.title,
     description: `${page.title}. Официальная информация факультета искусственного интеллекта РУДН и X5 Tech.`,
-    alternates: { canonical: withBasePath(`/docs/${page.slug}/`) },
+    alternates: { canonical: abs(`/docs/${page.slug}/`) },
+    // Заглушки до текстов от университета — в индекс их пускать нельзя (тонкий контент)
     robots: { index: false, follow: true },
   };
 }

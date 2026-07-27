@@ -94,6 +94,7 @@ function StatCard({ mobile }: { mobile?: boolean }) {
     >
       {/* Блоб-иллюстрация правого-нижнего угла — чёткая вырезка из эталона (с тенью) */}
       <img
+        loading="lazy"
         src={asset("/img/04-programma-obucheniya/stat-blob.webp")}
         alt=""
         aria-hidden
@@ -178,6 +179,7 @@ export default function ProgrammaObucheniya() {
         {courses.map((course, i) =>
           course.photo ? (
             <img
+              loading="lazy"
               key={i}
               src={asset(`/img/04-programma-obucheniya/${course.photo}-880w.webp`)}
               alt=""
@@ -229,6 +231,7 @@ export default function ProgrammaObucheniya() {
                 </div>
               ) : (
                 <img
+                  loading="lazy"
                   src={asset(`/img/04-programma-obucheniya/${course.photo}-640w.webp`)}
                   alt=""
                   className="mt-[18px] block w-full rounded-[14px] object-cover"

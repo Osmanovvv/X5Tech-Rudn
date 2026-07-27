@@ -16,6 +16,7 @@ function TeacherCard({ t }: { t: Teacher }) {
         className={`absolute inset-x-0 top-0 overflow-hidden rounded-[20px] ${t.fill ? "h-full" : "h-[86.45%]"}`}
       >
         <img
+          loading="lazy"
           src={asset(`/img/07-prepodavateli/${t.photo}-640w.webp`)}
           alt={t.name.replace(/\n/g, " ")}
           className="absolute left-0 w-full max-w-none transition-transform duration-200 ease-motion group-hover:scale-[1.015]"

@@ -29,10 +29,14 @@ function HeroArt({ mobile }: { mobile?: boolean }) {
   }
   return (
     <div aria-hidden="true">
-      {/* центры блобов в координатах секции (y уже без шапки) */}
+      {/* Центры блобов в координатах секции (y уже без шапки).
+          loading="lazy" здесь не про отложенность — на десктопе блобы в первом экране и
+          грузятся сразу. Он снимает АВТОМАТИЧЕСКИЙ preload React: без него мобильный браузер
+          скачивал бы все три декоративных блока (54KB), хотя ветка скрыта display:none. */}
       <img
         src={asset("/img/01-hero/image2090011457-a627ba4b-612w.webp")}
         alt=""
+        loading="lazy"
         decoding="async"
         className="absolute left-[633px] top-[176px] h-[306px] w-[306px] -scale-y-100 rotate-180"
       />
@@ -40,6 +44,7 @@ function HeroArt({ mobile }: { mobile?: boolean }) {
         <img
           src={asset("/img/01-hero/meha-materials-color-glass-55403441-700w.webp")}
           alt=""
+          loading="lazy"
           decoding="async"
           className="absolute left-[19px] top-[19px] h-[349px] w-[349px] rotate-[-6.59deg]"
         />
@@ -57,6 +62,7 @@ function HeroArt({ mobile }: { mobile?: boolean }) {
       <img
         src={asset("/img/01-hero/meha-materials-metal-5b128cb2-660w.webp")}
         alt=""
+        loading="lazy"
         decoding="async"
         className="absolute left-[820px] top-[241px] h-[330px] w-[330px] rotate-[25.84deg]"
       />
@@ -180,12 +186,23 @@ export default function Hero() {
   // Предзагружаем AVIF-набор: браузеры без поддержки AVIF просто игнорируют такой preload
   // (type не совпал) и берут webp обычным путём — лишней загрузки нет.
   // imageSizes совпадает с sizes у <img>, иначе preload и вёрстка выберут разных кандидатов.
+  // media обязателен: у hero две ветки вёрстки, и без него мобильный браузер тянул бы
+  // ДЕСКТОПНОЕ фото (imageSizes 728px → кандидат 1456w, 61KB) высоким приоритетом — прямо
+  // поверх собственного LCP-изображения, которое весит втрое меньше.
   preload(asset(photo1456Avif), {
     as: "image",
     type: "image/avif",
     fetchPriority: "high",
+    media: "(min-width: 768px)",
     imageSrcSet: `${asset(photo640Avif)} 640w, ${asset(photo1456Avif)} 1456w`,
     imageSizes: "728px",
+  });
+  // Зеркально: LCP мобильной ветки — единый арт-экспорт, его и греем на узких экранах
+  preload(asset(mobileArtAvif), {
+    as: "image",
+    type: "image/avif",
+    fetchPriority: "high",
+    media: "(max-width: 767.98px)",
   });
 
   return (
@@ -245,13 +262,22 @@ export default function Hero() {
           <div data-reveal className="absolute left-[15px] top-[31px]">
             <Badge mobile />
           </div>
-          <h1 data-reveal-move className="absolute left-[15px] top-[71px] text-[22px] font-bold leading-[23px] tracking-[-1.3px] text-ink">
+          {/* Обе ветки hero живут в DOM одновременно, поэтому настоящий <h1> только один —
+              десктопный. Здесь тот же заголовок с ролью heading level 1: скрытая ветка
+              (display:none) для скринридера не существует, значит на каждой ширине AT видит
+              ровно один заголовок первого уровня, а в разметке остаётся единственный тег h1. */}
+          <p
+            role="heading"
+            aria-level={1}
+            data-reveal-move
+            className="absolute left-[15px] top-[71px] text-[22px] font-bold leading-[23px] tracking-[-1.3px] text-ink"
+          >
             Изучай ИИ,
             <br />
             входи в профессию
             <br />
             вместе с <span className="text-lime-deep">X5 Tech</span>
-          </h1>
+          </p>
           <p data-reveal className="absolute left-[15px] top-[155px] text-[12px] leading-[14px] text-[#6b6b6b]">
             Факультет искусственного интеллекта РУДН
             <br />

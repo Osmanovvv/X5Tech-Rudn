@@ -9,7 +9,7 @@ import { getAllNewsForEdit, saveAllNews } from "@/lib/server/news-store";
 import { DataUnreadableError } from "@/lib/server/store";
 import { removeCover, saveCover } from "@/lib/server/uploads";
 import { slugify } from "@/lib/slug";
-import type { NewsItem } from "@/lib/news";
+import { bodyUploads, type NewsItem } from "@/lib/news";
 
 export type NewsFormState = { error?: string; fieldErrors?: Record<string, string> } | undefined;
 
@@ -63,6 +63,31 @@ function readFields(formData: FormData) {
   };
 }
 
+// Картинки для ТЕЛА новости (макеты новостей 2–4): загружаются тем же конвейером, что обложка,
+// а в текст дописываются готовыми markdown-строками — редактор потом переносит их между абзацами.
+// Возвращает дополненный текст либо ошибку поля.
+async function attachBodyImages(
+  formData: FormData,
+  body: string,
+  titleHint: string
+): Promise<{ body: string } | { error: string }> {
+  const files = formData.getAll("bodyImages").filter((f): f is File => f instanceof File && f.size > 0);
+  if (!files.length) return { body };
+  if (files.length > 6) return { error: "За раз можно добавить не больше шести картинок." };
+
+  const added: string[] = [];
+  for (const file of files) {
+    const saved = await saveCover(file, `${titleHint}-v-tekste`);
+    if (!saved.ok) {
+      added.forEach(removeCover); // не оставляем полузагруженный набор в каталоге
+      return { error: saved.error };
+    }
+    added.push(saved.cover);
+  }
+  const markers = added.map((ref) => `![](${ref})`).join("\n\n");
+  return { body: `${body}\n\n${markers}` };
+}
+
 function validate(f: ReturnType<typeof readFields>): Record<string, string> {
   const e: Record<string, string> = {};
   if (f.title.length < 3) e.title = "Заголовок — минимум 3 символа.";
@@ -88,6 +113,13 @@ export async function createNews(_prev: NewsFormState, formData: FormData): Prom
 
   const uploaded = await saveCover(file as File, fields.title);
   if (!uploaded.ok) return { fieldErrors: { cover: uploaded.error } };
+
+  const withImages = await attachBodyImages(formData, fields.body, fields.title);
+  if ("error" in withImages) {
+    removeCover(uploaded.cover);
+    return { fieldErrors: { bodyImages: withImages.error } };
+  }
+  fields.body = withImages.body;
 
   // Список читаем ПОСЛЕ обработки картинки: пересжатие занимает сотни миллисекунд, и снимок,
   // сделанный до него, мог устареть — параллельная правка была бы затёрта целиком.
@@ -127,6 +159,13 @@ export async function updateNews(_prev: NewsFormState, formData: FormData): Prom
     newCover = uploaded.cover;
   }
 
+  const withImages = await attachBodyImages(formData, fields.body, fields.title);
+  if ("error" in withImages) {
+    if (newCover) removeCover(newCover);
+    return { fieldErrors: { bodyImages: withImages.error } };
+  }
+  fields.body = withImages.body;
+
   const current = readForEdit();
   if ("error" in current) return { error: current.error };
 
@@ -141,6 +180,11 @@ export async function updateNews(_prev: NewsFormState, formData: FormData): Prom
   // Прежняя обложка больше не нужна — иначе каталог загрузок растёт без предела,
   // а замененные картинки остаются доступными по прямой ссылке.
   if (newCover && existing.cover !== newCover) removeCover(existing.cover);
+  // То же для картинок внутри текста: редактор стёр строку ![](upload:…) — удаляем файл
+  const kept = new Set(bodyUploads(updated.body));
+  bodyUploads(existing.body)
+    .filter((ref) => !kept.has(ref))
+    .forEach(removeCover);
 
   revalidateNews();
   redirect("/admin/news");
@@ -158,7 +202,9 @@ export async function deleteNews(formData: FormData): Promise<void> {
   if (!doomed) return;
 
   await saveAllNews(current.items.filter((i) => i.slug !== slug));
-  removeCover(doomed.cover); // не оставляем осиротевшие файлы в каталоге загрузок
+  // Не оставляем осиротевшие файлы в каталоге загрузок — ни обложку, ни картинки из текста
+  removeCover(doomed.cover);
+  bodyUploads(doomed.body).forEach(removeCover);
   revalidateNews();
   redirect("/admin/news");
 }

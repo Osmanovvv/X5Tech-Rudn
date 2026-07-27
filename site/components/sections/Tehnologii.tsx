@@ -18,6 +18,7 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
     return (
       <>
         <img
+          loading="lazy"
           src={img("image2090011460-4d9d1c9b-640w.webp")}
           alt=""
           aria-hidden
@@ -25,6 +26,7 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
         />
         {!mobile && (
           <img
+            loading="lazy"
             src={img("arrow5-62744316.svg")}
             alt=""
             aria-hidden
@@ -37,6 +39,7 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
     return (
       <div className="absolute left-[6.7%] top-[10%] h-[48.9%] w-[41.9%] overflow-hidden">
         <img
+          loading="lazy"
           src={img("image2090011464-e4a32506-640w.webp")}
           alt=""
           aria-hidden
@@ -49,6 +52,7 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
     return (
       <>
         <img
+          loading="lazy"
           src={img("dop-materials-green-plastic-93d1a6d4-640w.webp")}
           alt=""
           aria-hidden
@@ -56,6 +60,7 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
         />
         <div className="absolute left-[24.8%] top-[14.1%] size-[34.1%] overflow-hidden">
           <img
+            loading="lazy"
             src={img("dop-elements-control-purple-210de6ae-640w.webp")}
             alt=""
             aria-hidden
@@ -71,6 +76,7 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
           тележка рисуется поверх, от диска остаётся только серп справа */}
       <div className="absolute left-[38.3%] top-[22.6%] size-[23.2%] rotate-30 -scale-y-100 overflow-hidden rounded-[36px]">
         <img
+          loading="lazy"
           src={img("image2090011468-11be8c2c-640w.webp")}
           alt=""
           aria-hidden
@@ -79,6 +85,7 @@ function Illu({ i, mobile }: { i: number; mobile?: boolean }) {
         />
       </div>
       <img
+        loading="lazy"
         src={img("image2090011509-efbdc704-640w.webp")}
         alt=""
         aria-hidden
@@ -112,6 +119,7 @@ export default function Tehnologii() {
           Прикоснись к технологиям
         </h2>
         <img
+          loading="lazy"
           src={img("x5tech-logo.webp")}
           alt="X5 Tech"
           data-reveal
@@ -135,6 +143,7 @@ export default function Tehnologii() {
             <br />к технологиям
           </h2>
           <img
+            loading="lazy"
             src={img("x5tech-logo.webp")}
             alt="X5 Tech"
             className="h-[26px] w-auto shrink-0"

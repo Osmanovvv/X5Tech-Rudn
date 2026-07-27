@@ -154,6 +154,7 @@ export default function LeadForm() {
           {/* Фото */}
           <div className="overflow-hidden rounded-[15px] md:h-[662px] md:w-[581px] md:shrink-0">
             <img
+              loading="lazy"
               src={photo}
               alt="Абитуриентка оставляет заявку на программу"
               className="size-full object-cover"

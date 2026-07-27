@@ -39,6 +39,7 @@ function QuoteCard({ mobile }: { mobile?: boolean }) {
       </p>
       <div className={mobile ? "mt-[20px] flex items-center gap-[12px]" : ""}>
         <img
+          loading="lazy"
           src={avatar}
           alt="Михаил Неверов"
           className={`size-[40px] rounded-[5px] object-cover ${mobile ? "" : "absolute left-[24px] top-[96px]"}`}

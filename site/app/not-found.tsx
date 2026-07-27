@@ -7,7 +7,7 @@ import Link from "next/link";
 import SiteChrome from "@/components/SiteChrome";
 
 export const metadata: Metadata = {
-  title: "Страница не найдена — Факультет ИИ РУДН × X5 Tech",
+  title: "Страница не найдена",
   robots: { index: false, follow: true },
 };
 

@@ -20,6 +20,7 @@ export default function Grant() {
       {/* ===== Десктоп: калька 1200×310 ===== */}
       <div className="calque-1200 relative mx-auto hidden h-[310px] w-[1200px] md:block">
         <img
+          loading="lazy"
           src={emblem}
           alt="Аналитический центр при Правительстве Российской Федерации"
           className="absolute left-[55px] top-[12px] h-[300px] w-[600px] rounded-[10px] object-cover"
@@ -33,6 +34,7 @@ export default function Grant() {
       {/* ===== Мобильная: изображение сверху, текст под ним ===== */}
       <div className="canvas-320 px-[15px] pb-[24px] pt-[24px] md:hidden">
         <img
+          loading="lazy"
           src={emblem}
           alt="Аналитический центр при Правительстве Российской Федерации"
           className="w-full rounded-[10px]"

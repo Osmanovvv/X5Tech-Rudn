@@ -68,6 +68,7 @@ export default function TebeKNam() {
           Тебе к нам, если ты
         </h2>
         <img
+          loading="lazy"
           src={asset("/img/02-tebe-k-nam/vector1-dec88355.svg")}
           alt=""
           aria-hidden
@@ -88,6 +89,7 @@ export default function TebeKNam() {
               <div className="absolute left-0 top-[176px] h-[123px] w-full rounded-[18px] bg-paper/60 backdrop-blur-[5px]" />
             )}
             <img
+              loading="lazy"
               src={asset(`/img/02-tebe-k-nam/${CARDS[i].img}-520w.webp`)}
               alt=""
               className="relative h-[182px] w-full rounded-[18px] object-cover"
@@ -119,6 +121,7 @@ export default function TebeKNam() {
           Тебе к нам, если ты
         </h2>
         <img
+          loading="lazy"
           src={asset("/img/02-tebe-k-nam/vector1-dec88355.svg")}
           alt=""
           aria-hidden
@@ -136,6 +139,7 @@ export default function TebeKNam() {
                 <div className="absolute left-0 top-[177px] h-[123px] w-full rounded-[18px] bg-paper/60 backdrop-blur-[5px]" />
               )}
               <img
+                loading="lazy"
                 src={asset(`/img/02-tebe-k-nam/${card.img}-640w.webp`)}
                 alt=""
                 className="relative h-[190px] w-full rounded-[18px] object-cover"

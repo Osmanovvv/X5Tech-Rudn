@@ -4,9 +4,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/JsonLd";
 import OtherNews from "@/components/OtherNews";
-import { asset, withBasePath } from "@/lib/asset";
-import { getNews, otherNews, formatNewsDate, coverPath } from "@/lib/news";
+import { asset } from "@/lib/asset";
+import { getNews, otherNews, formatNewsDate, coverPath, parseBody } from "@/lib/news";
+import { abs, breadcrumbs, og, OG_IMAGE, SITE_NAME } from "@/lib/seo";
 import { getAllNews } from "@/lib/server/news-store";
 
 // dynamicParams НЕ объявляем намеренно. Дефолт (true) позволяет Node-режиму отрисовать
@@ -26,18 +28,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const item = getNews(getAllNews(), slug);
   if (!item) return {};
-  const title = `${item.title} — Новости РУДН × X5 Tech`;
+  const url = abs(`/news/${item.slug}/`);
+  // Обложка новости как OG-картинка: у карточек 1400w соотношение отличается от 1.91:1, но
+  // соцсети кадрируют сами, а конкретное фото информативнее общей заглушки сайта.
+  const cover = { url: coverPath(item.cover, 1400), alt: item.title };
   return {
-    title,
+    title: item.title,
     description: item.excerpt,
-    alternates: { canonical: withBasePath(`/news/${item.slug}/`) },
-    openGraph: {
+    alternates: { canonical: url },
+    openGraph: og({
+      url,
       title: item.title,
       description: item.excerpt,
       type: "article",
-      locale: "ru_RU",
       publishedTime: item.date,
-    },
+      images: [cover, OG_IMAGE],
+    }),
+    twitter: { card: "summary_large_image", title: item.title, description: item.excerpt, images: [cover.url] },
   };
 }
 
@@ -48,15 +55,40 @@ export default async function NewsArticle({ params }: Props) {
   if (!item) notFound();
 
   const others = otherNews(all, slug, 6); // карусель: в макете видно 4, остальные листаются
-  // Абзацы разделяются пустой строкой. Регулярка терпима к CRLF и лишним пробелам —
-  // текст может прийти как из репозитория, так и из формы админки.
-  const paragraphs = item.body
-    .split(/\r?\n\s*\r?\n/)
-    .map((p) => p.trim())
-    .filter(Boolean);
+  const blocks = parseBody(item.body);
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "NewsArticle",
+        headline: item.title,
+        description: item.excerpt,
+        image: [abs(coverPath(item.cover, 1400))],
+        datePublished: item.date,
+        dateModified: item.date,
+        inLanguage: "ru-RU",
+        articleSection: item.category,
+        mainEntityOfPage: { "@type": "WebPage", "@id": abs(`/news/${item.slug}/`) },
+        author: { "@type": "Organization", name: SITE_NAME, url: abs("/") },
+        publisher: {
+          "@type": "Organization",
+          name: SITE_NAME,
+          url: abs("/"),
+          logo: { "@type": "ImageObject", url: abs("/img/01-hero/logo-rudn-2x.webp") },
+        },
+      },
+      breadcrumbs([
+        { name: "Главная", path: "/" },
+        { name: "Новости", path: "/news/" },
+        { name: item.title, path: `/news/${item.slug}/` },
+      ]),
+    ],
+  };
 
   return (
     <main className="bg-white">
+      <JsonLd data={schema} />
       {/* Раскладка по макету 391:57 (десктоп 1200) и 391:1690 (мобильная 320):
           крошки → фото во всю ширину с тегом поверх → заголовок → текст → дата → «Другие новости».
           Канва как у секций лендинга: 320 масштабируется зумом, 1200 — калька 1:1. */}
@@ -93,16 +125,36 @@ export default async function NewsArticle({ params }: Props) {
             {item.title}
           </h1>
 
-          {/* Ширина текстовой колонки — по макету (855 на десктопе), на мобиле во всю канву */}
+          {/* Ширина текстовой колонки — по макету (855 на десктопе), на мобиле во всю канву.
+              Между абзацами могут стоять картинки — см. parseBody в lib/news.ts. */}
           <div className="mt-[23px] max-w-[860px] md:mt-[24px]">
-            {paragraphs.map((p, i) => (
-              <p
-                key={i}
-                className="mt-[21px] whitespace-pre-line text-[12px] leading-[17px] text-ink first:mt-0 md:text-[14px]"
-              >
-                {p}
-              </p>
-            ))}
+            {blocks.map((block, i) =>
+              block.kind === "p" ? (
+                <p
+                  key={i}
+                  className="mt-[21px] whitespace-pre-line text-[12px] leading-[17px] text-ink first:mt-0 md:text-[14px]"
+                >
+                  {block.text}
+                </p>
+              ) : (
+                <figure key={i} className="mt-[26px] flex gap-[10px] first:mt-0 md:mt-[30px] md:gap-[20px]">
+                  {block.images.map((img, j) => (
+                    <img
+                      key={j}
+                      src={asset(coverPath(img.src, 1400))}
+                      alt={img.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className={`min-w-0 flex-1 rounded-[15px] object-cover ${
+                        // Одна картинка повторяет пропорции обложки, пара — стандартные 3:2,
+                        // чтобы ряд был ровным. Кроп через object-cover, как у обложки.
+                        block.images.length === 1 ? "aspect-[290/200] md:aspect-[860/460]" : "aspect-[3/2]"
+                      }`}
+                    />
+                  ))}
+                </figure>
+              )
+            )}
           </div>
 
           <time

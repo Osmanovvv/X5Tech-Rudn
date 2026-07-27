@@ -4,6 +4,7 @@
 // пиксель-сверка замороженных точек не должна заметить разницы.
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Metrika from "@/components/Metrika";
 import ScrollReveal from "@/components/ScrollReveal";
 
 // Ставит .reveal-ready на <html> ДО первой отрисовки (иначе уже видимый контент моргнёт).
@@ -20,6 +21,8 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       {children}
       <Footer />
       <ScrollReveal />
+      {/* Метрика — отложенно и только на публичных страницах; админке счётчик не нужен */}
+      <Metrika />
     </>
   );
 }

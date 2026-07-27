@@ -10,7 +10,7 @@ function BlobColorGlass({ size, deg }: { size: number; deg: number }) {
   const src = asset(`${A}/meha-materials-color-glass-853d880e-130w.webp`);
   return (
     <span className="relative block" style={{ width: size, height: size, rotate: `${deg}deg` }}>
-      <img src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
+      <img loading="lazy" src={src} alt="" className="absolute inset-0 h-full w-full object-cover" />
       {/* hue-тон только по форме блоба: маска альфой той же картинки */}
       <span
         className="absolute inset-0 bg-lime-soft mix-blend-hue"
@@ -23,6 +23,7 @@ function PurpleControl({ size }: { size: number }) {
   return (
     <span className="relative block overflow-hidden" style={{ width: size, height: size }}>
       <img
+        loading="lazy"
         src={asset(`${A}/dop-elements-control-purple-a11b7e3e-${size > 100 ? "640w" : "122w"}.webp`)}
         alt=""
         className="absolute left-[-7.41%] top-[-2.96%] h-[114.81%] w-[114.81%] max-w-none"
@@ -125,6 +126,7 @@ function CardIllustration({ k, mobile }: { k: string; mobile?: boolean }) {
           <span className="block -scale-y-100 rotate-180">
             <span className="relative block h-[83px] w-[117px] overflow-hidden rounded-bl-[15px]">
               <img
+                loading="lazy"
                 src={asset(`${A}/image2090011445-21f54626-234w.webp`)}
                 alt=""
                 className="absolute left-[-34.98%] top-0 h-full w-[133.34%] max-w-none"
@@ -139,6 +141,7 @@ function CardIllustration({ k, mobile }: { k: string; mobile?: boolean }) {
           <span className="block -scale-y-100 rotate-180">
             <span className="relative block h-[81px] w-[86px] overflow-hidden rounded-[15.88px]">
               <img
+                loading="lazy"
                 src={asset(`${A}/image2090011460-ca02c3ca-172w.webp`)}
                 alt=""
                 className="absolute left-[-17.06%] top-[-15.32%] h-[127.6%] w-[117.87%] max-w-none"
@@ -153,6 +156,7 @@ function CardIllustration({ k, mobile }: { k: string; mobile?: boolean }) {
           <span className="block -scale-y-100 rotate-180">
             <span className="relative block h-[80px] w-[80px] overflow-hidden rounded-bl-[15px] rounded-tl-[15px] rounded-tr-[15px]">
               <img
+                loading="lazy"
                 src={asset(`${A}/image2090011482-6a28dd31-160w.webp`)}
                 alt=""
                 className="absolute left-0 top-[-52.11%] h-[152.11%] w-[100.18%] max-w-none"
@@ -174,6 +178,7 @@ function InfraPhoto({ mobile }: { mobile?: boolean }) {
         <span className="block -scale-y-100 rotate-90">
           <span className="relative block h-[80px] w-[85px] overflow-hidden rounded-[15.88px]">
             <img
+              loading="lazy"
               src={asset(`${A}/image2090011448-6cf76c99-196w.webp`)}
               alt=""
               className="absolute inset-0 h-full w-full object-cover object-bottom"
@@ -188,6 +193,7 @@ function InfraPhoto({ mobile }: { mobile?: boolean }) {
       <span className="block -scale-y-100 rotate-90">
         <span className="relative block h-[103px] w-[98px] overflow-hidden rounded-[15.88px]">
           <img
+            loading="lazy"
             src={asset(`${A}/image2090011448-6cf76c99-196w.webp`)}
             alt=""
             className="absolute inset-0 h-full w-full object-cover object-bottom"
@@ -241,7 +247,7 @@ export default function ProgrammaDaet() {
           </span>
         ))}
         <span className="absolute left-[54px] top-[293px] h-[226px] w-[226px]">
-          <img src={asset(`${A}/meha-materials-metal-47efdf61-452w.webp`)} alt="" className="h-full w-full object-cover" />
+          <img loading="lazy" src={asset(`${A}/meha-materials-metal-47efdf61-452w.webp`)} alt="" className="h-full w-full object-cover" />
         </span>
         <span className="absolute left-[113px] top-[319px]">
           <PurpleControl size={157} />
@@ -309,7 +315,7 @@ export default function ProgrammaDaet() {
             </span>
           ))}
           <span className="absolute left-[20px] top-[222px] h-[181px] w-[181px]">
-            <img src={asset(`${A}/meha-materials-metal-47efdf61-452w.webp`)} alt="" className="h-full w-full object-cover" />
+            <img loading="lazy" src={asset(`${A}/meha-materials-metal-47efdf61-452w.webp`)} alt="" className="h-full w-full object-cover" />
           </span>
           <span className="absolute left-[67px] top-[243px]">
             <PurpleControl size={126} />

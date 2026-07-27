@@ -5,7 +5,8 @@ import { chromium } from "playwright";
 import path from "path";
 import { mkdirSync } from "fs";
 
-export async function shoot(url, selector, width, outPath) {
+// opts.openBurger — открыть мобильное меню перед съёмкой (панель существует в DOM только открытой)
+export async function shoot(url, selector, width, outPath, opts = {}) {
   const browser = await chromium.launch();
   try {
     const page = await browser.newPage({
@@ -23,12 +24,40 @@ export async function shoot(url, selector, width, outPath) {
       content:
         "[data-reveal],[data-reveal-move],[data-reveal-scale]{opacity:1!important;translate:none!important;scale:none!important}",
     });
-    // Липкая шапка перекрывает секции при скролле к ним — прячем (кроме съёмки самой шапки)
-    if (!/^header/.test(selector)) {
+    // Липкая шапка перекрывает секции при скролле к ним — прячем (кроме съёмки самой шапки
+    // и мобильного меню, которое живёт внутри неё)
+    if (!/^header/.test(selector) && !opts.openBurger) {
       await page.addStyleTag({ content: "header { visibility: hidden !important }" });
+    }
+    if (opts.openBurger) {
+      await page.getByRole("button", { name: /меню/i }).first().click();
+      await page.waitForTimeout(400);
     }
     const el = page.locator(selector).first();
     await el.waitFor({ state: "visible", timeout: 10_000 });
+    // Ниже первого экрана картинки помечены loading="lazy" и начинают грузиться только когда
+    // секция подъезжает к вьюпорту. Без этого ожидания сверка ловила бы полупустые секции.
+    // Ждём только ВИДИМЫЕ картинки и не дольше 5 секунд: у секций две ветки вёрстки, и та,
+    // что скрыта display:none, свои lazy-картинки не загрузит никогда — ожидание бы зависло.
+    await el.scrollIntoViewIfNeeded();
+    await el
+      .evaluate(
+        (node) =>
+          new Promise((done) => {
+            const pending = [...node.querySelectorAll("img")].filter(
+              (img) => !img.complete && img.getClientRects().length > 0
+            );
+            if (!pending.length) return done(null);
+            let left = pending.length;
+            const tick = () => --left <= 0 && done(null);
+            pending.forEach((img) => {
+              img.addEventListener("load", tick, { once: true });
+              img.addEventListener("error", tick, { once: true });
+            });
+            setTimeout(() => done(null), 5000);
+          })
+      )
+      .catch(() => {});
     mkdirSync(path.dirname(outPath), { recursive: true });
     await el.screenshot({ path: outPath, animations: "disabled" });
     return outPath;

@@ -19,6 +19,7 @@ function NewsCard({ item }: { item: NewsItem }) {
     >
       <div className="relative aspect-[270/165] overflow-hidden">
         <img
+          loading="lazy"
           src={asset(`/img/11-novosti/${item.cover}-640w.webp`)}
           alt=""
           className="absolute inset-0 size-full object-cover"
@@ -46,7 +47,7 @@ function ArrowBtn({ icon, onClick, label }: { icon: string; onClick: () => void;
       aria-label={label}
       className="flex size-[44px] items-center justify-center rounded-full border border-[#f3f3f3] bg-white transition-[background-color,scale] duration-200 ease-motion hover:bg-paper active:scale-95"
     >
-      <img src={icon} alt="" aria-hidden className="size-[20px]" />
+      <img loading="lazy" src={icon} alt="" aria-hidden className="size-[20px]" />
     </button>
   );
 }
