@@ -18,12 +18,19 @@ function TeacherCard({ t }: { t: Teacher }) {
       <div
         className={`absolute inset-x-0 top-0 overflow-hidden rounded-[20px] ${t.fill ? "h-full" : "h-[86.45%]"}`}
       >
+        {/* Кроп ведём ТОЛЬКО от ширины: картинка тянется на 100% ширины, высота — своя
+            natural. Проценты из макета (crop.h) считаются от высоты контейнера, а она у
+            мобильной карточки другая (290×330 против 260×332) — от этого фото сплющивало
+            по вертикали примерно на 11%, лица становились шире. Сдвиг задаём свойством
+            translate: проценты в нём считаются от собственной высоты картинки, поэтому
+            кадр держится одинаково при любой ширине. crop.top/crop.h как раз и есть доля
+            высоты картинки. На десктопе результат совпадает с прежним до 0.2px. */}
         <img
           loading="lazy"
           src={asset(`/img/07-prepodavateli/${t.photo}-640w.webp`)}
           alt={t.name.replace(/\n/g, " ")}
-          className="absolute left-0 w-full max-w-none transition-transform duration-200 ease-motion group-hover:scale-[1.015]"
-          style={{ height: `${t.crop.h}%`, top: `${t.crop.top}%` }}
+          className="absolute left-0 top-0 w-full max-w-none transition-transform duration-200 ease-motion group-hover:scale-[1.015]"
+          style={{ translate: `0 ${((t.crop.top / t.crop.h) * 100).toFixed(3)}%` }}
         />
       </div>
       {/* Белая плашка с именем и специализацией */}

@@ -222,21 +222,24 @@ export default function KakPostupit() {
         <div className="-mx-[15px] mt-[20px] bg-[#fafafa] px-[15px] pb-[57px] pt-[8px]">
           {/* Статы стеком: карточка 110px, зазор 11 — замер макета (было 100 и 10) */}
           <div data-reveal className="flex flex-col gap-[11px]">
+            {/* Подписи карточек: в макете 10px, подняты до 12 по просьбе заказчика
+                (docs/deviations.md D10) — на телефоне 10px читались как мелкий шрифт.
+                Место есть: цифра прижата к правому краю, подпись занимает левую половину. */}
             <div className="relative h-[110px] rounded-[14px] bg-[#f0efff]">
-              <p className="absolute left-[20px] top-[20px] text-[10px] font-medium uppercase leading-[15px] text-ink">
+              <p className="absolute left-[20px] top-[20px] text-[12px] font-medium uppercase leading-[15px] text-ink">
                 {price.label}
               </p>
               <p className="absolute left-[20px] top-[42px] text-[18px] font-bold text-ink">
                 225 000 ₽* / семестр
               </p>
-              <p className="absolute left-[20px] top-[70px] text-[10px] text-ink">{price.note}</p>
+              <p className="absolute left-[20px] top-[70px] text-[11px] text-ink">{price.note}</p>
             </div>
             {stats.map((s, i) => (
               <div key={i} className="relative h-[110px] rounded-[14px] bg-white">
-                <p className="absolute left-[20px] top-[24px] text-[10px] font-medium uppercase leading-[15px] text-[#181818]">
+                <p className="absolute left-[20px] top-[24px] text-[12px] font-medium uppercase leading-[15px] text-[#181818]">
                   {s.label}
                 </p>
-                {s.sub && <p className="absolute left-[20px] top-[40px] text-[10px] text-ink">{s.sub}</p>}
+                {s.sub && <p className="absolute left-[20px] top-[42px] text-[12px] leading-[15px] text-ink">{s.sub}</p>}
                 {/* 57px — по высоте цифр в макете (44px давали 34px против макетных 44) */}
                 <p className="absolute bottom-[10px] right-[20px] text-[57px] font-bold leading-none text-ink">
                   <Num>{s.value}</Num>

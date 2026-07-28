@@ -20,10 +20,13 @@ const img = (name: string, w?: string) =>
 
 // Параметры 3D-иллюстраций из ctx (контейнер + размер картинки + поворот с отражением по Y).
 // Значения card-relative (карточка 260×300 на десктопе).
+// mleft — левая координата в мобильном макете: там карточка на 30px шире, но сама
+// иллюстрация того же размера и на той же высоте, сдвинута только вправо (было масштабирование
+// ×1.05, из-за него объём лез под текст сильнее макетного).
 const ILLU = [
-  { left: 71, bottom: -92, w: 277, h: 277, iw: 222, ih: 222, rot: 162.99 }, // NLP
-  { left: 91, top: 156, w: 248, h: 249, iw: 177, ih: 178, rot: 143.66 }, // CV
-  { left: 88, top: 112, w: 246, h: 265, iw: 217, ih: 238, rot: 172.36 }, // Транзакционные
+  { left: 71, mleft: 94, bottom: -92, w: 277, h: 277, iw: 222, ih: 222, rot: 162.99 }, // NLP
+  { left: 91, mleft: 127, top: 156, w: 248, h: 249, iw: 177, ih: 178, rot: 143.66 }, // CV
+  { left: 88, mleft: 118, top: 112, w: 246, h: 265, iw: 217, ih: 238, rot: 172.36 }, // Транзакционные
 ];
 
 // Размеры иконок из viewBox (SVG с preserveAspectRatio="none" — нужны точные w/h, иначе тянет)
@@ -33,17 +36,17 @@ const ICON = [
   { w: 29, h: 28 }, // Транзакционные
 ];
 
-function Illu({ src, i, scale = 1 }: { src: string; i: number; scale?: number }) {
+function Illu({ src, i, mobile }: { src: string; i: number; mobile?: boolean }) {
   const p = ILLU[i];
   return (
     <div
       className="pointer-events-none absolute flex items-center justify-center"
       style={{
-        left: p.left * scale,
-        top: p.top !== undefined ? p.top * scale : undefined,
-        bottom: p.bottom !== undefined ? p.bottom * scale : undefined,
-        width: p.w * scale,
-        height: p.h * scale,
+        left: mobile ? p.mleft : p.left,
+        top: p.top,
+        bottom: p.bottom,
+        width: p.w,
+        height: p.h,
       }}
       aria-hidden
     >
@@ -53,7 +56,7 @@ function Illu({ src, i, scale = 1 }: { src: string; i: number; scale?: number })
           src={src}
           alt=""
           className="max-w-none object-cover"
-          style={{ width: p.iw * scale, height: p.ih * scale }}
+          style={{ width: p.iw, height: p.ih }}
         />
       </div>
     </div>
@@ -67,26 +70,36 @@ function TrackCard({ track, i, mobile }: { track: Track; i: number; mobile?: boo
         mobile ? "h-[300px] w-full rounded-[20px]" : "h-[300px] w-[260px] rounded-[20px]"
       }`}
     >
-      <Illu src={img(track.illustration, "640w.webp")} i={i} scale={mobile ? 1.05 : 1} />
+      <Illu src={img(track.illustration, "640w.webp")} i={i} mobile={mobile} />
       <img
         loading="lazy"
         src={img(track.icon + ".svg")}
         alt=""
         aria-hidden
-        className="absolute left-[20px] top-[28px]"
-        style={{ width: ICON[i].w, height: ICON[i].h }}
+        className="absolute"
+        style={{ left: mobile ? 25 : 20, top: mobile ? 25 : 28, width: ICON[i].w, height: ICON[i].h }}
       />
       <p
-        className="absolute left-[20px] whitespace-pre-line text-[14px] font-bold leading-[18px] text-ink"
-        style={{ top: mobile ? 64 : 71 }}
+        className={`absolute whitespace-pre-line font-bold text-ink ${
+          mobile ? "text-[16px] leading-[20px]" : "text-[14px] leading-[18px]"
+        }`}
+        style={{ left: mobile ? 25 : 20, top: mobile ? 68 : 71 }}
       >
         {track.title}
       </p>
+      {/* На мобильной жёсткие переносы снимаем: они рассчитаны на десктопную карточку 260px
+          и на широкой мобильной обрывали строку задолго до края — текст стоял узким
+          столбиком в 160px. Ширина блока 222 — ровно макетная, текст заливает её сам.
+          Дальше вправо не пускаем: там начинается 3D-объект. Кегль поднят с 12 до 14
+          (docs/deviations.md D10), из-за этого мобильный отступ сверху 118 вместо
+          макетных 112: на 16px заголовок стал выше и до текста оставалось 4px. */}
       <p
-        className="absolute left-[20px] whitespace-pre-line text-[12px] leading-[16px] text-ink"
-        style={{ top: mobile ? 112 : 118 }}
+        className={`absolute text-ink ${
+          mobile ? "text-[14px] leading-[18px]" : "whitespace-pre-line text-[12px] leading-[16px]"
+        }`}
+        style={{ left: mobile ? 25 : 20, top: 118, width: mobile ? 222 : undefined }}
       >
-        {track.subtitle}
+        {mobile ? track.subtitle.replace(/\n/g, " ") : track.subtitle}
       </p>
     </div>
   );

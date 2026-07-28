@@ -215,7 +215,10 @@ export default function ProgrammaObucheniya() {
         <h2 data-reveal className="pt-[30px] text-center text-[22px] font-bold leading-[26px] tracking-[-0.5px] text-ink">
           {title}
         </h2>
-        <p data-reveal className="mx-auto mt-[14px] w-fit whitespace-pre-line rounded-full border border-[#b6e835] px-[24px] py-[10px] text-center font-mono text-[11px] uppercase leading-[16px] text-ink">
+        {/* Таблетка во всю контентную ширину: в макете это узел 290×68 от края до края
+            (15…305), а не подгонка по тексту. Кегль 12 — тоже макетный (был 11).
+            Отступ 9 + рамка 1 = макетные 10 сверху и снизу к трём строкам по 16. */}
+        <p data-reveal className="mt-[14px] whitespace-pre-line rounded-full border border-[#b6e835] px-[20px] py-[9px] text-center font-mono text-[12px] uppercase leading-[16px] text-ink">
           {badgeM}
         </p>
 
