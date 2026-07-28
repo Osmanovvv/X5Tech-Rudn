@@ -143,6 +143,16 @@ server {
         add_header  Cache-Control "public, max-age=31536000, immutable";
     }
 
+    # Загруженные обложки: в имени файла метка времени, новая картинка получает новый
+    # адрес — вечный кэш безопасен. Отдельный блок нужен, чтобы правило ниже не сбросило
+    # им заголовок, который ставит само приложение.
+    location /api/uploads/ {
+        proxy_pass         http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+
     location / {
         proxy_pass         http://127.0.0.1:3000;
         proxy_http_version 1.1;
@@ -150,6 +160,14 @@ server {
         proxy_set_header   X-Real-IP         $remote_addr;
         proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
         proxy_set_header   X-Forwarded-Proto $scheme;
+
+        # ОБЯЗАТЕЛЬНО. Next отдаёт готовым страницам «Cache-Control: s-maxage=31536000»
+        # без max-age. Общий кэш (CDN, а перед доменом РУДН стоит DDoS-Guard) понимает
+        # это как «держать год»: правки новостей просто не доедут до посетителей.
+        # Браузер без max-age тоже кэширует по своему усмотрению — на телефоне это
+        # выглядит как «сайт не обновился». Заставляем перепроверять разметку.
+        proxy_hide_header  Cache-Control;
+        add_header         Cache-Control "public, max-age=0, must-revalidate" always;
     }
 }
 
