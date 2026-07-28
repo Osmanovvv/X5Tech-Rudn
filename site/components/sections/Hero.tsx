@@ -88,28 +88,45 @@ function Badge({ mobile }: { mobile?: boolean }) {
   );
 }
 
+const CTA_BASE =
+  "group rounded-[5px] bg-lime-deep font-bold text-white transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98]";
+const CTA_ARROW = asset("/img/01-hero/svg-8b38f743.svg");
+
 function Cta({ mobile }: { mobile?: boolean }) {
+  // Мобильная кнопка — центрированный ряд «текст + стрелка», а не абсолютные координаты.
+  // В эталоне содержимое стоит ровно по центру (поля 69 и 71 при ширине кнопки 290),
+  // а прежние left-[83px] и left-[219px] уводили его вправо: 84 слева против 56 справа —
+  // это и было видно как «кнопка не такая». После правки поля 66/69, стрелка 12px
+  // в ширину как в макете, зазор до неё 15 против макетных 14. Остаток в пару пикселей —
+  // наш текст на 3px шире эталонного из-за метрик шрифта, ближе не подойти.
+  if (mobile) {
+    return (
+      <a href="#forma" className={`${CTA_BASE} flex h-[60px] w-full items-center justify-center gap-[11px]`}>
+        <span className="text-[14px] leading-[21px]">Отправить заявку</span>
+        <img
+          src={CTA_ARROW}
+          alt=""
+          aria-hidden
+          // Сдвиг на 1.5px вниз: внутри своего квадрата иконка нарисована со смещением
+          // вверх, поэтому при выравнивании по центру ряда её оптический центр оказывался
+          // на 1.5px выше центра текста. В макете ровно та же картина (там иконка тоже
+          // выше на 1.5px), так что это осознанное отклонение — по просьбе заказчика
+          className="h-[18px] w-[18px] shrink-0 translate-y-[1.5px] transition-transform duration-200 ease-motion group-hover:translate-x-[4px]"
+        />
+      </a>
+    );
+  }
+  // Десктоп — калька макета: положение текста и стрелки заданы координатами узлов
   return (
-    <a
-      href="#forma"
-      className={`group relative block rounded-[5px] bg-lime-deep font-bold text-white transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98] ${
-        mobile ? "h-[60px] w-full" : "h-[60px] w-[240px]"
-      }`}
-    >
-      <span
-        className={`absolute -translate-y-1/2 text-[14px] leading-[21px] ${
-          mobile ? "left-[83px] top-[calc(50%+2px)]" : "left-[44px] top-[calc(50%-1px)]"
-        }`}
-      >
+    <a href="#forma" className={`${CTA_BASE} relative block h-[60px] w-[240px]`}>
+      <span className="absolute left-[44px] top-[calc(50%-1px)] -translate-y-1/2 text-[14px] leading-[21px]">
         Отправить заявку
       </span>
       <img
-        src={asset("/img/01-hero/svg-8b38f743.svg")}
+        src={CTA_ARROW}
         alt=""
         aria-hidden
-        className={`absolute top-1/2 h-[18px] w-[18px] -translate-y-1/2 transition-transform duration-200 ease-motion group-hover:translate-x-[4px] ${
-          mobile ? "left-[219px]" : "left-[180px]"
-        }`}
+        className="absolute left-[180px] top-1/2 h-[18px] w-[18px] -translate-y-1/2 transition-transform duration-200 ease-motion group-hover:translate-x-[4px]"
       />
     </a>
   );
