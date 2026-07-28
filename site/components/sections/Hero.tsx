@@ -73,10 +73,14 @@ function HeroArt({ mobile }: { mobile?: boolean }) {
 function Badge({ mobile }: { mobile?: boolean }) {
   return (
     <p
-      className={`flex items-center rounded-full border border-lime font-mono uppercase text-ink ${
-        mobile
-          ? "h-[28px] w-[170px] pl-[20px] text-[12px] leading-[16px]"
-          : "h-[36px] w-[170px] pl-[19px] text-[12px]"
+      // Ширина по содержимому с одинаковыми полями, а не фиксированные 170 с прижатием
+      // текста влево. При жёсткой ширине любое расхождение метрик шрифта на устройстве
+      // копится ПУСТОТОЙ СПРАВА — на iPhone плашка выглядела наполовину пустой, хотя
+      // в браузере на компьютере поля выходили ровно 21/21, как в макете.
+      // Ширина макета при этом сохраняется, но теперь она следствие, а не жёсткое число:
+      // замер даёт те же 170×28 и поля 21/21 на обеих ширинах.
+      className={`flex w-fit items-center rounded-full border border-lime px-[19px] font-mono uppercase text-ink ${
+        mobile ? "h-[28px] text-[12px] leading-[16px]" : "h-[36px] text-[12px]"
       }`}
     >
       На реальных данных
