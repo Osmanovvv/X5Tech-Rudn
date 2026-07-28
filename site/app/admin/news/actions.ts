@@ -9,6 +9,7 @@ import { getAllNewsForEdit, saveAllNews } from "@/lib/server/news-store";
 import { DataUnreadableError } from "@/lib/server/store";
 import { removeCover, saveCover } from "@/lib/server/uploads";
 import { slugify } from "@/lib/slug";
+import { formFile, formFiles, formString, formText } from "@/lib/form";
 import { bodyUploads, type NewsItem } from "@/lib/news";
 
 export type NewsFormState = { error?: string; fieldErrors?: Record<string, string> } | undefined;
@@ -50,16 +51,14 @@ function uniqueSlug(title: string, items: NewsItem[], keepSlug?: string): string
 }
 
 function readFields(formData: FormData) {
-  // Браузер по спецификации отправляет содержимое textarea с переводами строк CRLF. Если это
-  // не нормализовать, разбиение текста на абзацы (по пустой строке) не сработает и вся новость
-  // склеится в один абзац — поймано e2e.
-  const get = (k: string) => String(formData.get(k) ?? "").replace(/\r\n/g, "\n").trim();
+  // formText нормализует CRLF и обрезает края; не-строки (например, подсунутый файл)
+  // читаются как пустое значение и не проходят валидацию — см. lib/form.ts
   return {
-    title: get("title"),
-    category: get("category"),
-    date: get("date"),
-    excerpt: get("excerpt"),
-    body: get("body"),
+    title: formText(formData, "title"),
+    category: formText(formData, "category"),
+    date: formText(formData, "date"),
+    excerpt: formText(formData, "excerpt"),
+    body: formText(formData, "body"),
   };
 }
 
@@ -71,7 +70,7 @@ async function attachBodyImages(
   body: string,
   titleHint: string
 ): Promise<{ body: string } | { error: string }> {
-  const files = formData.getAll("bodyImages").filter((f): f is File => f instanceof File && f.size > 0);
+  const files = formFiles(formData, "bodyImages");
   if (!files.length) return { body };
   if (files.length > 6) return { error: "За раз можно добавить не больше шести картинок." };
 
@@ -107,11 +106,12 @@ export async function createNews(_prev: NewsFormState, formData: FormData): Prom
 
   const fields = readFields(formData);
   const fieldErrors = validate(fields);
-  const file = formData.get("cover");
-  if (!(file instanceof File) || file.size === 0) fieldErrors.cover = "Загрузите обложку.";
-  if (Object.keys(fieldErrors).length) return { fieldErrors };
+  const cover = formFile(formData, "cover");
+  if (!cover) fieldErrors.cover = "Загрузите обложку.";
+  // Проверка на !cover нужна и здесь: без неё тип остаётся File | null и требует приведения
+  if (!cover || Object.keys(fieldErrors).length) return { fieldErrors };
 
-  const uploaded = await saveCover(file as File, fields.title);
+  const uploaded = await saveCover(cover, fields.title);
   if (!uploaded.ok) return { fieldErrors: { cover: uploaded.error } };
 
   const withImages = await attachBodyImages(formData, fields.body, fields.title);
@@ -144,7 +144,7 @@ export async function updateNews(_prev: NewsFormState, formData: FormData): Prom
   await requireAdmin();
   if (!(await sameOrigin())) return { error: "Запрос отклонён (посторонний источник)." };
 
-  const currentSlug = String(formData.get("slug") ?? "");
+  const currentSlug = formString(formData, "slug");
   const fields = readFields(formData);
   const fieldErrors = validate(fields);
   if (Object.keys(fieldErrors).length) return { fieldErrors };
@@ -152,9 +152,9 @@ export async function updateNews(_prev: NewsFormState, formData: FormData): Prom
   // Сначала долгая операция (пересжатие обложки), и только потом — чтение списка и запись.
   // Если читать список до неё, параллельная правка за это время была бы затёрта.
   let newCover: string | null = null;
-  const file = formData.get("cover");
-  if (file instanceof File && file.size > 0) {
-    const uploaded = await saveCover(file, fields.title);
+  const cover = formFile(formData, "cover");
+  if (cover) {
+    const uploaded = await saveCover(cover, fields.title);
     if (!uploaded.ok) return { fieldErrors: { cover: uploaded.error } };
     newCover = uploaded.cover;
   }
@@ -194,7 +194,7 @@ export async function deleteNews(formData: FormData): Promise<void> {
   await requireAdmin();
   if (!(await sameOrigin())) return;
 
-  const slug = String(formData.get("slug") ?? "");
+  const slug = formString(formData, "slug");
   const current = readForEdit();
   if ("error" in current) return; // файл повреждён — удалять вслепую нельзя
 

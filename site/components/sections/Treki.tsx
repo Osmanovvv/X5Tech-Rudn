@@ -6,7 +6,8 @@ import { asset } from "@/lib/asset";
 import tracks from "@/content/tracks.json";
 
 type Track = { icon: string; illustration: string; title: string; subtitle: string };
-const { title, subtitle, subtitleM, photo, tracks: TRACKS } = tracks as {
+// satisfies вместо as: форма контентного JSON проверяется, а не переопределяется
+const { title, subtitle, subtitleM, photo, tracks: TRACKS } = tracks satisfies {
   title: string;
   subtitle: string;
   subtitleM: string;

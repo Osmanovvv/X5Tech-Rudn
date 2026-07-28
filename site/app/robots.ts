@@ -1,7 +1,7 @@
 // robots.txt (Task 5.1). Работает в обоих режимах сборки: Next выкладывает статический файл
 // и в standalone, и в export.
 //
-// Пока siteUrl — плейсхолдер (…​.example), индексация закрыта целиком: canonical и sitemap в
+// Пока siteUrl — плейсхолдер (….example), индексация закрыта целиком: canonical и sitemap в
 // таком билде указывают на несуществующий домен, и пустить туда робота хуже, чем не пустить.
 // Как только домен задан (content/site.json или NEXT_PUBLIC_SITE_URL), файл сам открывает сайт.
 import type { MetadataRoute } from "next";

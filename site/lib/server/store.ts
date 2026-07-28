@@ -47,7 +47,7 @@ function enqueue<T>(key: string, task: () => Promise<T> | T): Promise<T> {
     key,
     next.catch(() => undefined),
   );
-  return next as Promise<T>;
+  return next;
 }
 
 // BOM обязателен к обрезке: редакторы Windows (и PowerShell `-Encoding utf8`) пишут UTF-8 с BOM,

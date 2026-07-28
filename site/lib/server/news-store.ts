@@ -12,7 +12,9 @@ import { readJson, readJsonSafe, writeJson } from "./store";
 
 const NEWS_FILE = "news.json";
 
-const seedData = seed as { title: string; allLabel: string; items: NewsItem[] };
+// satisfies, а не as: приведение молча переопределяло бы тип, а проверка формы —
+// настоящая, и сломается сразу, если контентный JSON перестанет ей соответствовать
+const seedData = seed satisfies { title: string; allLabel: string; items: NewsItem[] };
 
 // Заголовки секции («Новости и программы», «Все новости») — статический контент макета,
 // админкой не правится, поэтому живёт в репозитории, а не в DATA_DIR.

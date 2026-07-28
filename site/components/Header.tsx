@@ -62,6 +62,10 @@ export default function Header() {
     if (!open) return;
     document.body.style.overflow = "hidden";
     const overlay = overlayRef.current;
+    // Кнопку запоминаем здесь, а не читаем ref в уборке: к моменту уборки ссылка может
+    // указывать уже на другой узел. Кнопка бургера рендерится всегда (не внутри `open &&`),
+    // поэтому захваченный узел — тот же самый, и возврат фокуса отработает как задумано.
+    const burger = burgerRef.current;
     overlay?.querySelector<HTMLElement>("a, button")?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -84,7 +88,7 @@ export default function Header() {
     return () => {
       document.body.style.overflow = "";
       document.removeEventListener("keydown", onKey);
-      burgerRef.current?.focus();
+      burger?.focus();
     };
   }, [open]);
 

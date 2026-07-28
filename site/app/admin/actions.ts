@@ -2,6 +2,7 @@
 
 // Server Actions входа/выхода (Task B2). Выполняются только на сервере.
 import { redirect } from "next/navigation";
+import { formString } from "@/lib/form";
 import { clientIp } from "@/lib/server/client-ip";
 import {
   adminConfigured,
@@ -32,8 +33,8 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
     return { error: "Слишком много попыток входа. Попробуйте через 10 минут." };
   }
 
-  const username = String(formData.get("username") ?? "");
-  const password = String(formData.get("password") ?? "");
+  const username = formString(formData, "username");
+  const password = formString(formData, "password");
 
   if (!checkCredentials(username, password)) {
     noteFailedLogin(key);

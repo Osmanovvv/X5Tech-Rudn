@@ -13,6 +13,17 @@
 import { useEffect } from "react";
 import site from "@/content/site.json";
 
+// Метрика приходит со стороннего домена и в типах DOM не описана. Объявляем ровно ту
+// сигнатуру, которой пользуемся, — это честнее приведения к any: если Метрика сменит
+// интерфейс, ошибка всплывёт здесь, а не в рантайме у посетителя.
+declare global {
+  interface Window {
+    ym?: (id: number | string, action: "init", params: Record<string, boolean>) => void;
+  }
+}
+
+// В JSON сейчас null, поэтому вывод типов дал бы литерал null и весь код ниже стал бы
+// недостижимым. Расширяем до реального множества значений, которые сюда кладут.
 const ID = site.metrikaId as number | string | null;
 
 export default function Metrika() {
@@ -30,8 +41,7 @@ export default function Metrika() {
       s.async = true;
       s.src = "https://mc.yandex.ru/metrika/tag.js";
       s.onload = () => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).ym?.(ID, "init", {
+        window.ym?.(ID, "init", {
           clickmap: true,
           trackLinks: true,
           accurateTrackBounce: true,
@@ -49,18 +59,24 @@ export default function Metrika() {
     ];
     const cleanup = () => {
       events.forEach((e) => window.removeEventListener(e, start));
-      if (idle) cancelIdle(idle);
+      if (idle !== undefined) cancelIdle(idle);
     };
 
-    // Ждём полной загрузки, дальше — простоя главного потока (или первого действия)
-    const ric: typeof requestIdleCallback | undefined =
-      window.requestIdleCallback;
-    const cancelIdle = window.cancelIdleCallback ?? clearTimeout;
+    // Ждём полной загрузки, дальше — простоя главного потока (или первого действия).
+    // Планировщик и отмена завёрнуты в функции, а не взяты ссылками с window: метод,
+    // оторванный от объекта, теряет своё this и в части браузеров падает.
+    const scheduleIdle = (cb: () => void): number =>
+      typeof window.requestIdleCallback === "function"
+        ? window.requestIdleCallback(cb, { timeout: 5000 })
+        : (setTimeout(cb, 2500) as unknown as number);
+    const cancelIdle = (handle: number): void => {
+      if (typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(handle);
+      else clearTimeout(handle);
+    };
+
     let idle: number | undefined;
     const afterLoad = () => {
-      idle = ric
-        ? ric(start, { timeout: 5000 })
-        : (setTimeout(start, 2500) as unknown as number);
+      idle = scheduleIdle(start);
     };
 
     events.forEach((e) =>

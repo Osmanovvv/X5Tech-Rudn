@@ -6,7 +6,8 @@ import { asset } from "@/lib/asset";
 import teachers from "@/content/teachers.json";
 
 type Teacher = { photo: string; crop: { h: number; top: number }; fill?: boolean; name: string; spec: string };
-const T = teachers as { title: string; subtitle: string; subtitleM: string; teachers: Teacher[] };
+// satisfies вместо as: форма контентного JSON проверяется, а не переопределяется
+const T = teachers satisfies { title: string; subtitle: string; subtitleM: string; teachers: Teacher[] };
 
 function TeacherCard({ t }: { t: Teacher }) {
   return (
