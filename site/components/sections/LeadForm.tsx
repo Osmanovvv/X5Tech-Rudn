@@ -73,8 +73,11 @@ function Field({
         placeholder={placeholder}
         onInput={onInput}
         // Высота поля на мобильной — 32px по замеру макета (шаг между полями 65 против наших 84);
-        // на десктопе остаётся 42, как было проверено пиксель-сверкой
-        className="h-[32px] w-full rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] text-[13px] text-ink outline-none transition-colors duration-200 ease-motion placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835] md:h-[42px]"
+        // на десктопе остаётся 42, как было проверено пиксель-сверкой.
+        // Текст поля на мобиле 14px (десктоп 13): iOS Safari при фокусе на поле со шрифтом
+        // мельче ~16px по факту рендера подскакивает зумом («инпут шатается»). С учётом
+        // масштаба мобильной канвы 14px переваливает порог, и подскок пропадает
+        className="h-[32px] w-full rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] text-[14px] text-ink outline-none transition-colors duration-200 ease-motion placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835] md:h-[42px] md:text-[13px]"
       />
     </div>
   );
@@ -253,7 +256,8 @@ export default function LeadForm() {
                       id="comment"
                       name="comment"
                       placeholder="напишите, что-нибудь (не обязательно)"
-                      className="h-[100px] w-full resize-none rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] py-[12px] text-[13px] text-ink outline-none transition-colors duration-200 ease-motion placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835]"
+                      // 14px на мобиле (десктоп 13) — против авто-зума iOS при фокусе, как у полей выше
+                      className="h-[100px] w-full resize-none rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] py-[12px] text-[14px] text-ink outline-none transition-colors duration-200 ease-motion placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835] md:text-[13px]"
                     />
                   </div>
                 </div>

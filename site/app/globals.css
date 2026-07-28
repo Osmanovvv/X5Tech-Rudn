@@ -179,6 +179,28 @@ html {
   }
 }
 
+/* ===== Лаймовая лента-ticker «РУДН × X5 TECH • БАКАЛАВРИАТ ИИ» (секции 02/03) =====
+   Бесконечная бегущая строка. Дорожка .ribbon-track держит ДВЕ одинаковые группы капсул,
+   сдвиг на -50% её ширины = ровно одна группа → цикл бесшовный, без рывка на стыке.
+   Движение только при prefers-reduced-motion: no-preference — по правилу спеки «без
+   постоянного движения» пользователю с запросом на покой лента остаётся статичной.
+   В этом же состоянии (reducedMotion:"reduce") ленту снимает пиксельная сверка, поэтому
+   анимация не ломает сравнение с макетом. */
+@media (prefers-reduced-motion: no-preference) {
+  .ribbon-track {
+    animation: ribbon-marquee 22s linear infinite;
+    will-change: transform;
+  }
+}
+@keyframes ribbon-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 /* ===== Hover / focus (Task 3.3, спека «Hover и клики» + «Микроанимации») ===== */
 
 /* Видимое кольцо фокуса с клавиатуры — в проекте его не было, а в форме был outline-none.

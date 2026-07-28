@@ -59,6 +59,28 @@ function RibbonPill() {
   );
 }
 
+// Бегущая строка ленты: две ОДИНАКОВЫЕ группы капсул в одной дорожке. CSS сдвигает дорожку
+// на -50% её ширины (globals.css → .ribbon-track), то есть ровно на одну группу — стык
+// бесшовный. Каждая группа имеет тот же правый зазор, что и внутренний, чтобы шаг капсул на
+// склейке не сбивался. pl задаёт стартовую фазу (совпадает с прежней раскладкой макета).
+function RibbonTrack({ count, pl }: { count: number; pl: number }) {
+  const group = (dup: boolean) => (
+    <div className="flex gap-[13.4px] pr-[13.4px]" aria-hidden={dup || undefined}>
+      {Array.from({ length: count }, (_, i) => (
+        <RibbonPill key={i} />
+      ))}
+    </div>
+  );
+  return (
+    <div className="relative flex" style={{ paddingLeft: pl }}>
+      <div className="ribbon-track flex w-max">
+        {group(false)}
+        {group(true)}
+      </div>
+    </div>
+  );
+}
+
 export default function TebeKNam() {
   return (
     <section aria-label="Тебе к нам, если ты">
@@ -104,29 +126,31 @@ export default function TebeKNam() {
         ))}
 
         {/* Лента: полоса-фон, по ней ряд капсул (одна конструкция; анимация в Фазе 3) */}
-        <div className="absolute left-[-48px] top-[474px] flex h-[103px] w-[1310px] rotate-[-2.58deg] items-center">
+        <div className="absolute left-[-48px] top-[474px] flex h-[103px] w-[1310px] rotate-[-2.58deg] items-center overflow-hidden">
           <div className="absolute inset-x-0 top-1/2 h-[44px] -translate-y-1/2 bg-lime" />
-          <div className="relative flex gap-[13.4px] pl-[67px]">
-            <RibbonPill />
-            <RibbonPill />
-            <RibbonPill />
-            <RibbonPill />
-          </div>
+          <RibbonTrack count={4} pl={67} />
         </div>
       </div>
 
       {/* ===== Мобильная: флоу по узлам 884–2264 ===== */}
       <div className="canvas-320 relative overflow-hidden bg-white md:hidden">
+        {/* Полоску держим ПОД словами «если ты» через span, а не по фиксированному отступу.
+            На iOS Safari метрики X5 Sans чуть иные, чем в десктопном Chrome, и жёсткий
+            ml-[134px] уводил линию в сторону от текста («полоска уехала»). Привязка к span
+            делает положение и ширину независимыми от того, как устройство отрисовало шрифт. */}
         <h2 data-reveal className="ml-[15px] pt-[30px] text-[22px] font-bold leading-[26px] text-ink">
-          Тебе к нам, если ты
+          Тебе к нам,{" "}
+          <span className="relative inline-block whitespace-nowrap">
+            если ты
+            <img
+              loading="lazy"
+              src={asset("/img/02-tebe-k-nam/vector1-dec88355.svg")}
+              alt=""
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-full mt-[2px] h-[2px] w-full"
+            />
+          </span>
         </h2>
-        <img
-          loading="lazy"
-          src={asset("/img/02-tebe-k-nam/vector1-dec88355.svg")}
-          alt=""
-          aria-hidden
-          className="ml-[134px] mt-[1px] h-[2px] w-[80px]"
-        />
         <div data-reveal className="mx-[15px] mt-[20px] flex flex-col gap-[15px]">
           {CARDS.map((card, i) => (
             <div
@@ -155,13 +179,9 @@ export default function TebeKNam() {
         </div>
         {/* Нижняя лента: та же конструкция */}
         <div className="relative h-[96px] overflow-hidden">
-          <div className="absolute left-[-200px] top-[8px] flex h-[80px] w-[900px] rotate-[-2.58deg] items-center">
+          <div className="absolute left-[-200px] top-[8px] flex h-[80px] w-[900px] rotate-[-2.58deg] items-center overflow-hidden">
             <div className="absolute inset-x-0 top-1/2 h-[44px] -translate-y-1/2 bg-lime" />
-            <div className="relative flex gap-[13.4px] pl-[62px]">
-              <RibbonPill />
-              <RibbonPill />
-              <RibbonPill />
-            </div>
+            <RibbonTrack count={3} pl={62} />
           </div>
         </div>
       </div>

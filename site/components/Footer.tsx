@@ -47,12 +47,15 @@ function FooterLogos() {
         alt="РУДН"
         className="h-[27px] w-[79px]"
       />
+      {/* Отступы как в шапке (ml-15/mr-7): там локап принят, а в футере они были зеркально
+          переставлены (ml-7/mr-15), из-за чего крестик прижимался к РУДН («× уехал»).
+          Значения подобраны под видимые границы логотипов, а не под рамки картинок */}
       <img
         loading="lazy"
         src={asset("/img/13-footer/asset-463eeb0a.svg")}
         alt=""
         aria-hidden
-        className="ml-[7px] mr-[15px] h-[10px] w-[10px]"
+        className="ml-[15px] mr-[7px] h-[10px] w-[10px]"
       />
       <img
         loading="lazy"
