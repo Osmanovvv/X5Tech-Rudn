@@ -1,6 +1,6 @@
 // Hero по макету: десктоп — ctx-01 (узел 271:1779, 1200×750, минус 84px шапки),
 // мобильная — mobile-abs.json (узлы y 60–884). H1 в макете набран Inter Bold (D2),
-// зелёный «X5 Tech» только на мобиле (C4), серый подзаголовок мобилы #6b6b6b — из макета.
+// зелёный «X5 Tech» только на мобиле (C4), серый подзаголовок мобилы #818181 — по замеру эталона (было #6b6b6b, темнее макетного).
 import { preload } from "react-dom";
 import { asset } from "@/lib/asset";
 
@@ -289,7 +289,7 @@ export default function Hero() {
             <br />
             вместе с <span className="text-lime-deep">X5 Tech</span>
           </p>
-          <p data-reveal className="absolute left-[15px] top-[155px] text-[12px] leading-[14px] text-[#6b6b6b]">
+          <p data-reveal className="absolute left-[15px] top-[155px] text-[12px] leading-[14px] text-[#818181]">
             Факультет искусственного интеллекта РУДН
             <br />
             Образовательная программа:
