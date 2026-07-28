@@ -14,6 +14,17 @@ import { bodyUploads, type NewsItem } from "@/lib/news";
 
 export type NewsFormState = { error?: string; fieldErrors?: Record<string, string> } | undefined;
 
+// Преамбула любого мутирующего действия: живая сессия + свой источник запроса.
+// Вынесена не ради краткости, а чтобы проверка не могла разойтись между действиями
+// и чтобы её нельзя было забыть, добавляя новое: Server Actions вызываются по сети
+// напрямую, и пропуск этих двух строк открывает запись кому угодно.
+// Возвращает состояние с отказом либо undefined, если проверка пройдена.
+async function denyIfNotAdmin(): Promise<NewsFormState> {
+  await requireAdmin(); // нет сессии → редирект на форму входа, дальше код не идёт
+  if (!(await sameOrigin())) return { error: "Запрос отклонён (посторонний источник)." };
+  return undefined;
+}
+
 // Страницы, которые показывают новости. Вызывается после каждой правки — контент на сайте
 // обновляется без пересборки (в статическом режиме этого нет, см. README).
 // Обновляем ВЕСЬ сегмент /news/[slug], а не только изменённый адрес: блок «Другие новости»
@@ -101,8 +112,8 @@ function validate(f: ReturnType<typeof readFields>): Record<string, string> {
 }
 
 export async function createNews(_prev: NewsFormState, formData: FormData): Promise<NewsFormState> {
-  await requireAdmin();
-  if (!(await sameOrigin())) return { error: "Запрос отклонён (посторонний источник)." };
+  const denied = await denyIfNotAdmin();
+  if (denied) return denied;
 
   const fields = readFields(formData);
   const fieldErrors = validate(fields);
@@ -141,8 +152,8 @@ export async function createNews(_prev: NewsFormState, formData: FormData): Prom
 }
 
 export async function updateNews(_prev: NewsFormState, formData: FormData): Promise<NewsFormState> {
-  await requireAdmin();
-  if (!(await sameOrigin())) return { error: "Запрос отклонён (посторонний источник)." };
+  const denied = await denyIfNotAdmin();
+  if (denied) return denied;
 
   const currentSlug = formString(formData, "slug");
   const fields = readFields(formData);
@@ -190,16 +201,19 @@ export async function updateNews(_prev: NewsFormState, formData: FormData): Prom
   redirect("/admin/news");
 }
 
-export async function deleteNews(formData: FormData): Promise<void> {
-  await requireAdmin();
-  if (!(await sameOrigin())) return;
+// Удаление возвращает состояние, а не void: раньше при повреждённом файле, чужом источнике
+// или уже удалённой новости действие просто выходило — пользователь жал «Да, удалить»
+// и не получал никакого ответа, а новость оставалась на месте.
+export async function deleteNews(_prev: NewsFormState, formData: FormData): Promise<NewsFormState> {
+  const denied = await denyIfNotAdmin();
+  if (denied) return denied;
 
   const slug = formString(formData, "slug");
   const current = readForEdit();
-  if ("error" in current) return; // файл повреждён — удалять вслепую нельзя
+  if ("error" in current) return { error: current.error }; // файл повреждён — удалять вслепую нельзя
 
   const doomed = current.items.find((i) => i.slug === slug);
-  if (!doomed) return;
+  if (!doomed) return { error: "Новость не найдена — возможно, её уже удалили. Обновите страницу." };
 
   await saveAllNews(current.items.filter((i) => i.slug !== slug));
   // Не оставляем осиротевшие файлы в каталоге загрузок — ни обложку, ни картинки из текста

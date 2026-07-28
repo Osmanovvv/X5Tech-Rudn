@@ -4,9 +4,11 @@
 // Модель: один аккаунт администратора, логин/хэш пароля и секрет подписи задаёт КЛИЕНТ в .env
 // (см. .env.example и README). Пароль в открытом виде нигде не хранится и в код не попадает.
 // Сессия — не в БД, а подписанная HMAC кука: сервер проверяет подпись и срок, состояние не хранит.
-import { createHmac, randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
+import { timingSafeEqual } from "node:crypto";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { checkPassword } from "./password";
+import { createToken, readToken } from "./session-token";
 
 export const SESSION_COOKIE = "rudn_admin_session";
 const SESSION_TTL_MS = 8 * 60 * 60 * 1000; // 8 часов — рабочая смена контент-менеджера
@@ -19,77 +21,14 @@ const SECRET = process.env.SESSION_SECRET ?? "";
 // НЕ генерируем: случайный ломался бы при каждом рестарте, а зашитый в код — это дыра.
 export const adminConfigured = (): boolean => Boolean(USERNAME && PASSWORD_HASH && SECRET);
 
-// ── Пароль: scrypt (встроенный, устойчив к перебору на GPU) ─────────────────────
-// Формат строки в .env: scrypt:<salt_hex>:<hash_hex>. Генерируется `npm run admin:hash`.
-//
-// Разделитель именно «:», а НЕ «$»: значения в .env проходят подстановку переменных, и строка
-// вида scrypt$соль$хэш схлопывалась бы до «scrypt» — вход в админку становился невозможен
-// (проверено). Двоеточие подстановке не подвержено.
-const SCRYPT_KEYLEN = 64;
+// ── Пароль и сессия ─────────────────────────────────────────────────────────────
+// Сама криптография живёт в ./password и ./session-token — там она без привязки к запросу
+// и покрыта тестами. Здесь остаётся только подстановка настроек из окружения.
+export { hashPassword } from "./password";
 
-export function hashPassword(password: string, salt = randomBytes(16).toString("hex")): string {
-  const hash = scryptSync(password.normalize("NFKC"), salt, SCRYPT_KEYLEN).toString("hex");
-  return `scrypt:${salt}:${hash}`;
-}
-
-export function verifyPassword(password: string, stored: string): boolean {
-  const parts = stored.split(":");
-  if (parts.length !== 3 || parts[0] !== "scrypt") {
-    // Частая причина — хэш старого формата (через «$»), который .env обрезал до «scrypt».
-    // Подсказываем администратору, вместо того чтобы молча не пускать.
-    if (stored === "scrypt" || stored.startsWith("scrypt$")) {
-      console.error(
-        "[auth] ADMIN_PASSWORD_HASH имеет неподдерживаемый вид. Если хэш записан через «$», " +
-          ".env обрезает его при подстановке переменных — сгенерируйте заново: npm run admin:hash",
-      );
-    }
-    return false;
-  }
-  const [, salt, expectedHex] = parts;
-  let expected: Buffer;
-  try {
-    expected = Buffer.from(expectedHex, "hex");
-  } catch {
-    return false;
-  }
-  if (expected.length !== SCRYPT_KEYLEN) return false;
-  const actual = scryptSync(password.normalize("NFKC"), salt, SCRYPT_KEYLEN);
-  // Сравнение за постоянное время — иначе по времени ответа можно подбирать хэш побайтно
-  return timingSafeEqual(actual, expected);
-}
-
-// ── Сессия: payload.signature, где signature = HMAC-SHA256(payload) ─────────────
-type SessionPayload = { u: string; exp: number };
-
-const b64url = (buf: Buffer) => buf.toString("base64url");
-const sign = (data: string) => createHmac("sha256", SECRET).update(data).digest("base64url");
-
-function createToken(username: string): string {
-  const payload: SessionPayload = { u: username, exp: Date.now() + SESSION_TTL_MS };
-  const body = b64url(Buffer.from(JSON.stringify(payload), "utf8"));
-  return `${body}.${sign(body)}`;
-}
-
-// Возвращает имя пользователя или null. Проверяет подпись (constant-time) и срок жизни.
-export function verifyToken(token: string | undefined): string | null {
-  if (!token || !SECRET) return null;
-  const dot = token.lastIndexOf(".");
-  if (dot <= 0) return null;
-  const body = token.slice(0, dot);
-  const givenSig = token.slice(dot + 1);
-  const expectedSig = sign(body);
-  const a = Buffer.from(givenSig);
-  const b = Buffer.from(expectedSig);
-  if (a.length !== b.length || !timingSafeEqual(a, b)) return null;
-  try {
-    const payload = JSON.parse(Buffer.from(body, "base64url").toString("utf8")) as SessionPayload;
-    if (!payload?.u || typeof payload.exp !== "number" || payload.exp < Date.now()) return null;
-    if (payload.u !== USERNAME) return null; // логин сменили в .env → старые сессии недействительны
-    return payload.u;
-  } catch {
-    return null;
-  }
-}
+/** Имя пользователя из подписанного токена или null. */
+export const verifyToken = (token: string | undefined): string | null =>
+  readToken(token, SECRET, USERNAME);
 
 // ── Работа с кукой ──────────────────────────────────────────────────────────────
 // Secure по умолчанию включён: сессионную куку нельзя гонять по открытому HTTP.
@@ -99,7 +38,7 @@ const cookieSecure = process.env.SESSION_COOKIE_SECURE !== "0";
 
 export async function startSession(username: string): Promise<void> {
   const store = await cookies();
-  store.set(SESSION_COOKIE, createToken(username), {
+  store.set(SESSION_COOKIE, createToken(username, SECRET, SESSION_TTL_MS), {
     httpOnly: true, // недоступна из JS → не украсть через XSS
     secure: cookieSecure,
     sameSite: "strict", // основная защита от CSRF
@@ -202,5 +141,17 @@ export function checkCredentials(username: string, password: string): boolean {
 
   // Пароль проверяем ТОЛЬКО при верном логине: scryptSync намеренно тяжёлый и синхронный,
   // и его безусловный вызов на каждую попытку блокировал бы весь сервер (процесс один).
-  return userOk && verifyPassword(password, PASSWORD_HASH);
+  if (!userOk) return false;
+
+  const result = checkPassword(password, PASSWORD_HASH);
+  if (!result.ok && result.reason === "формат") {
+    // Не «неверный пароль», а испорченная настройка — администратор иначе будет
+    // бесконечно перебирать пароль. Частая причина: хэш записан через «$», и .env
+    // обрезал его при подстановке переменных.
+    console.error(
+      "[auth] ADMIN_PASSWORD_HASH имеет неподдерживаемый вид — вход невозможен при любом пароле. " +
+        "Сгенерируйте заново: npm run admin:hash (разделитель должен быть «:», а не «$»).",
+    );
+  }
+  return result.ok;
 }

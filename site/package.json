@@ -13,7 +13,7 @@
     "test": "node --test \"lib/**/*.test.ts\" \"app/**/*.test.ts\"",
     "check": "npm run lint && npm run typecheck && npm test",
     "check:anchors": "node scripts/check-anchors.mjs",
-    "admin:hash": "node scripts/admin-hash.mjs",
+    "admin:hash": "node --experimental-strip-types scripts/admin-hash.mjs",
     "admin:secret": "node scripts/admin-secret.mjs"
   },
   "engines": {

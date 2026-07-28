@@ -4,8 +4,12 @@
 //
 // Почему не аргументом командной строки: аргументы видны всем пользователям системы в `ps`,
 // сохраняются в истории командной оболочки и попадают в отладочные журналы npm.
-import { randomBytes, scryptSync } from "node:crypto";
+//
+// Хэш считается ТЕМ ЖЕ кодом, что проверяет пароль при входе (lib/server/password.ts).
+// Раньше скрипт повторял параметры scrypt у себя, и при их расхождении сгенерированный
+// хэш молча переставал подходить — вход в админку ломался без единого сообщения.
 import { createInterface } from "node:readline";
+import { hashPassword } from "../lib/server/password.ts";
 
 function askHidden(question) {
   return new Promise((resolve) => {
@@ -40,11 +44,8 @@ if (password.length < 12) {
   process.exit(2);
 }
 
-const salt = randomBytes(16).toString("hex");
-const hash = scryptSync(password.normalize("NFKC"), salt, 64).toString("hex");
-
-// Разделитель «:» обязателен: значения .env проходят подстановку переменных, и «$» в строке
-// обрезал бы хэш (см. комментарий в lib/server/auth.ts).
-console.log("\nADMIN_PASSWORD_HASH=" + `scrypt:${salt}:${hash}`);
+// Разделитель «:» и параметры scrypt заданы в lib/server/password.ts — там же,
+// где пароль проверяется при входе. Расходиться им теперь негде.
+console.log("\nADMIN_PASSWORD_HASH=" + hashPassword(password));
 console.log("\nСкопируйте строку в .env. Там же задайте ADMIN_USERNAME и SESSION_SECRET.");
 console.log("SESSION_SECRET можно сгенерировать так:  npm run admin:secret\n");
