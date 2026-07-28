@@ -9,7 +9,7 @@
 // Итог статического режима: публичный сайт целиком (главная, /news, /docs, 404), без /admin,
 // без приёма заявок и без обновления новостей без пересборки. Это задокументировано в README.
 import { execSync } from "node:child_process";
-import { copyFileSync, existsSync, readdirSync, renameSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, readdirSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
@@ -69,6 +69,7 @@ try {
   process.env.STATIC = "1";
   execSync("next build --webpack", { stdio: "inherit" });
   flattenRscPayloads();
+  writeHtaccess();
 } finally {
   restore();
 }
@@ -113,4 +114,65 @@ function flattenRscPayloads() {
 
   walkPage(out);
   console.log(`[build:static] плоских копий разметки для предзагрузки: ${made}`);
+}
+
+// .htaccess для Apache. Кладём в саму сборку, чтобы настройка ехала вместе с файлами:
+// на общем хостинге доступа к конфигу сервера обычно нет, только эта папка.
+//
+// Сжатие тут не «приятный бонус»: без него страница весит около 780 КБ вместо 130 —
+// примерно две секунды на мобильном соединении и порядка 30 баллов Lighthouse.
+// Для nginx та же настройка описана в README отдельно.
+function writeHtaccess() {
+  const out = path.join(ROOT, "out");
+  if (!existsSync(out)) return;
+
+  const text = `# Настройки Apache для статической сборки сайта. Файл создаётся автоматически
+# скриптом scripts/build-static.mjs — правьте там, иначе изменения потеряются.
+
+# ── Сжатие ──────────────────────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml image/svg+xml
+</IfModule>
+
+# ── Кэш ─────────────────────────────────────────────────────────────────────────
+# Файлы Next с хешем в имени неизменяемы: имя меняется вместе с содержимым.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/avif                "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+  # Разметку не кэшируем: правки контента должны появляться сразу
+  ExpiresByType text/html                 "access plus 0 seconds"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\\.(js|css|woff2|webp|avif|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ── Типы файлов ─────────────────────────────────────────────────────────────────
+# Старые сборки Apache не знают webp/avif и отдают их как поток байтов —
+# браузер такую картинку не покажет.
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType font/woff2 .woff2
+</IfModule>
+
+# ── Страница 404 ────────────────────────────────────────────────────────────────
+ErrorDocument 404 /404.html
+
+# ── Каталоги ────────────────────────────────────────────────────────────────────
+# Адреса заканчиваются слэшем (trailingSlash), внутри каждого лежит index.html.
+DirectoryIndex index.html
+Options -Indexes
+`;
+
+  writeFileSync(path.join(out, ".htaccess"), text, "utf8");
+  console.log("[build:static] .htaccess для Apache записан (сжатие, кэш, 404)");
 }
