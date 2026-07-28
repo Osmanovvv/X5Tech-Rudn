@@ -169,7 +169,7 @@ export default function TebeKNam() {
                 className="relative h-[190px] w-full rounded-[18px] object-cover"
               />
               <p
-                className="absolute top-[210px] whitespace-pre-line text-[12px] leading-[14px] text-ink"
+                className="absolute top-[210px] whitespace-pre-line text-[13px] leading-[15px] text-ink"
                 style={{ left: i === 0 ? 21 : 20, width: MOBILE_TEXT_W[i] }}
               >
                 {MOBILE_TEXTS[i]}

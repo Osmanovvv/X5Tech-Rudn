@@ -307,7 +307,7 @@ export default function ProgrammaDaet() {
                 style={{ top: [84, 136, 186][i] }}
               />
               <span
-                className="absolute left-[36px] whitespace-pre-line text-[12px] font-medium leading-[16px] text-ink"
+                className="absolute left-[36px] whitespace-pre-line text-[13px] font-medium leading-[17px] text-ink"
                 style={{ top: [79, 131, 178][i] }}
               >
                 {b}
@@ -323,7 +323,7 @@ export default function ProgrammaDaet() {
           <p className="absolute left-[20px] top-[418px] w-[250px] text-[14px] font-bold leading-[19px] text-ink">
             Компьютерное зрение или обработка естественного языка
           </p>
-          <p className="absolute left-[20px] top-[468px] whitespace-pre-line text-[12px] leading-[14px] text-ink">
+          <p className="absolute left-[20px] top-[468px] whitespace-pre-line text-[13px] leading-[15px] text-ink">
             {"выбери трек на 3 курсе и углубись\nв практику"}
           </p>
         </div>

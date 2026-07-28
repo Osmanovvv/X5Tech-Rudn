@@ -289,7 +289,7 @@ export default function Hero() {
             <br />
             вместе с <span className="text-lime-deep">X5 Tech</span>
           </p>
-          <p data-reveal className="absolute left-[15px] top-[155px] text-[12px] leading-[14px] text-[#818181]">
+          <p data-reveal className="absolute left-[15px] top-[155px] text-[13px] leading-[15px] text-[#818181]">
             Факультет искусственного интеллекта РУДН
             <br />
             Образовательная программа:
