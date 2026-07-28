@@ -196,7 +196,9 @@ export default function NewsForm({ item }: { item?: NewsItem }) {
             <p className={errText}>{fe.cover}</p>
           ) : (
             <p className={hint}>
-              JPEG, PNG, WebP или AVIF, шире 600 px, до 8 МБ. Сжатие и размеры — автоматически.
+              JPEG, PNG, WebP или AVIF, до 8 МБ. Сжатие и размеры — автоматически. Лучше брать
+              исходник шириной от 2240 px: на странице новости обложка большая, и на экранах
+              с высокой плотностью точек мелкий файл выглядит нерезким.
             </p>
           )}
         </div>

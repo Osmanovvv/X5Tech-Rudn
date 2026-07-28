@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import OtherNews from "@/components/OtherNews";
 import { asset } from "@/lib/asset";
-import { getNews, otherNews, formatNewsDate, coverPath, parseBody } from "@/lib/news";
+import { getNews, otherNews, formatNewsDate, coverPath, parseBody, COVER_WIDTHS } from "@/lib/news";
 import { abs, breadcrumbs, og, OG_IMAGE, SITE_NAME } from "@/lib/seo";
 import { getAllNews } from "@/lib/server/news-store";
 
@@ -111,8 +111,14 @@ export default async function NewsArticle({ params }: Props) {
 
           {/* Фото во всю ширину контейнера; тег категории — поверх картинки слева сверху */}
           <div className="relative mt-[20px] overflow-hidden rounded-[15px] md:mt-[19px]">
+            {/* srcset: на десктопе обложка занимает 1120 px, то есть на экране двойной
+                плотности нужен файл 2240. sizes намеренно назван по МАКСИМАЛЬНОЙ ширине
+                места: секции масштабируются свойством zoom, и точный расчёт вводил бы
+                браузер в заблуждение — а ошибка в меньшую сторону даёт мыло. */}
             <img
               src={asset(coverPath(item.cover, 1400))}
+              srcSet={COVER_WIDTHS.map((w) => `${asset(coverPath(item.cover, w))} ${w}w`).join(", ")}
+              sizes="(min-width: 768px) 1120px, 100vw"
               alt=""
               className="aspect-[290/200] w-full object-cover md:aspect-[1120/600]"
             />
@@ -142,6 +148,14 @@ export default async function NewsArticle({ params }: Props) {
                     <img
                       key={j}
                       src={asset(coverPath(img.src, 1400))}
+                      srcSet={COVER_WIDTHS.map((w) => `${asset(coverPath(img.src, w))} ${w}w`).join(", ")}
+                      // Одиночная картинка занимает те же 860 px, что колонка текста; в паре —
+                      // половину за вычетом зазора. На ретине это 1720 и 840 соответственно
+                      sizes={
+                        block.images.length === 1
+                          ? "(min-width: 768px) 860px, 100vw"
+                          : "(min-width: 768px) 420px, 50vw"
+                      }
                       alt={img.alt}
                       loading="lazy"
                       decoding="async"

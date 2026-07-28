@@ -36,7 +36,12 @@ export const formatNewsDate = (iso: string): string => iso.split("-").reverse().
 //   «upload:<имя>»        — загруженные через админку, лежат в DATA_DIR/uploads и отдаются
 //                           роутом /api/uploads (переживают пересборку, бэкапятся с данными).
 // Результат ещё нужно прогнать через asset() — он добавит basePath.
-export const coverPath = (cover: string, width: 640 | 1400): string =>
+// Ширины, в которых существует обложка. Держим одним списком с конвейером загрузки
+// (lib/server/uploads.ts): разойдись они — srcset ссылался бы на ненайденные файлы.
+export const COVER_WIDTHS = [640, 1400, 2240] as const;
+export type CoverWidth = (typeof COVER_WIDTHS)[number];
+
+export const coverPath = (cover: string, width: CoverWidth): string =>
   cover.startsWith("upload:")
     ? `/api/uploads/${cover.slice("upload:".length)}-${width}w.webp`
     : `/img/11-novosti/${cover}-${width}w.webp`;

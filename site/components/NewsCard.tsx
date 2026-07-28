@@ -4,7 +4,7 @@
 // карусели на главной, но кликабельная и резиновая (grid-элемент, а не фикс-ширина карусели).
 import Link from "next/link";
 import { asset } from "@/lib/asset";
-import { coverPath, formatNewsDate, type NewsItem } from "@/lib/news";
+import { coverPath, formatNewsDate, COVER_WIDTHS, type NewsItem } from "@/lib/news";
 
 // headingLevel: на сетке /news карточки идут прямо под h1 страницы → нужен h2 (не пропускать
 // уровень); в блоке «Другие новости» над ними есть h2 → там h3 (по умолчанию).
@@ -26,8 +26,12 @@ export default function NewsCard({
       {/* Пропорция своя на каждой ширине: обложка в макете всегда 165px, а карточка на мобильной
           290 против десктопных 270 (то же, что в Novosti и OtherNews) */}
       <div className="relative aspect-[290/165] overflow-hidden md:aspect-[270/165]">
+        {/* srcset: карточка в сетке /news занимает 360 px, то есть на плотности 2 нужно 720 —
+            одного файла 640w не хватало (проверка qa-retina давала ×1.78) */}
         <img
           src={asset(coverPath(item.cover, 640))}
+          srcSet={COVER_WIDTHS.map((w) => `${asset(coverPath(item.cover, w))} ${w}w`).join(", ")}
+          sizes="(min-width: 768px) 360px, 91vw"
           alt=""
           loading={priority ? "eager" : "lazy"}
           className="absolute inset-0 size-full object-cover transition-transform duration-300 ease-motion group-hover:scale-[1.03]"

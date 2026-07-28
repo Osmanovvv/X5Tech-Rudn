@@ -11,8 +11,15 @@ import { DATA_DIR } from "./store";
 
 export const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 
-// Те же два размера, что у картинок из макета (пайплайн Task 0.3): карточка и страница новости.
-const WIDTHS = [640, 1400] as const;
+// Три размера: карточка (290 px), страница новости (1120 px) и та же страница на экране
+// двойной плотности. Без 2240 обложка на ретине показывалась в 1400 px на 1120-пиксельном
+// месте — это 0.63 от нужного разрешения, заметное мыло.
+//
+// withoutEnlargement оставлен: если исходник уже 2240, файл получится меньше заявленного
+// имени. Браузер тогда покажет ту же картинку, что и сегодня, — то есть хуже не станет,
+// а апскейл только раздул бы вес без единого нового пикселя. Форма админки просит
+// загружать от 2240 px, чтобы этот случай был редким.
+const WIDTHS = [640, 1400, 2240] as const;
 const MAX_BYTES = 8 * 1024 * 1024; // 8 МБ на исходник
 const ALLOWED = ["image/jpeg", "image/png", "image/webp", "image/avif"];
 // Форматы, определённые по СОДЕРЖИМОМУ файла (sharp). MIME из запроса задаёт клиент, ему верить
@@ -94,10 +101,25 @@ export function removeCover(cover: string): void {
 // Имя проверяем строгим шаблоном и дополнительно сверяем итоговый путь — чтобы «../» не увёл
 // чтение за пределы каталога загрузок (path traversal).
 export function readUpload(name: string): Buffer | null {
-  if (!/^[a-z0-9][a-z0-9-]*-(640|1400)w\.webp$/.test(name)) return null;
-  const file = path.join(UPLOADS_DIR, name);
-  const rel = path.relative(UPLOADS_DIR, file);
-  if (rel.startsWith("..") || path.isAbsolute(rel)) return null;
-  if (!existsSync(file)) return null;
-  return readFileSync(file);
+  const match = /^([a-z0-9][a-z0-9-]*)-(640|1400|2240)w\.webp$/.exec(name);
+  if (!match) return null;
+
+  const inside = (file: string): string | null => {
+    const rel = path.relative(UPLOADS_DIR, file);
+    return rel.startsWith("..") || path.isAbsolute(rel) ? null : file;
+  };
+
+  const file = inside(path.join(UPLOADS_DIR, name));
+  if (file && existsSync(file)) return readFileSync(file);
+
+  // Обложки, загруженные до появления ширины 2240, состоят из двух файлов. Без запасного пути
+  // srcset ссылался бы на несуществующий файл, и у старых новостей картинка просто не грузилась
+  // бы на ретине. Отдаём ближайший меньший из имеющихся — он и так лучший, что у нас есть.
+  const [, base, requested] = match;
+  const smaller = WIDTHS.filter((w) => w < Number(requested)).sort((a, b) => b - a);
+  for (const width of smaller) {
+    const alt = inside(path.join(UPLOADS_DIR, `${base}-${width}w.webp`));
+    if (alt && existsSync(alt)) return readFileSync(alt);
+  }
+  return null;
 }

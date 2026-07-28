@@ -8,6 +8,10 @@ import { asset } from "@/lib/asset";
 import site from "@/content/site.json";
 
 const photo = asset("/img/12-forma/image2090011425-893213cd-1024w.webp");
+// На десктопе фото занимает 581 px, то есть на плотности 2 нужно 1162. Файл 1024
+// давал ×1.76 — недобор, заметный по коже и волосам. Экспорт 2x из Figma даёт
+// настоящие пиксели: резкость 46.5 против 25.0 у апскейла того же файла, кадр совпадает
+const photoSrcSet = `${photo} 1024w, ${asset("/img/12-forma/image2090011425-893213cd-1162w.webp")} 1162w`;
 const leadEndpoint = (site as { leadEndpoint: string | null }).leadEndpoint;
 // В Node-сборке заявки принимает собственный роут /api/leads; в статической его нет
 const hasServerApi = Boolean(process.env.NEXT_PUBLIC_SERVER_API);
@@ -167,6 +171,8 @@ export default function LeadForm() {
             <img
               loading="lazy"
               src={photo}
+              srcSet={photoSrcSet}
+              sizes="(min-width: 768px) 581px, 91vw"
               alt="Абитуриентка оставляет заявку на программу"
               className="size-full object-cover"
               style={{ aspectRatio: "581 / 662" }}
