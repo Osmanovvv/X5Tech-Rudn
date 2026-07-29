@@ -136,8 +136,8 @@ function CardIllustration({ k, mobile }: { k: string; mobile?: boolean }) {
     case "industry":
       return (
         <>
-          <span className="absolute" style={mobile ? { left: 191, top: 27 } : { left: 186, top: 62 }}>
-            <BlobColorGlass size={mobile ? 82 : 64} deg={-19.5} />
+          <span className="absolute" style={mobile ? { left: 200, top: 36 } : { left: 186, top: 62 }}>
+            <BlobColorGlass size={64} deg={-19.5} />
           </span>
           <span className="absolute" style={mobile ? { left: 217, top: 30 } : { left: 198, top: 53 }}>
             <PurpleControl size={61} />
