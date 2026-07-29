@@ -66,7 +66,7 @@ function Illu({ src, i, mobile }: { src: string; i: number; mobile?: boolean }) 
 function TrackCard({ track, i, mobile }: { track: Track; i: number; mobile?: boolean }) {
   return (
     <div
-      className={`relative overflow-hidden bg-paper transition-[box-shadow,transform] duration-200 ease-motion hover:-translate-y-[3px] hover:shadow-[0_0_0_2px_#b6e835] ${
+      className={`group relative overflow-hidden bg-paper transition-transform duration-200 ease-motion hover:-translate-y-[3px] ${
         mobile ? "h-[300px] w-full rounded-[20px]" : "h-[300px] w-[260px] rounded-[20px]"
       }`}
     >
@@ -101,6 +101,14 @@ function TrackCard({ track, i, mobile }: { track: Track; i: number; mobile?: boo
       >
         {track.subtitle}
       </p>
+      {/* Подсветка при наведении — отдельным слоем ВНУТРИ карточки, а не тенью снаружи.
+          Крайняя правая карточка стоит вплотную к краю секции (обе кромки на 1205), а секция
+          обрезает содержимое: внешнее кольцо у неё срезалось ровно на эти 2px, и карточка
+          выглядела «надкусанной». Слой лежит после иллюстрации, поэтому виден и поверх неё. */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-lime opacity-0 transition-opacity duration-200 ease-motion group-hover:opacity-100"
+      />
     </div>
   );
 }
