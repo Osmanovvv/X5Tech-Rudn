@@ -188,9 +188,16 @@ function CardIllustration({ k, mobile }: { k: string; mobile?: boolean }) {
 function InfraPhoto({ mobile }: { mobile?: boolean }) {
   if (mobile) {
     return (
-      <span className="absolute" style={{ left: 205, top: 46 }}>
+      // Обёртка-центровщик обязательна, как и на десктопе: внутренняя коробка повёрнута на 90°,
+      // поэтому её ширина и высота на экране меняются местами. Без обёртки 85×80 превращались
+      // в 80×85 — картинка вылезала на 3.6px ниже карточки и обрезалась её краем. Внутри
+      // размеры заданы переставленными (80×85), чтобы после поворота получилось макетные 85×80.
+      // Привязка к правому-нижнему углу, а не координатами 205/46: в макете картинка стоит
+      // ровно в угол карточки, а отсчёт от левого края смещался на толщину рамки (1.13px) и
+      // картинка вылезала за скругление.
+      <span className="absolute bottom-0 right-0 flex h-[80px] w-[85px] items-center justify-center">
         <span className="block -scale-y-100 rotate-90">
-          <span className="relative block h-[80px] w-[85px] overflow-hidden rounded-[15.88px]">
+          <span className="relative block h-[85px] w-[80px] overflow-hidden rounded-[15.88px]">
             <img
               loading="lazy"
               src={asset(`${A}/image2090011448-6cf76c99-196w.webp`)}
