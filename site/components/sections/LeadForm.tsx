@@ -266,6 +266,9 @@ export default function LeadForm() {
                   </div>
                 </div>
 
+                {/* «X5 Tech» из подписей убран по правке заказчика от 2026-07-29: согласие даётся
+                    оператору — РУДН, а не X5 Tech. В макете эти слова есть, отклонение
+                    сознательное (docs/deviations.md D13) */}
                 <div className="mt-[20px] flex flex-col gap-[16px]">
                   <Consent name="consent_pd" required>
                     Я выражаю{" "}
@@ -275,7 +278,7 @@ export default function LeadForm() {
                       rel="noopener noreferrer"
                       className="text-[#3b63c9]"
                     >
-                      Согласие на обработку персональных данных X5 Tech
+                      Согласие на обработку персональных данных
                       <span className="sr-only"> (откроется в новой вкладке)</span>
                     </Link>
                   </Consent>
@@ -287,7 +290,7 @@ export default function LeadForm() {
                       rel="noopener noreferrer"
                       className="text-[#3b63c9]"
                     >
-                      Согласие на получение рассылок информационного и рекламного содержания от X5 Tech
+                      Согласие на получение рассылок информационного и рекламного содержания
                       <span className="sr-only"> (откроется в новой вкладке)</span>
                     </Link>
                   </Consent>
