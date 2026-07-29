@@ -183,7 +183,11 @@ export default function LeadForm() {
           </div>
 
           {/* Карточка-форма */}
-          <div className="rounded-[15px] border border-[#eee] bg-[#fcfcfc] p-[24px] md:flex-1 md:px-[36px] md:py-[46px]">
+          {/* Поля по горизонтали 15, а не 24: в макете карточка формы стоит на x=15 шириной
+              290, а поля ввода и кнопка — на x=30 шириной 260, то есть отступ ровно 15.
+              При 24 колонка была у́же на 18px, и текст согласий переносился лишней строкой
+              («…Согласие на / обработку…» вместо макетного «…Согласие на обработку /»). */}
+          <div className="rounded-[15px] border border-[#eee] bg-[#fcfcfc] px-[15px] py-[24px] md:flex-1 md:px-[36px] md:py-[46px]">
             {status === "sent" ? (
               <div ref={resultRef} role="status" tabIndex={-1} className="flex h-full flex-col items-center justify-center py-[40px] text-center outline-none">
                 <p className="text-[20px] font-bold text-ink">Спасибо, заявка отправлена!</p>

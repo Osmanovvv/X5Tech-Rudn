@@ -7,7 +7,7 @@ import teachers from "@/content/teachers.json";
 
 type Teacher = { photo: string; crop: { h: number; top: number }; fill?: boolean; name: string; spec: string };
 // satisfies вместо as: форма контентного JSON проверяется, а не переопределяется
-const T = teachers satisfies { title: string; subtitle: string; subtitleM: string; teachers: Teacher[] };
+const T = teachers satisfies { title: string; titleM: string; subtitle: string; subtitleM: string; teachers: Teacher[] };
 
 function TeacherCard({ t }: { t: Teacher }) {
   return (
@@ -46,7 +46,7 @@ function TeacherCard({ t }: { t: Teacher }) {
 }
 
 export default function Prepodavateli() {
-  const { title, subtitle, subtitleM, teachers: list } = T;
+  const { title, titleM, subtitle, subtitleM, teachers: list } = T;
   return (
     <section id="prepodavateli" aria-label="Преподаватели и эксперты">
       {/* ===== Десктоп: калька 1115×828 (зазор до предыдущей секции — 80px) ===== */}
@@ -73,7 +73,11 @@ export default function Prepodavateli() {
 
       {/* ===== Мобильная: вертикальный стек ===== */}
       <div className="canvas-320 bg-white px-[15px] pb-[10px] md:hidden">
-        <h2 data-reveal className="pt-[30px] text-[22px] font-bold leading-[26px] text-ink">{title}</h2>
+        {/* Заголовок с явным переносом: в мобильном макете он разбит «Преподаватели /
+            и эксперты», а естественный перенос ставил «и» в конец первой строки */}
+        <h2 data-reveal className="whitespace-pre-line pt-[30px] text-[22px] font-bold leading-[26px] text-ink">
+          {titleM}
+        </h2>
         <p data-reveal className="mt-[12px] whitespace-pre-line text-[12px] leading-[18px] text-[rgba(39,39,39,0.85)]">
           {subtitleM}
         </p>
