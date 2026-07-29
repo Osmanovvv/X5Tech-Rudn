@@ -36,10 +36,19 @@ export const formatNewsDate = (iso: string): string => iso.split("-").reverse().
 //   «upload:<имя>»        — загруженные через админку, лежат в DATA_DIR/uploads и отдаются
 //                           роутом /api/uploads (переживают пересборку, бэкапятся с данными).
 // Результат ещё нужно прогнать через asset() — он добавит basePath.
-// Ширины, в которых существует обложка. Держим одним списком с конвейером загрузки
-// (lib/server/uploads.ts): разойдись они — srcset ссылался бы на ненайденные файлы.
-export const COVER_WIDTHS = [640, 1400, 2240] as const;
-export type CoverWidth = (typeof COVER_WIDTHS)[number];
+// Ширины, в которых существует обложка. У двух источников они РАЗНЫЕ, и это не мелочь:
+// загруженная через админку картинка режется конвейером в три ширины (lib/server/uploads.ts),
+// а макетные лежат в репозитории только в 640 и 1400 — исходник шириной 1400, и файла 2240
+// у них физически нет. Один общий список давал 404 на каждой странице с макетной обложкой.
+export const UPLOAD_COVER_WIDTHS = [640, 1400, 2240] as const;
+export const ASSET_COVER_WIDTHS = [640, 1400] as const;
+export type CoverWidth = (typeof UPLOAD_COVER_WIDTHS)[number];
+
+export const isUploadedCover = (cover: string): boolean => cover.startsWith("upload:");
+
+/** Ширины, в которых обложка реально существует. */
+export const coverWidths = (cover: string): readonly CoverWidth[] =>
+  isUploadedCover(cover) ? UPLOAD_COVER_WIDTHS : ASSET_COVER_WIDTHS;
 
 export const coverPath = (cover: string, width: CoverWidth): string =>
   cover.startsWith("upload:")

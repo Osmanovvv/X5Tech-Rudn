@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import OtherNews from "@/components/OtherNews";
 import { asset } from "@/lib/asset";
-import { getNews, otherNews, formatNewsDate, coverPath, parseBody, COVER_WIDTHS } from "@/lib/news";
+import { getNews, otherNews, formatNewsDate, coverPath, parseBody, coverWidths } from "@/lib/news";
 import { abs, breadcrumbs, og, OG_IMAGE, SITE_NAME } from "@/lib/seo";
 import { getAllNews } from "@/lib/server/news-store";
 
@@ -117,7 +117,7 @@ export default async function NewsArticle({ params }: Props) {
                 браузер в заблуждение — а ошибка в меньшую сторону даёт мыло. */}
             <img
               src={asset(coverPath(item.cover, 1400))}
-              srcSet={COVER_WIDTHS.map((w) => `${asset(coverPath(item.cover, w))} ${w}w`).join(", ")}
+              srcSet={coverWidths(item.cover).map((w) => `${asset(coverPath(item.cover, w))} ${w}w`).join(", ")}
               sizes="(min-width: 768px) 1120px, 100vw"
               alt=""
               className="aspect-[290/200] w-full object-cover md:aspect-[1120/600]"
@@ -148,7 +148,7 @@ export default async function NewsArticle({ params }: Props) {
                     <img
                       key={j}
                       src={asset(coverPath(img.src, 1400))}
-                      srcSet={COVER_WIDTHS.map((w) => `${asset(coverPath(img.src, w))} ${w}w`).join(", ")}
+                      srcSet={coverWidths(img.src).map((w) => `${asset(coverPath(img.src, w))} ${w}w`).join(", ")}
                       // Одиночная картинка занимает те же 860 px, что колонка текста; в паре —
                       // половину за вычетом зазора. На ретине это 1720 и 840 соответственно
                       sizes={
