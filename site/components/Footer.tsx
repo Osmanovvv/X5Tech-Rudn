@@ -160,7 +160,10 @@ export default function Footer() {
       </div>
 
       {/* ===== Мобильная стопка: точные интервалы из mobile-abs.json (футер 17232–18535) ===== */}
-      <div className="canvas-320 px-[15px] pb-[170px] pt-[33px] md:hidden">
+      {/* Отступ снизу 40, а не макетные 129: заказчик просил убрать пустоту под копирайтом
+          («сделать прям в пол»), на телефоне она занимала почти четверть экрана.
+          У нас было 170 — ещё больше макетного, это накопленное расхождение (D15) */}
+      <div className="canvas-320 px-[15px] pb-[40px] pt-[33px] md:hidden">
         <FooterLogos />
         <p className="mt-[20px] w-[247px] whitespace-pre-line text-[12px] leading-[14px]">{f.description}</p>
 
