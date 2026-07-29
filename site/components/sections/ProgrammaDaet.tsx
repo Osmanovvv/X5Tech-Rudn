@@ -35,6 +35,8 @@ function PurpleControl({ size }: { size: number }) {
 const CARDS = [
   {
     key: "industry",
+    dTitleTop: 18,
+    dTextTop: 42,
     title: "Погружение в индустрию",
     dtop: 117,
     dleft: 599,
@@ -50,6 +52,8 @@ const CARDS = [
   },
   {
     key: "project",
+    dTitleTop: 18,
+    dTextTop: 47,
     title: "Проектный формат",
     dtop: 117,
     dleft: 887,
@@ -64,6 +68,8 @@ const CARDS = [
   },
   {
     key: "network",
+    dTitleTop: 18,
+    dTextTop: 47,
     title: "Нетворкинг и карьера",
     dtop: 261,
     dleft: 599,
@@ -78,6 +84,8 @@ const CARDS = [
   },
   {
     key: "campus",
+    dTitleTop: 18,
+    dTextTop: 47,
     title: "Доступ к современному кампусу",
     dtop: 261,
     dleft: 887,
@@ -93,6 +101,8 @@ const CARDS = [
   },
   {
     key: "infra",
+    dTitleTop: 34,
+    dTextTop: 62,
     title: "Топовую техническую инфраструктуру",
     dtop: 405,
     dleft: 599,
@@ -291,14 +301,14 @@ export default function ProgrammaDaet() {
             style={{ left: c.dleft, top: c.dtop, width: c.dwidth }}
           >
             <p
-              className="absolute left-[19px] whitespace-nowrap text-[12px] font-bold tracking-[-0.175px] text-ink"
-              style={{ top: c.key === "infra" ? 34 : 18 }}
+              className="absolute left-[20px] whitespace-nowrap text-[12px] font-bold tracking-[-0.175px] text-ink"
+              style={{ top: c.dTitleTop }}
             >
               {c.title}
             </p>
             <p
-              className="absolute left-[19px] text-[11px] leading-[normal] text-ink/85"
-              style={{ top: c.key === "infra" ? 66 : 56, width: c.textW }}
+              className="absolute left-[20px] text-[11px] leading-[normal] text-ink/85"
+              style={{ top: c.dTextTop, width: c.textW }}
             >
               {c.text}
             </p>
