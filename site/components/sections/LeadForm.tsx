@@ -44,6 +44,7 @@ function Field({
   half,
   onInput,
   inputMode,
+  maxLength,
 }: {
   name: string;
   label: string;
@@ -53,6 +54,7 @@ function Field({
   half?: boolean;
   onInput?: (e: FormEvent<HTMLInputElement>) => void;
   inputMode?: "text" | "tel" | "email" | "numeric";
+  maxLength?: number;
 }) {
   return (
     <div className={half ? "" : "w-full"}>
@@ -70,6 +72,7 @@ function Field({
         type={type}
         inputMode={inputMode}
         required={required}
+        maxLength={maxLength}
         placeholder={placeholder}
         onInput={onInput}
         // Высота поля на мобильной — 32px по замеру макета (шаг между полями 65 против наших 84);
@@ -234,10 +237,10 @@ export default function LeadForm() {
                     по макету шаг 65px от подписи до подписи */}
                 <div className="mt-[20px] flex flex-col gap-[14px] md:gap-[19px]">
                   <div className="flex flex-col gap-[19px] md:flex-row md:gap-[10px]">
-                    <Field name="name" label="Ваше имя" placeholder="Иван" required half />
-                    <Field name="surname" label="Фамилия" placeholder="Иванов" half />
+                    <Field name="name" label="Ваше имя" placeholder="Иван" required half maxLength={80} />
+                    <Field name="surname" label="Фамилия" placeholder="Иванов" half maxLength={80} />
                   </div>
-                  <Field name="email" label="Электронная почта" placeholder="test@mail.ru" type="email" required />
+                  <Field name="email" label="Электронная почта" placeholder="test@mail.ru" type="email" required maxLength={160} />
                   <Field
                     name="phone"
                     label="Телефон"
@@ -245,6 +248,7 @@ export default function LeadForm() {
                     type="tel"
                     inputMode="tel"
                     required
+                    maxLength={32}
                     onInput={(e) => {
                       e.currentTarget.value = formatPhone(e.currentTarget.value);
                     }}
@@ -259,6 +263,10 @@ export default function LeadForm() {
                     <textarea
                       id="comment"
                       name="comment"
+                      // Предел тот же, что проверяет сервер (lib/server/leads.ts): поле свободного
+                      // текста — самая удобная точка, чтобы залить в заявку что угодно. Браузерное
+                      // ограничение просто не даёт набрать лишнего, а решение всё равно за сервером
+                      maxLength={2000}
                       placeholder="напишите, что-нибудь (не обязательно)"
                       // 14px на мобиле (десктоп 13) — против авто-зума iOS при фокусе, как у полей выше
                       className="h-[100px] w-full resize-none rounded-[5px] border border-[#f5f5f5] bg-white px-[14px] py-[12px] text-[14px] text-ink outline-none transition-colors duration-200 ease-motion placeholder:text-[rgba(39,39,39,0.55)] focus:border-[#b6e835] md:text-[13px]"

@@ -5,56 +5,14 @@
 // ПЕРСОНАЛЬНЫЕ ДАННЫЕ: файл лежит вне раздаваемых папок и доступен только через админку.
 // Никакого публичного чтения — роут /api/leads принимает POST и ничего не возвращает наружу.
 import { appendJsonl, readJsonl } from "./store";
+import type { Lead, LeadInput } from "@/lib/lead-validate";
+
+// Реэкспорт: вызывающий код (роут приёма, админка) продолжает брать всё из одного места
+export { validateLead, cleanComment, countLinks } from "@/lib/lead-validate";
+export type { Lead, LeadInput } from "@/lib/lead-validate";
 
 const LEADS_FILE = "leads.jsonl";
 
-export type Lead = {
-  id: string;
-  createdAt: string; // ISO
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
-  comment: string;
-  consentPd: boolean;
-  consentAds: boolean;
-};
-
-export type LeadInput = Omit<Lead, "id" | "createdAt">;
-
-const MAX = { name: 80, surname: 80, email: 160, phone: 32, comment: 2000 };
-
-// Проверка на стороне сервера — единственная, которой можно доверять: браузерную легко обойти.
-export function validateLead(raw: Record<string, unknown>): { ok: true; lead: LeadInput } | { ok: false; errors: Record<string, string> } {
-  const str = (v: unknown) => (typeof v === "string" ? v.replace(/\r\n/g, "\n").trim() : "");
-  const name = str(raw.name);
-  const surname = str(raw.surname);
-  const email = str(raw.email);
-  const phone = str(raw.phone);
-  const comment = str(raw.comment);
-  const truthy = (v: unknown) => v === true || v === "true" || v === "on" || v === "1";
-
-  const errors: Record<string, string> = {};
-  if (name.length < 2) errors.name = "Укажите имя.";
-  else if (name.length > MAX.name) errors.name = "Имя слишком длинное.";
-  if (surname.length > MAX.surname) errors.surname = "Фамилия слишком длинная.";
-  // Намеренно простая проверка почты: строгие регулярки отсекают валидные адреса
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) errors.email = "Проверьте адрес почты.";
-  else if (email.length > MAX.email) errors.email = "Адрес почты слишком длинный.";
-  // Проверяем И длину строки, И количество цифр: без первой в файл персональных данных
-  // попадала бы строка произвольного размера (цифр в ней могло быть ровно 11).
-  const digits = phone.replace(/\D/g, "");
-  if (phone.length > MAX.phone) errors.phone = "Номер телефона слишком длинный.";
-  else if (digits.length < 11 || digits.length > 15) errors.phone = "Проверьте номер телефона.";
-  if (comment.length > MAX.comment) errors.comment = "Комментарий длиннее 2000 символов.";
-  if (!truthy(raw.consent_pd)) errors.consent_pd = "Без согласия на обработку данных заявку принять нельзя.";
-
-  if (Object.keys(errors).length) return { ok: false, errors };
-  return {
-    ok: true,
-    lead: { name, surname, email, phone, comment, consentPd: true, consentAds: truthy(raw.consent_ads) },
-  };
-}
 
 // Возвращает сохранённую заявку — с ней потом уходит уведомление (нужны id и время).
 export async function saveLead(input: LeadInput): Promise<Lead> {

@@ -28,7 +28,11 @@ function format(lead: Lead): string {
     `<b>Почта:</b> ${esc(lead.email)}`,
     `<b>Телефон:</b> ${esc(lead.phone)}`,
   ];
-  if (lead.comment) lines.push(`<b>Комментарий:</b> ${esc(lead.comment)}`);
+  // Комментарий заворачиваем в <code>: внутри моноширинного блока Telegram не превращает
+  // ссылки в кликабельные. Текст пишет посторонний человек через открытую форму, и один
+  // случайный клик сотрудника приёмной комиссии по присланной ссылке — ровно то, ради чего
+  // такие ссылки и шлют.
+  if (lead.comment) lines.push(`<b>Комментарий:</b>\n<code>${esc(lead.comment)}</code>`);
   lines.push("", `Согласие на рассылку: ${lead.consentAds ? "да" : "нет"}`);
   lines.push(`Время: ${new Date(lead.createdAt).toLocaleString("ru-RU")}`);
   return lines.join("\n");
