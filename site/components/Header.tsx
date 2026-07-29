@@ -47,11 +47,20 @@ function Logos({ compact }: { compact?: boolean }) {
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    // Кнопки первого экрана две — десктопная и мобильная ветки вёрстки, — и нужна видимая:
+    // у скрытой через display:none размеры нулевые, и закреплённая кнопка вылезала бы сразу.
+    // На подстраницах кнопки нет вовсе, тогда ориентир — просто прокрутка.
+    const ctas = [...document.querySelectorAll<HTMLElement>('main a[href="#forma"]')];
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      const hero = ctas.find((el) => el.offsetParent !== null);
+      setPastHero(hero ? hero.getBoundingClientRect().bottom < 60 : window.scrollY > 400);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -145,6 +154,32 @@ export default function Header() {
               <span className="h-[2px] w-full rounded bg-ink" />
             </span>
           </button>
+        </div>
+
+        {/* Закреплённая кнопка заявки на мобильной (просьба заказчика 2026-07-29, в макете её
+            нет — docs/deviations.md D14). Появляется, когда кнопка первого экрана ушла вверх,
+            поэтому первый экран выглядит ровно как в макете.
+            Абсолютное позиционирование обязательно: шапка sticky и участвует в потоке, а
+            блок в потоке менял бы её высоту на прокрутке и дёргал всю страницу. */}
+        <div
+          className={`absolute inset-x-0 top-full px-[15px] pt-[10px] transition-[opacity,translate] duration-200 ease-motion lg:hidden ${
+            pastHero ? "opacity-100" : "pointer-events-none -translate-y-[8px] opacity-0"
+          }`}
+          aria-hidden={!pastHero}
+        >
+          <Link
+            href="/#forma"
+            tabIndex={pastHero ? undefined : -1}
+            className="group flex h-[45px] items-center justify-center gap-[10px] rounded-full bg-lime-deep text-[14px] font-bold text-white shadow-[0_8px_24px_rgba(39,39,39,0.16)] transition-[filter,scale] duration-200 ease-motion hover:brightness-95 active:scale-[0.98]"
+          >
+            Отправить заявку
+            <img
+              src={asset("/img/01-hero/svg-8b38f743.svg")}
+              alt=""
+              aria-hidden
+              className="h-[16px] w-[16px] shrink-0 translate-y-[1.5px] transition-transform duration-200 ease-motion group-hover:translate-x-[4px]"
+            />
+          </Link>
         </div>
       </div>
 
