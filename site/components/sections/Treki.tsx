@@ -81,25 +81,25 @@ function TrackCard({ track, i, mobile }: { track: Track; i: number; mobile?: boo
       />
       <p
         className={`absolute whitespace-pre-line font-bold text-ink ${
-          mobile ? "text-[16px] leading-[20px]" : "text-[14px] leading-[18px]"
+          mobile ? "text-[15px] leading-[19px]" : "text-[14px] leading-[18px]"
         }`}
         style={{ left: mobile ? 25 : 20, top: mobile ? 68 : 71 }}
       >
         {track.title}
       </p>
-      {/* На мобильной жёсткие переносы снимаем: они рассчитаны на десктопную карточку 260px
-          и на широкой мобильной обрывали строку задолго до края — текст стоял узким
-          столбиком в 160px. Ширина блока 222 — ровно макетная, текст заливает её сам.
-          Дальше вправо не пускаем: там начинается 3D-объект. Кегль поднят с 12 до 14
-          (docs/deviations.md D10), из-за этого мобильный отступ сверху 118 вместо
-          макетных 112: на 16px заголовок стал выше и до текста оставалось 4px. */}
+      {/* Переносы из tracks.json — они же и в мобильном макете (сверено по эталонному
+          рендеру section-05-treki.png). Кегль на мобильной поднят с 12 до 13 по просьбе
+          заказчика (docs/deviations.md D10) — от этого строки становятся шире на те же
+          8%, а разбивка остаётся макетной. Выше нельзя: у карточки «Компьютерное зрение»
+          строка «детекция объектов, сегментация,» при 14px занимает 258px при 250
+          свободных в карточке. */}
       <p
-        className={`absolute text-ink ${
-          mobile ? "text-[14px] leading-[18px]" : "whitespace-pre-line text-[12px] leading-[16px]"
+        className={`absolute whitespace-pre-line text-ink ${
+          mobile ? "text-[13px] leading-[17px]" : "text-[12px] leading-[16px]"
         }`}
-        style={{ left: mobile ? 25 : 20, top: 118, width: mobile ? 222 : undefined }}
+        style={{ left: mobile ? 25 : 20, top: mobile ? 114 : 118 }}
       >
-        {mobile ? track.subtitle.replace(/\n/g, " ") : track.subtitle}
+        {track.subtitle}
       </p>
     </div>
   );
