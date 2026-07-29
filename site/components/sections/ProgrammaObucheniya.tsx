@@ -3,6 +3,7 @@
 // Десктоп — абсолютная калька: таймлайн слева, чипы дисциплин flex-wrap (ширина колонки 600px повторяет
 // раскладку макета), 3 фото + стат-карточка «50%+», лавандовая плашка. Мобильная — вертикальный флоу.
 import { asset } from "@/lib/asset";
+import TimelineProgress from "@/components/TimelineProgress";
 import { photoSrc } from "@/lib/content-assets";
 import { readSection } from "@/lib/server/content-store";
 import type { Discipline, ProgramContent } from "@/lib/content-types";
@@ -121,9 +122,8 @@ export default function ProgrammaObucheniya() {
           {badge}
         </p>
 
-        {/* Таймлайн слева: серая линия + зелёный верхний сегмент + квадратные точки */}
-        <div className="absolute left-[6px] top-[193px] h-[1686px] w-px bg-[#d8d8d8]" aria-hidden />
-        <div className="absolute left-[5px] top-[193px] h-[104px] w-[3px] bg-[#b6e835]" aria-hidden />
+        {/* Таймлайн слева: серая линия + зелёный отрезок, растущий по прокрутке, + точки курсов */}
+        <TimelineProgress />
         {DESK.map((c, i) => (
           <div
             key={i}
