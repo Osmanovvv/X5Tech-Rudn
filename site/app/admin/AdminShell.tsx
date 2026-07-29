@@ -13,6 +13,7 @@ import { logout } from "./actions";
 const NAV = [
   { href: "/admin", label: "Обзор", key: "home" },
   { href: "/admin/news", label: "Новости", key: "news" },
+  { href: "/admin/content", label: "Контент", key: "content" },
   { href: "/admin/leads", label: "Заявки", key: "leads" },
 ] as const;
 

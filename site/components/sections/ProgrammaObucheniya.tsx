@@ -3,27 +3,9 @@
 // Десктоп — абсолютная калька: таймлайн слева, чипы дисциплин flex-wrap (ширина колонки 600px повторяет
 // раскладку макета), 3 фото + стат-карточка «50%+», лавандовая плашка. Мобильная — вертикальный флоу.
 import { asset } from "@/lib/asset";
-import program from "@/content/program.json";
-
-type Discipline = string | { label: string; ghost?: boolean; m?: string };
-type Course = {
-  num: string;
-  name: string;
-  subtitle: string;
-  subM?: string;
-  photo?: string;
-  stat?: boolean;
-  disciplines: Discipline[];
-};
-
-const { title, badge, badgeM, courses, highlight, stat } = program as {
-  title: string;
-  badge: string;
-  badgeM: string;
-  courses: Course[];
-  highlight: { after: number; title: string; text: string };
-  stat: { value: string; note: string };
-};
+import { photoSrc } from "@/lib/content-assets";
+import { readSection } from "@/lib/server/content-store";
+import type { Discipline, ProgramContent } from "@/lib/content-types";
 
 const dLabel = (d: Discipline) => (typeof d === "string" ? d : d.label);
 const dGhost = (d: Discipline) => (typeof d === "string" ? false : !!d.ghost);
@@ -89,7 +71,7 @@ function StatNote({ mobile }: { mobile?: boolean }) {
   );
 }
 
-function StatCard({ mobile }: { mobile?: boolean }) {
+function StatCard({ mobile, stat }: { mobile?: boolean; stat: ProgramContent["stat"] }) {
   return (
     <div
       className={`relative overflow-hidden bg-[#f0efff] ${
@@ -125,6 +107,7 @@ function StatCard({ mobile }: { mobile?: boolean }) {
 }
 
 export default function ProgrammaObucheniya() {
+  const { title, badge, badgeM, courses, highlight, stat } = readSection("program");
   return (
     <section aria-label={title}>
       {/* ===== Десктоп: калька 1130×1879 (зазор до предыдущей секции — 20px по макету) ===== */}
@@ -185,7 +168,7 @@ export default function ProgrammaObucheniya() {
             <img
               loading="lazy"
               key={i}
-              src={asset(`/img/04-programma-obucheniya/${course.photo}-880w.webp`)}
+              src={photoSrc("04-programma-obucheniya", course.photo, 880)}
               alt=""
               data-reveal
               className="absolute left-[690px] w-[440px] rounded-[15px] object-cover"
@@ -206,7 +189,7 @@ export default function ProgrammaObucheniya() {
 
         {/* Стат-карточка «50%+» (место 4 курса справа) */}
         <div data-reveal className="absolute left-[690px] top-[1554px] h-[310px] w-[440px]">
-          <StatCard />
+          <StatCard stat={stat} />
         </div>
       </div>
 
@@ -234,12 +217,12 @@ export default function ProgrammaObucheniya() {
 
               {course.stat ? (
                 <div className="mt-[13px]">
-                  <StatCard mobile />
+                  <StatCard mobile stat={stat} />
                 </div>
               ) : (
                 <img
                   loading="lazy"
-                  src={asset(`/img/04-programma-obucheniya/${course.photo}-640w.webp`)}
+                  src={photoSrc("04-programma-obucheniya", course.photo!, 640)}
                   alt=""
                   className="mt-[13px] block w-full rounded-[14px] object-cover"
                   style={{ aspectRatio: [`290/178`, `290/221`, `290/215`][i] }}

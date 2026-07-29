@@ -1,13 +1,13 @@
 // «Преподаватели и эксперты» — секция 271:2112 (десктоп-нода 1115×828), мобильная зона 271:2313.
-// Контент в content/teachers.json. Карточка едина для десктопа и мобилы: aspect-ratio 260/332 +
+// Состав правится в админке (/admin/content/prepodavateli): читаем через content-store, а
+// content/teachers.json остаётся сидом на случай, когда правок ещё не было.
+// Карточка едина для десктопа и мобилы: aspect-ratio 260/332 +
 // проценты (у каждого фото свой кроп из ctx). Десктоп — сетка 4×2, мобила — стек. Переносы имён/
 // специализаций одинаковы (ширина карточки ~260 в обоих), прошиты в json.
-import { asset } from "@/lib/asset";
-import teachers from "@/content/teachers.json";
 
-type Teacher = { photo: string; crop: { h: number; top: number }; fill?: boolean; name: string; spec: string };
-// satisfies вместо as: форма контентного JSON проверяется, а не переопределяется
-const T = teachers satisfies { title: string; titleM: string; subtitle: string; subtitleM: string; teachers: Teacher[] };
+import { photoSrc } from "@/lib/content-assets";
+import { readSection } from "@/lib/server/content-store";
+import type { Teacher } from "@/lib/content-types";
 
 function TeacherCard({ t }: { t: Teacher }) {
   return (
@@ -27,7 +27,7 @@ function TeacherCard({ t }: { t: Teacher }) {
             высоты картинки. На десктопе результат совпадает с прежним до 0.2px. */}
         <img
           loading="lazy"
-          src={asset(`/img/07-prepodavateli/${t.photo}-640w.webp`)}
+          src={photoSrc("07-prepodavateli", t.photo, 640)}
           alt={t.name.replace(/\n/g, " ")}
           className="absolute left-0 top-0 w-full max-w-none transition-transform duration-200 ease-motion group-hover:scale-[1.015]"
           style={{ translate: `0 ${((t.crop.top / t.crop.h) * 100).toFixed(3)}%` }}
@@ -46,7 +46,7 @@ function TeacherCard({ t }: { t: Teacher }) {
 }
 
 export default function Prepodavateli() {
-  const { title, titleM, subtitle, subtitleM, teachers: list } = T;
+  const { title, titleM, subtitle, subtitleM, teachers: list } = readSection("teachers");
   return (
     <section id="prepodavateli" aria-label="Преподаватели и эксперты">
       {/* ===== Десктоп: калька 1115×828 (зазор до предыдущей секции — 80px) ===== */}

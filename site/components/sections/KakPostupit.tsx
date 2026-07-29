@@ -4,27 +4,9 @@
 // таблица превращается в блоки-карточки по предметам. Цена берётся из admission.json на обеих
 // ширинах — 250 000 ₽ (в мобильном макете 225 000, решение заказчика: держать десктопное
 // значение, расхождение C1 закрыто).
-import admission from "@/content/admission.json";
 import Num from "@/components/Num";
-
-type Step = { date: string; title: string; text: string; m?: string };
-type Column = { heading: string; caption: string; captionM?: string; steps: Step[] };
-const A = admission as {
-  title: string;
-  subtitle: string;
-  subtitleM: string;
-  price: { label: string; value: string; note: string };
-  stats: { label: string; sub?: string; value: string; unit?: string }[];
-  budget: Column;
-  contract: Column;
-  exams: {
-    title: string;
-    caption: string;
-    captionM?: string;
-    columns: string[];
-    rows: { subject: string; required: string; budget: string; contract: string }[];
-  };
-};
+import { readSection } from "@/lib/server/content-store";
+import type { AdmissionColumn as Column, AdmissionContent } from "@/lib/content-types";
 
 const STEP_C = [451, 602, 734, 866, 998]; // центры заголовков шагов (section-y)
 const DIV_T = [524, 656, 788, 920]; // разделители между шагами
@@ -112,8 +94,8 @@ function MobileColumn({ col }: { col: Column }) {
   );
 }
 
-function ExamTableDesktop() {
-  const { columns, rows } = A.exams;
+function ExamTableDesktop({ exams }: { exams: AdmissionContent["exams"] }) {
+  const { columns, rows } = exams;
   return (
     <div className="absolute left-0 top-[1207px] w-[1120px] overflow-hidden rounded-[15px] bg-paper">
       <div className="grid grid-cols-[244px_612px_128px_136px]">
@@ -145,7 +127,7 @@ function ExamTableDesktop() {
 }
 
 export default function KakPostupit() {
-  const { title, subtitle, subtitleM, price, stats, budget, contract, exams } = A;
+  const { title, subtitle, subtitleM, price, stats, budget, contract, exams } = readSection("admission");
   return (
     <section id="postuplenie" aria-label="Как поступить">
       {/* ===== Десктоп: калька 1120×1507 (зазор до предыдущей секции — 80px) ===== */}
@@ -204,7 +186,7 @@ export default function KakPostupit() {
         </h3>
         <p data-reveal className="absolute left-0 top-[1171px] text-[14px] text-ink">{exams.caption}</p>
         <div data-reveal>
-          <ExamTableDesktop />
+          <ExamTableDesktop exams={exams} />
         </div>
       </div>
 

@@ -123,3 +123,8 @@ export function readUpload(name: string): Buffer | null {
   }
   return null;
 }
+
+// Фотографии редактируемых секций (преподаватели, курсы) проходят тот же конвейер, что и
+// обложки: три ширины, webp, префикс «upload:». Отдельное имя — чтобы в вызывающем коде было
+// видно, что грузится не обложка новости.
+export const savePhoto = saveCover;

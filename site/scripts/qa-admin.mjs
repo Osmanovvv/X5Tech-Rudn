@@ -39,7 +39,7 @@ await step("вход по логину и паролю", async () => {
   await pg.waitForURL(/\/admin\/?$/, { timeout: 30000 });
 });
 
-for (const path of ["/admin/news/", "/admin/leads/"]) {
+for (const path of ["/admin/news/", "/admin/content/", "/admin/content/programma/", "/admin/leads/"]) {
   await step("открывается " + path, async () => {
     const r = await pg.goto(BASE + path, { waitUntil: "networkidle" });
     if (!r.ok()) throw new Error("ответ " + r.status());
@@ -94,7 +94,7 @@ await step("удаление после подтверждения", async () =>
 await step("без сессии разделы и выгрузка закрыты", async () => {
   const ctx = await br.newContext();
   const anon = await ctx.newPage();
-  for (const p of ["/admin/", "/admin/news/", "/admin/leads/"]) {
+  for (const p of ["/admin/", "/admin/news/", "/admin/content/", "/admin/leads/"]) {
     await anon.goto(BASE + p, { waitUntil: "domcontentloaded" });
     if (!/\/admin\/login/.test(anon.url())) throw new Error(p + " открылся без входа");
   }
